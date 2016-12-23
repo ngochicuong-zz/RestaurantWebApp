@@ -1,0 +1,18 @@
+function ProductManagement() {
+	this.products={};
+	
+	var thiz = this;
+	var callback = function(products) {
+		for(var i = 0; i < products.length; i++) {
+			var product = products[i];
+			thiz.products[product.id] = product;
+		}
+	}
+	serverReport.getHTML("/getOrderPage.do", "GET", callback);
+}
+
+ProductManagement.prototype.getProductWithId = function(productId){
+	return this.products[productId]
+	
+}
+

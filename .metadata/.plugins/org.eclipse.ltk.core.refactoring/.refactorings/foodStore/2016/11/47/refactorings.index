@@ -1,0 +1,54 @@
+1479354260106	Delete element
+1479354455841	Move 'index.jsp' to 'WebContent'
+1479357361627	Copy package
+1479357366741	Delete element
+1479357512412	Rename package 'mapping'
+1479365704814	Move package
+1479365716834	Rename package 'modelMapping'
+1479365754885	Delete element
+1479366033838	Encapsulate field 'lastSessionBill'
+1479366039027	Encapsulate field 'usedPhoneNumber'
+1479366042879	Encapsulate field 'lastVisitDate'
+1479366047445	Encapsulate field 'gender'
+1479366054823	Encapsulate field 'code'
+1479366058001	Encapsulate field 'name'
+1479366061344	Encapsulate field 'phone'
+1479366064573	Encapsulate field 'email'
+1479366068212	Encapsulate field 'id'
+1479366490471	Rename compilation unit 'customer.java'
+1479366497790	Rename resource 'customer.hbm.xml'
+1479373609566	Encapsulate field 'role'
+1479373613149	Encapsulate field 'lastsignin'
+1479373616706	Encapsulate field 'email'
+1479373620347	Encapsulate field 'pass'
+1479373623672	Encapsulate field 'user'
+1479373627002	Encapsulate field 'id'
+1479374127290	Encapsulate field 'salary'
+1479374132585	Encapsulate field 'accountId'
+1479374237572	Encapsulate field 'hireDate'
+1479374241358	Encapsulate field 'firstDate'
+1479374245134	Encapsulate field 'homePhone'
+1479374248733	Encapsulate field 'city'
+1479374251774	Encapsulate field 'address'
+1479374256024	Encapsulate field 'firstName'
+1479374260018	Encapsulate field 'lastName'
+1479374263154	Encapsulate field 'title'
+1479374267327	Encapsulate field 'id'
+1479374467140	Encapsulate field 'id'
+1479374470888	Encapsulate field 'productName'
+1479374474216	Encapsulate field 'categoryType'
+1479374477794	Encapsulate field 'quantityPerUnit'
+1479374480989	Encapsulate field 'unitInStock'
+1479374484769	Encapsulate field 'unitsOnOrder'
+1479374488469	Encapsulate field 'unitPrice'
+1479374493371	Encapsulate field 'discontinued'
+1479374496892	Encapsulate field 'reoderLevel'
+1479440346318	Encapsulate field 'key'
+1479440349822	Encapsulate field 'value'
+1479441978793	Delete element
+1479442255285	Delete element
+1479452137652	Encapsulate field 'actived'
+1479458118290	Move file
+1479458233407	Move file
+1479458843916	Move file
+1479462703468	Encapsulate field 'lastSignIn'

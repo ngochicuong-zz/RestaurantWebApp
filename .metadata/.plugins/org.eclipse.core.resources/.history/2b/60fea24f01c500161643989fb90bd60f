@@ -1,0 +1,22 @@
+package com.foodStore.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.foodStore.model.SeatTable;
+import com.foodStore.service.ISeatTableService;
+import com.foodStore.service.ServiceManagement;
+
+@Controller
+public class ProductController {
+	@RequestMapping(value = "/productPage.do", method = RequestMethod.GET)
+	public String getProductPage(ModelMap model) {
+//		List<SeatTable> tables = ServiceManagement.get(ISeatTableService.class).getAllTable();
+//		model.addAttribute("tables", tables);
+		return "ProductPage";
+	}
+}

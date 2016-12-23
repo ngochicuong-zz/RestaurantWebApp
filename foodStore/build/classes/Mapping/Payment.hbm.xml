@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping  package="com.foodStore.model">
+    <class name="Payment" table="PAYMENT">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">ACCOUNT_ID</param>
+            </generator>
+        </id>
+        <many-to-one name="order" class="com.foodStore.model.Order" fetch="select">
+            <column name="ORDER_ID" not-null="true" />
+        </many-to-one>
+        <property name="totalOnOrder" column="TOTALONORDER" type="double"/>
+        <property name="promosApply" column="PROMOSAPPLY"/>
+        <property name="totalDiscount" column="TOTALDISCOUNT" type="double"/>
+        <property name="totalToPay" column="TOTALTOPAY" type="double"/>
+        <property name="realPay" column="REALPAY" type="double"/>
+        <property name="Debt" column="DEBT" type="double"/>
+        <property name="paymentType" column="PAYMENTTYPE"/>
+    </class>
+</hibernate-mapping>

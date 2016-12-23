@@ -1,0 +1,9 @@
+function ProductManagement() {
+	this.products={};
+}
+
+ProductManagement.prototype.getProductNameWithId = function(productId){
+	
+	
+}
+

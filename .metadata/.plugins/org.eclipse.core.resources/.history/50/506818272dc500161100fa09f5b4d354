@@ -1,0 +1,15 @@
+function ProductManagement() {
+	this.products={};
+	
+	var thiz = this;
+	var callback = function(products) {
+		
+	}
+	
+}
+
+ProductManagement.prototype.getProductNameWithId = function(productId){
+	
+	
+}
+

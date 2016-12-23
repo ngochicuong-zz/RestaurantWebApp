@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping  package="com.foodStore.model">
+    <class name="SeatTable" table="SEATTABLE">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">TABLE_ID</param>
+            </generator>
+        </id>
+        <property name="room" column="ROOM" type="int"/>
+        <property name="floor" column="FLOOR" type="int"/>
+        <property name="capacity" column="CAPACITY" type="int"/>
+        <property name="description" column="DESCRIPTION"/>
+        <property name="priority" column="PRIORITY" type="int"/>
+        <property name="onDesk" column="ONDESK" type="char" length="1"/>
+        <set name="orders" table="ORDER"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SEATTABLEID" not-null="true" />
+            </key>
+            <one-to-many class="com.foodStore.model.Order"/>
+        </set>
+    </class>
+</hibernate-mapping>

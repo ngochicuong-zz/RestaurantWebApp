@@ -1,0 +1,17 @@
+function ProductManagement() {
+	this.products={};
+	
+	var thiz = this;
+	var callback = function(products) {
+		for(var i = 0; i < products.length; i++) {
+			
+		}
+	}
+	
+}
+
+ProductManagement.prototype.getProductNameWithId = function(productId){
+	
+	
+}
+

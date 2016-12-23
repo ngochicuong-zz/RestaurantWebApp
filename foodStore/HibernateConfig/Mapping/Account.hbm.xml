@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.foodStore.model">
+    <class name="Account" table="ACCOUNT">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">ACCOUNT_ID</param>
+            </generator>
+        </id>
+        <property name="user" column="USERID"/>
+        <property name="pass" column="PASSWORD"/>
+        <property name="email" column="EMAIL"/>
+        <property name="lastSignInAt" column="LASTSIGNINAT" type="timestamp"/>
+        <property name="online" type="char" length="1" not-null="true"> 
+        	<column name="ONLINE" default="'f'"/>
+        </property>
+        <property name="role" column="ROLE" type="int"/>
+        <property name="actived" type="char" length="1" not-null="true">
+        	<column name="ACTIVED" default="'f'"/>
+        </property>
+        <set name="employee" table="EMPLOYEE"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ACCOUNT_ID" not-null="false" />
+            </key>
+            <one-to-many class="com.foodStore.model.Employee"/>
+        </set>
+         <set name="order" table="ORDER_BILL"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ACCOUNT_ID" not-null="false" />
+            </key>
+            <one-to-many class="com.foodStore.model.Order"/>
+        </set>
+    </class>
+</hibernate-mapping>

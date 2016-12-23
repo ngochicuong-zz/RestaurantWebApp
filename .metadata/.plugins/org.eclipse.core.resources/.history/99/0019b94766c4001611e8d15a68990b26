@@ -1,0 +1,28 @@
+function Main() {
+	this.navbar = document.getElementById("navbar");
+	this.content = document.getElementById("content");
+	this.pageMangement = new PageMangement();
+	pageMangement.registerPage(new TablePage());
+	
+	navbar.addEventListener("click", function(event){
+		var target = event.target;
+		var pageName = target.getAttribute("page-name");
+		pageManagement.activePage(pageName);
+		if (pageManagement.getActivePage() == null) return;
+		
+		
+		var callback = function(htmlText) {
+			content.innerHTML = htmlText;
+			var tablePage = new TablePage();
+		}
+		serverReport.getHTML(patent, "GET", callback);
+	}, false);
+	
+	
+	var seatPage;
+	var orderPage;
+}
+window.addEventListener("load", function(){
+	 var mainWindow = new Main();
+	 
+} );

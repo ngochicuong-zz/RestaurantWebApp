@@ -1,0 +1,106 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="webapp/assets/css/Main.css">
+<title>HelloWorld page</title>
+</head>
+<body>
+<hbox flex="1">
+	
+        <div class="item">            
+            <div class="clearfix" style="max-width:474px;">
+                <div class="lSSlideOuter "><div class="lSSlideWrapper usingCss" style="transition-duration: 500ms; transition-timing-function: ease;"><ul id="image-gallery" class="gallery list-unstyled lightSlider lsGrab lSSlide" style="width: 8058px; transform: translate3d(-3792px, 0px, 0px); height: 342px; padding-bottom: 0%;"><li data-thumb="img/thumb/cS-15.jpg" class="clone left" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-15.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-1.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-1.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-2.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-2.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-3.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-3.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-4.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-4.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-5.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-5.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-6.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-6.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-7.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-7.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-8.jpg" class="lslide active" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-8.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-9.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-9.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-10.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-10.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-11.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-11.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-12.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-12.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-13.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-13.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-14.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-14.jpg">
+                         </li>
+                    <li data-thumb="img/thumb/cS-15.jpg" class="lslide" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-15.jpg">
+                         </li>
+                <li data-thumb="img/thumb/cS-1.jpg" class="clone right" style="width: 474px; margin-right: 0px;"> 
+                        <img src="img/cS-1.jpg">
+                         </li></ul><div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div></div><ul class="lSPager lSGallery" style="margin-top: 5px; transition-duration: 500ms; width: 798.833px; transform: translate3d(-159.667px, 0px, 0px);"><li style="width:100%;width:48.22222222222222px;margin-right:5px" class=""><a href="#"><img src="img/thumb/cS-1.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-2.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-3.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-4.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-5.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-6.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px" class=""><a href="#"><img src="img/thumb/cS-7.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px" class="active"><a href="#"><img src="img/thumb/cS-8.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-9.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-10.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-11.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-12.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-13.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-14.jpg"></a></li><li style="width:100%;width:48.22222222222222px;margin-right:5px"><a href="#"><img src="img/thumb/cS-15.jpg"></a></li></ul></div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="lSSlideOuter "><div class="lSSlideWrapper usingCss" style="transition-duration: 400ms; transition-timing-function: ease;"><ul id="content-slider" class="content-slider lightSlider lsGrab lSSlide" style="width: 3240px; transform: translate3d(-810px, 0px, 0px); height: 163px; padding-bottom: 0%;"><li class="clone left" style="width: 260px; margin-right: 10px;">
+                    <h3>4</h3>
+                </li><li class="clone left" style="width: 260px; margin-right: 10px;">
+                    <h3>5</h3>
+                </li><li class="clone left" style="width: 260px; margin-right: 10px;">
+                    <h3>6</h3>
+                </li>
+                <li class="lslide active" style="width: 260px; margin-right: 10px;">
+                    <h3>1</h3>
+                </li>
+                <li class="lslide" style="width: 260px; margin-right: 10px;">
+                    <h3>2</h3>
+                </li>
+                <li class="lslide" style="width: 260px; margin-right: 10px;">
+                    <h3>3</h3>
+                </li>
+                <li class="lslide" style="width: 260px; margin-right: 10px;">
+                    <h3>4</h3>
+                </li>
+                <li class="lslide" style="width: 260px; margin-right: 10px;">
+                    <h3>5</h3>
+                </li>
+                <li class="lslide" style="width: 260px; margin-right: 10px;">
+                    <h3>6</h3>
+                </li>
+            <li class="clone right" style="width: 260px; margin-right: 10px;">
+                    <h3>1</h3>
+                </li><li class="clone right" style="width: 260px; margin-right: 10px;">
+                    <h3>2</h3>
+                </li><li class="clone right" style="width: 260px; margin-right: 10px;">
+                    <h3>3</h3>
+                </li></ul><div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div></div><ul class="lSPager lSpg" style="margin-top: 5px; transform: translate3d(0px, 0px, 0px);"><li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li><a href="#">6</a></li></ul></div>
+        </div>
+</hbox>
+</body>
+</html>

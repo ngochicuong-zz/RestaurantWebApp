@@ -1,0 +1,11 @@
+function Page() {
+	this.pages = {};
+}
+/*
+ * page format: {name: , patent }
+ * 
+ * */
+Page.prototype.registerPage = function(page){
+	
+	
+}

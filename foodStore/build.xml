@@ -1,0 +1,5 @@
+<project name="foodStore" default="resolve" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <target name="resolve" description="Test ivy installation">
+     <ivy:settings />
+  </target>
+</project>

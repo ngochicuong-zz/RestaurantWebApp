@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page isELIgnored="false"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+</style>
+<hbox flex="1">
+	<vbox>
+		<hbox flex="1">
+			<label>Food Name</label><input type="text" id="foodname" placeholder="tim kiem">
+		</hbox>
+		<hbox flex="1">
+			<label>Price</label><input type="text" id="foodname" placeholder="tim kiem">
+		</hbox>
+		<hbox flex="1">
+			<label>Category</label><input type="text" id="foodname" placeholder="tim kiem">
+		</hbox>
+		<button id="search-button">Submit</button>
+	</vbox>
+		
+</hbox>

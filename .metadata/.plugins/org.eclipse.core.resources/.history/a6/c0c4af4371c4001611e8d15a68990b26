@@ -1,0 +1,15 @@
+function Main() {
+	this.navbar = document.getElementById("navbar");
+	this.pageManagement = new PageManagement();
+	this.pageManagement.registerPage(new TablePage());
+	var thiz = this;
+	navbar.addEventListener("click", function(event){
+		var target = event.target;
+		
+		var pageName = target.getAttribute("page-name");
+		thiz.pageManagement.activePage(pageName);
+	}, false);
+}
+window.addEventListener("load", function(){
+	 var mainWindow = new Main();
+} );

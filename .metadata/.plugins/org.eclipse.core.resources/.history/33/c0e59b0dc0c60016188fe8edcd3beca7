@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping  package="com.foodStore.model">
+    <class name="OrderDetail" table="ORDERDETAIL">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">ACCOUNT_ID</param>
+            </generator>
+        </id>
+        <many-to-one name="product" class="com.foodStore.model.Product" fetch="select">
+            <column name="PRODUCT_ID" not-null="true" />
+        </many-to-one>
+         <many-to-one name="order" class="com.foodStore.model.Order" fetch="select">
+            <column name="REFCODE" not-null="true" />
+        </many-to-one>
+        <property name="quality" column="QUALITY" type="double"/>
+        <property name="price" column="PRICE" type="double"/>
+        <property name="total" column="TOTAL" type="double" />
+        <property name="lastUpdateTime" column="LASTUPDATETIME" type="timestamp" />
+        <property name="usedUpdateTime" column="USEUPDATETIME"/>
+        <property name="note" column="NOTE"/>
+    </class>
+</hibernate-mapping>

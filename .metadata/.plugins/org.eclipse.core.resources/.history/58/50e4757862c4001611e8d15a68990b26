@@ -1,0 +1,11 @@
+function Page() {
+	this.pages = {};
+}
+/*
+ * page format: {name: , page: }
+ * 
+ * */
+Page.prototype.registerPage = function(page){
+	
+	
+}
