@@ -12,9 +12,7 @@
         <many-to-one name="product" class="com.foodStore.model.Product" fetch="select">
             <column name="PRODUCT_ID" not-null="true" />
         </many-to-one>
-         <many-to-one name="order" class="com.foodStore.model.Order" fetch="select">
-            <column name="ORDER_ID" not-null="true" />
-        </many-to-one>
+        <property name="refCode" column="RECODE" />
         <property name="quality" column="QUALITY" type="double"/>
         <property name="price" column="PRICE" type="double"/>
         <property name="total" column="TOTAL" type="double" />

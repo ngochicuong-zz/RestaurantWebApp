@@ -21,9 +21,7 @@ public class OrderDetailAdapter extends Adapter implements JsonSerializer<OrderD
 		}
 		jsonObject.addProperty("usedUpdateTime", orderDetail.getUsedUpdateTime());
 		jsonObject.addProperty("note", orderDetail.getNote());
-		if (orderDetail.getOrder() != null) {
-			jsonObject.addProperty("orderId", orderDetail.getOrder().getId());
-		}
+		jsonObject.addProperty("refCode", orderDetail.getRefCode());
 		return jsonObject;
 	}
 }

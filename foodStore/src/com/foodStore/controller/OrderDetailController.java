@@ -30,11 +30,11 @@ public class OrderDetailController {
 	@RequestMapping(value = "/createOrderDetail.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String createOrderDetail(
-			@RequestParam("orderId") int orderId,
+			@RequestParam("refCode") String refCode,
 			@RequestParam("quality") double quality,
 			@RequestParam("productId") int productId,
 			ModelMap model) {
-		OrderDetail orderDetail = ServiceManagement.get(IOrderDetailService.class).createOrderDetail(orderId, productId, quality, null);
+		OrderDetail orderDetail = ServiceManagement.get(IOrderDetailService.class).createOrderDetail(refCode, productId, quality, null);
 		if (orderDetail == null) return "[]";
 		return JsonUtil.build(OrderDetail.class, new OrderDetailAdapter()).toJson(orderDetail);
 	}

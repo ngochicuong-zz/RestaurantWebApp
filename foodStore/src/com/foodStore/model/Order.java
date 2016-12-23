@@ -10,10 +10,9 @@ public class Order extends BaseModelObject {
 	private double total;
 	private char onPay;
 	private String note;
-	private Set<OrderDetail> orderDetails = new HashSet<>();
-	private Set<Payment> payment = new HashSet<>();
 	private SeatTable seatTable;
 	private Account account;
+	private String refCode;
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -57,16 +56,10 @@ public class Order extends BaseModelObject {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	public Set<Payment> getPayment() {
-		return payment;
+	public String getRefCode() {
+		return refCode;
 	}
-	public void setPayment(Set<Payment> payment) {
-		this.payment = payment;
-	}
-	public Set<OrderDetail> getOrderDetails() {
-		return orderDetails;
-	}
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
+	public void setRefCode(String refCode) {
+		this.refCode = refCode;
 	}
 }

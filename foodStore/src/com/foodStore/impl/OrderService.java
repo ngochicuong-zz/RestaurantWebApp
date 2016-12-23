@@ -2,6 +2,7 @@ package com.foodStore.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -45,6 +46,7 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		order.setId(-1);
 		order.setAccount(account);
 		order.setSeatTable(seat);
+		order.setRefCode(UUID.randomUUID().toString());
 		order.setOnPay('f');
 		order.setDateInsert(new Date());
 		order.setNote(note);

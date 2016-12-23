@@ -7,7 +7,7 @@ public class OrderDetail extends BaseModelObject {
 	private Date lastUpdateTime;
 	private String usedUpdateTime, note;
 	private Product product;
-	private Order order;
+	private String refCode;
 	public double getPrice() {
 		return price;
 	}
@@ -50,11 +50,11 @@ public class OrderDetail extends BaseModelObject {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	public Order getOrder() {
-		return order;
+	public String getRefCode() {
+		return refCode;
 	}
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setRefCode(String refCode) {
+		this.refCode = refCode;
 	}
 	
 }

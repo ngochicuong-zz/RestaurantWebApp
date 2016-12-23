@@ -42,33 +42,33 @@ public class OrderDetailService extends ServiceBase<OrderDetail> implements IOrd
 	}
 	
 	public boolean updateOrderDetail(OrderDetail orderDetail, Order order, Product product, double quality, String note) {
-		if (order != null) {
-			orderDetail.setOrder(order);
-		}
-		if (product != null) {
-			orderDetail.setQuality(quality);
-			orderDetail.setProduct(product);
-			orderDetail.setPrice(product.getPrice());
-			orderDetail.setTotal(quality * product.getPrice());
-		}
-		if (note != null) orderDetail.setNote(note);
-		orderDetail.setLastUpdateTime(new Date());
-		orderDetail.setUsedUpdateTime(orderDetail.getUsedUpdateTime() == null ? new Date().toString() : orderDetail.getUsedUpdateTime() + "," + new Date());
-		orderService.updateOrderTotal(order.getId());
-		return update(orderDetail);
+//		if (order != null) {
+//			orderDetail.setOrder(order);
+//		}
+//		if (product != null) {
+//			orderDetail.setQuality(quality);
+//			orderDetail.setProduct(product);
+//			orderDetail.setPrice(product.getPrice());
+//			orderDetail.setTotal(quality * product.getPrice());
+//		}
+//		if (note != null) orderDetail.setNote(note);
+//		orderDetail.setLastUpdateTime(new Date());
+//		orderDetail.setUsedUpdateTime(orderDetail.getUsedUpdateTime() == null ? new Date().toString() : orderDetail.getUsedUpdateTime() + "," + new Date());
+//		orderService.updateOrderTotal(order.getId());
+//		return update(orderDetail);
+		return false;
 	}
 	
 	@Override
-	public OrderDetail createOrderDetail(int orderId, int productId, double quality, String note){
+	public OrderDetail createOrderDetail(String refCode, int productId, double quality, String note){
 		OrderDetail orderDetail = new OrderDetail();
-		Order order = this.repository.getItemById(Order.class, orderId);
 		Product product = this.repository.getItemById(Product.class, productId);
 		orderDetail.setId(0);
 		orderDetail.setNote(note);
 		orderDetail.setQuality(quality);
 		orderDetail.setProduct(product);
 		orderDetail.setPrice(product.getPrice());
-		orderDetail.setOrder(order);
+		orderDetail.setRefCode(refCode);
 		orderDetail.setTotal(quality * product.getPrice());
 		orderDetail.setNote(note);
 		orderDetail.setLastUpdateTime(new Date());

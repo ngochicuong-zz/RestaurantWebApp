@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping  package="com.foodStore.model">
+    <class name="Order" table="ORDER_BILL">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">Order_id</param>
+            </generator>
+        </id>
+        <property name="customerId" column="CUSTOMERID" type="int"/>
+        <property name="dateInsert" column="DATEINSERT" type="timestamp" />
+        <property name="total" column="TOTAL" type="double" />
+        <property name="onPay" column="ONPAY" type="char" length="1"/>
+        <property name="note" column="NOTE"/>
+         <set name="payment" table="PAYMENT"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ORDERID" not-null="false" />
+            </key>
+            <one-to-many class="com.foodStore.model.Payment"/>
+        </set>
+        
+        <many-to-one name="seatTable" class="com.foodStore.model.SeatTable" fetch="select">
+            <column name="SEATTABLEID" not-null="false" />
+        </many-to-one>
+        
+        <many-to-one name="account" class="com.foodStore.model.Account" fetch="select">
+            <column name="ACCOUNT_ID" not-null="false" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

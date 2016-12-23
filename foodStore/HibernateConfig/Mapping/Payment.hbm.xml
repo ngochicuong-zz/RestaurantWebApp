@@ -9,9 +9,7 @@
                 <param name="sequence">ACCOUNT_ID</param>
             </generator>
         </id>
-        <many-to-one name="order" class="com.foodStore.model.Order" fetch="select">
-            <column name="ORDER_ID" not-null="true" />
-        </many-to-one>
+        <property name="refCode" column="REFCODE"/>
         <property name="totalOnOrder" column="TOTALONORDER" type="double"/>
         <property name="promosApply" column="PROMOSAPPLY"/>
         <property name="totalDiscount" column="TOTALDISCOUNT" type="double"/>

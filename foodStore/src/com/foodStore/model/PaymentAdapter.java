@@ -11,7 +11,7 @@ public class PaymentAdapter extends Adapter implements JsonSerializer<Payment> {
 	@Override
 	public JsonElement serialize(Payment pay, Type type, JsonSerializationContext jsc) {
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("orderId", pay.getOrder().getId());
+		jsonObject.addProperty("refCode", pay.getRefCode());
 		jsonObject.addProperty("paymentType", pay.getPaymentType());
 		jsonObject.addProperty("promosApply", pay.getPromosApply());
 		jsonObject.addProperty("totalOnOrder", pay.getTotalOnOrder());

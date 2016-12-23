@@ -3,7 +3,7 @@ package com.foodStore.model;
 public class Payment extends BaseModelObject{
 	private double totalOnOrder, totalDiscount, totalToPay, realPay, Debt;
 	private String paymentType, promosApply;
-	private Order order;
+	private String refCode;
 	public double getTotalOnOrder() {
 		return totalOnOrder;
 	}
@@ -46,10 +46,10 @@ public class Payment extends BaseModelObject{
 	public void setPromosApply(String promosApply) {
 		this.promosApply = promosApply;
 	}
-	public Order getOrder() {
-		return order;
+	public String getRefCode() {
+		return refCode;
 	}
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setRefCode(String refCode) {
+		this.refCode = refCode;
 	}
 }
