@@ -58,6 +58,6 @@
 <fullyQualifiedTypeName name="org.hibernate.criterion.Restrictions"/>
 <fullyQualifiedTypeName name="com.foodStore.model.Product"/>
 <fullyQualifiedTypeName name="org.hibernate.criterion.MatchMode"/>
-<fullyQualifiedTypeName name="java.util.UUID"/>
 <fullyQualifiedTypeName name="com.foodStore.hibernate.HibernateRepository.CompareKey"/>
+<fullyQualifiedTypeName name="java.util.UUID"/>
 </qualifiedTypeNameHistroy>

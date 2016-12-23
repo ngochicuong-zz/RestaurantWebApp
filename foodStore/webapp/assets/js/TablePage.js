@@ -52,17 +52,15 @@ TablePage.prototype.init = function(){
 			{
 				name : "Make order",
 				handler : function(handleItem) {
-					console.log(thiz.table.tableBody);
 					var seat = handleItem.data;
-					var order;
+					
 					var callback = function(json) {
-						order = json;
+						var order = json;
+						if(order.length == 0) return;
+						thiz.table.removeChild(handleItem);
 					};
 					serverReport.getJson("/createOrder.do?seatId=" + seat.id
 							+ "&note='dklfj'&customerId=123", "GET", callback);
-					if (order == null)
-						return;
-					console.log(order);
 				},
 				express : function() {
 					return thiz.seatStatus == "true";

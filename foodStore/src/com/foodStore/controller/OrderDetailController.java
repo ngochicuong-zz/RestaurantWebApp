@@ -17,13 +17,13 @@ import com.foodStore.service.ServiceManagement;
 
 @Controller
 public class OrderDetailController {
-	@RequestMapping(value = "/getOrderDetailWithOrder.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrderDetailByRefCode.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String getOrderDetail(
-			@RequestParam("orderId") int orderId,
+			@RequestParam("refCode") String refCode,
 			ModelMap model) {
-		List<OrderDetail> orderDetails = ServiceManagement.get(IOrderDetailService.class).getOrderDetailWithOrderId(orderId);
-		if (orderDetails == null) return "{}";
+		List<OrderDetail> orderDetails = ServiceManagement.get(IOrderDetailService.class).getOrderDetailByRefCode(refCode);
+		if (orderDetails == null) return "[]";
 		return JsonUtil.build(OrderDetail.class, new OrderDetailAdapter()).toJson(orderDetails);
 	}
 	

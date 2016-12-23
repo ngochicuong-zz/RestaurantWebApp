@@ -43,6 +43,10 @@ Table.prototype.getTable = function() {
 	return this.table;
 }
 
+Table.prototype.removeChild = function(itemNode){
+	this.tableBody.removeChild(itemNode);
+}
+
 Table.prototype.render = function(items) {
 	console.log(items);
 	this.tableBody.innerHTML = "";

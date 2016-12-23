@@ -61,8 +61,8 @@
 <vbox id="container-panel" flex="1">
 	<vbox>
 		<hbox class="InputRow" flex="1" style="justify-content: center">
-			<label>Order id: </label>
-			<label id="orderId" ></label>
+			<label>Order code: </label>
+			<label id="order-code" ></label>
 		</hbox>
 		<hbox class="InputRow" style="justify-content: center">
 			<label>Date: </label>
@@ -70,7 +70,13 @@
 		</hbox>
 	</vbox>
 	<vbox id="orderDetailPanel" flex="1">
-		<vbox id="orderDetailTable" style="overflow-y:auto; margin-bottom: 1em; " flex="1"></vbox>
+		<vbox id="orderDetailTable" style="overflow-y:auto; margin-bottom: 1em; " flex="1">
+			
+		</vbox>
+		<hbox class="InputRow" style="justify-content: flex-end">
+				<label>Total: </label>
+				<label id="order-total" ></label>
+		</hbox>
 		<hbox class="InputRow" style="align-items: flex-start;" >
 			<hbox flex="1">
 				<input flex="1" type="text" id="productText"/>

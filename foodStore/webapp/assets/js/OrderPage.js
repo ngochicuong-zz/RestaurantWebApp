@@ -25,8 +25,9 @@ OrderPage.prototype.init = function() {
 	this.room = this.pageContainer.querySelector("#roomText");
 	this.capacity = this.pageContainer.querySelector("#seatCapacity");
 	
-	this.orderId = this.pageContainer.querySelector("#orderId");
+	this.orderCode = this.pageContainer.querySelector("#order-code");
 	this.orderDate = this.pageContainer.querySelector("#orderDate");
+	this.orderTotal = this.pageContainer.querySelector("#order-total");
 	
 	this.orderDetailTable = this.pageContainer.querySelector("#orderDetailTable");
 	this.productNameIn = this.pageContainer.querySelector("#productText");
@@ -49,14 +50,16 @@ OrderPage.prototype.init = function() {
 			thiz.qualityIn.value = "";
 			thiz.orderDetails.push(orderDetail);
 			thiz.detailTable.render(thiz.orderDetails);
+			thiz.order.total += orderDetail.total;
+			thiz.orderTotal.innerHTML = thiz.order.total;
 			console.log(orderDetail);
 		}
-		serverReport.getJson("/createOrderDetail.do?orderId="+ thiz.order.id +"&quality="+ thiz.qualityIn.value +"&productId="+ e.target.data.id +"", "GET", callback);
+		serverReport.getJson("/createOrderDetail.do?refCode="+ thiz.order.refCode +"&quality="+ thiz.qualityIn.value +"&productId="+ e.target.data.id +"", "GET", callback);
 	});
-	var theader = new Array("productName", "quality", "price", "total", "note");
+	var theader = new Array("productName", "quality", "price", "note", "total");
 	this.detailTable = new Table();
 	this.detailTable.init(theader);
-	this.orderDetailTable.appendChild(this.detailTable.getTable());
+	this.orderDetailTable.insertBefore(this.detailTable.getTable(), this.orderDetailTable.childNodes[0]);
 	
 	this.comboPopup = new ComboPopup();
 	this.comboPopup.renderHandler = function(popupContainer, items){
@@ -120,7 +123,7 @@ OrderPage.prototype.renewPage = function(){
 	this.floor.innerHTML = "";
 	this.room.innerHTML = "";
 	this.capacity.innerHTML = "";
-	this.orderId.innerHTML = "";
+	this.orderCode.innerHTML = "";
 	this.orderDate.innerHTML = "";
 	this.order = null;
 	this.orderDetails = new Array();
@@ -142,8 +145,9 @@ OrderPage.prototype.renderOrder = function(seat){
 		thiz.order = order;
 		console.log(order.id);
 		if (order.id == null) return;
-		thiz.orderId.innerHTML = order.id;
-		thiz.orderDate.innerHTML = order.dataInsert;
+		thiz.orderCode.innerHTML = order.refCode;
+		thiz.orderTotal.innerHTML = order.total;
+		thiz.orderDate.innerHTML = moment(order.dataInsert).format("DD-MM-YYYY h:mm a");
 		thiz.renderOrderDetail(order);
 	}
 	serverReport.getJson("/getOrderWithSeat.do?seatId="+ seat.id +"", "GET", callback);
@@ -158,11 +162,9 @@ OrderPage.prototype.renderOrderDetail = function(order) {
 		console.log(thiz.orderDetails);
 		thiz.orderDetails = orderDetails;
 	}
-	serverReport.getJson("/getOrderDetailWithOrder.do?orderId="+ order.id +"", "GET", callback);
+	serverReport.getJson("/getOrderDetailByRefCode.do?refCode="+ order.refCode +"", "GET", callback);
 }
 
 OrderPage.prototype.getPageContainer = function() {
 	return this.pageContainer;
 }
-
-

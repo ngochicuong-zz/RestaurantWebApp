@@ -72,18 +72,24 @@ public class OrderDetailService extends ServiceBase<OrderDetail> implements IOrd
 		orderDetail.setTotal(quality * product.getPrice());
 		orderDetail.setNote(note);
 		orderDetail.setLastUpdateTime(new Date());
-		return save(orderDetail);
+		OrderDetail detail = save(orderDetail);
+		try {
+			Order order = this.repository.getItemsWithAllKey(Order.class, new CompareKey("refCode", refCode)).get(0);
+			order.setTotal(order.getTotal() + detail.getTotal());
+			this.repository.updateItem(order);
+		} catch(Exception e) {
+			
+		}
+		return detail;
 	}
 
 	@Override
-	public List<OrderDetail> getOrderDetailWithOrderId(int orderId) {
-		Order order = this.repository.getItemById(Order.class, orderId);
-		if (order == null) return null;
+	public List<OrderDetail> getOrderDetailByRefCode(String refCode) {
 		List<OrderDetail> orderDetails = this.repository.customQuery(OrderDetail.class, new ICriteriaBuilder(){
 			@Override
 			public Criteria build(Session session) {
 				Criteria criteria = session.createCriteria(OrderDetail.class);
-				criteria.add(Restrictions.eq("order.id", orderId));
+				criteria.add(Restrictions.eq("refCode", refCode));
 				return criteria;
 			}
 		});
