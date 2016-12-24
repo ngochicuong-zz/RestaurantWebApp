@@ -56,7 +56,7 @@ OrderPage.prototype.init = function() {
 		}
 		serverReport.getJson("/createOrderDetail.do?refCode="+ thiz.order.refCode +"&quality="+ thiz.qualityIn.value +"&productId="+ e.target.data.id +"", "GET", callback);
 	});
-	var theader = new Array("productName", "quality", "price", "note", "total");
+	var theader = new Array("productName", "quality", "price", "total");
 	this.detailTable = new Table();
 	this.detailTable.init(theader);
 	this.orderDetailTable.insertBefore(this.detailTable.getTable(), this.orderDetailTable.childNodes[0]);
