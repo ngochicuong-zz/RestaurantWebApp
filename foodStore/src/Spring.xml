@@ -34,6 +34,7 @@
                 <value>Mapping/Product.hbm.xml</value>
                 <value>Mapping/OrderDetail.hbm.xml</value>
                 <value>Mapping/Payment.hbm.xml</value>
+                <value>Mapping/Promotion.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties" ref="hibernateProperties"/>  
@@ -90,6 +91,9 @@
     	<constructor-arg ref="repository"/>
     </bean>
     <bean id="SeatTableService" class="com.foodStore.impl.SeatTableService" >
+    	<constructor-arg ref="repository"/>
+    </bean>
+     <bean id="PromotionService" class="com.foodStore.impl.PromotionService" >
     	<constructor-arg ref="repository"/>
     </bean>
 </beans>

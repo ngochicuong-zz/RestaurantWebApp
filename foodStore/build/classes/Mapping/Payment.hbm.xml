@@ -6,7 +6,7 @@
     <class name="Payment" table="PAYMENT">
         <id name="id" column="ID">
             <generator class="sequence">
-                <param name="sequence">ACCOUNT_ID</param>
+                <param name="sequence">PAYMENT_ID</param>
             </generator>
         </id>
         <property name="refCode" column="REFCODE"/>

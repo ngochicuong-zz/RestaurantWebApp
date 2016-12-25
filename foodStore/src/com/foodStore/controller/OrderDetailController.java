@@ -38,4 +38,23 @@ public class OrderDetailController {
 		if (orderDetail == null) return "[]";
 		return JsonUtil.build(OrderDetail.class, new OrderDetailAdapter()).toJson(orderDetail);
 	}
+	
+	@RequestMapping(value = "/removeOrderDetail.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String removeOrderDetail(
+			@RequestParam("detailId") int detailId,
+			ModelMap model) {
+		boolean result = ServiceManagement.get(IOrderDetailService.class).removeOrderDetail(detailId);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/updateOrderDetail.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String createOrderDetail(
+			@RequestParam("detailId") int detailId,
+			@RequestParam("quality") double quality,
+			ModelMap model) {
+		boolean result = ServiceManagement.get(IOrderDetailService.class).updateOrderDetail(detailId, quality, null);
+		return String.valueOf(result);
+	}
 }

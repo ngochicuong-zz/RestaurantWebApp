@@ -53,9 +53,14 @@
 			<label>capacity:</label>
 			<label id="seatCapacity"></label>
 		</hbox>
-		<hbox style="justify-content: flex-end; color: #000000">
-			<button id="back-button" class="glyphicon glyphicon-triangle-left"> back</button>
-		</hbox>	
+		<hbox>
+			<hbox style="justify-content: flex-end; color: #000000">
+				<button id="checkout-button" class="glyphicon glyphicon-triangle-left"> Check</button>
+			</hbox>	
+			<hbox style="justify-content: flex-end; color: #000000">
+				<button id="back-button" class="glyphicon glyphicon-triangle-left"> back</button>
+			</hbox>	
+		</hbox>
 	</vbox>
 </vbox> 
 <vbox id="container-panel" flex="1">
@@ -77,7 +82,7 @@
 				<label>Total: </label>
 				<label id="order-total" ></label>
 		</hbox>
-		<hbox class="InputRow" style="align-items: flex-start;" >
+		<hbox class="InputRow" id="add-detail-panel" style="align-items: flex-start;" >
 			<hbox flex="1">
 				<input flex="1" type="text" id="productText"/>
 			</hbox>
@@ -85,9 +90,63 @@
 				<input style="width:5em;" type="number" min=0.1 step="0.01" id="quality"/>
 			</hbox>
 			<hbox>
-				<button style="width:5em;" id="addOrderDetail">add</button>
+				<button style="width:5em;" id="addOrderDetail">Add</button>
+			</hbox>
+		</hbox>
+		<hbox class="InputRow" id="edit-detail-panel" style="align-items: flex-start;" >
+			<hbox flex="1">
+				<input flex="1" type="text" id="edit-product-text" disabled/>
+			</hbox>
+			<hbox>
+				<input style="width:5em;" type="number" min=0.1 step="0.01" id="edit-quality"/>
+			</hbox>
+			<hbox>
+				<button style="width:5em;" id="edit-detail-button">Save</button>
+			</hbox>
+			<hbox>
+				<button style="width:5em;" id="edit-detail-button-cancel">Cancel</button>
 			</hbox>
 		</hbox>
 	</vbox>
+</vbox> 
+<vbox id="payment-container"> 
+	<hbox class="InputRow">
+		<label>Total on order:</label>
+		<input type="text" id="total-on-order"/>
+	</hbox>
+	
+	<hbox class="InputRow">
+		<label>Promo apply:</label>
+		<select id="promo-code-combo">
+		  <option value= -1 selected>--select promo--</option>
+		</select>
+	</hbox>
+	
+	<hbox class="InputRow">
+		<label>Discount on order:</label>
+		<input type="text" id="discount"/>
+	</hbox>
+	
+	<hbox class="InputRow">
+		<label>Total to pay:</label>
+		<input type="text" id="total-pay"/>
+	</hbox>
+	
+	<hbox class="InputRow">
+		<label>Real pay:</label>
+		<input type="text" id="realpay"/>
+	</hbox>
+	
+	<hbox class="InputRow">
+		<label>Payment type:</label>
+		<select id="payment-type">
+		  <option value= 1 selected>Cash</option>
+		</select>
+	</hbox>
+	
+	<hbox style="justify-content: center">
+		<button id="accept-button">Accept</button>
+		<button id="cancel-button">Cancel</button>
+	</hbox>
 </vbox> 
 </hbox>

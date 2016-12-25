@@ -4,6 +4,13 @@ serverReport.getHTML = function(patent, method, callback) {
 	serverReport.sendRequest(patent, method, callback);
 }
 
+serverReport.getBoolean = function(patent, method, callback) {
+	var callBack = function(responseText) {
+		callback(responseText == "true" ? true : false);
+	}
+	serverReport.sendRequest(patent, method, callBack);
+}
+
 serverReport.getJson = function(patent, method, callback) {
 	var callBack = function(responseText) {
 		var json = null;

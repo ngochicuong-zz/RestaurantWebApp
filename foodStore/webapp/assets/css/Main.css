@@ -293,4 +293,13 @@ hbox.combo-popup__item:hover {
  	background-color: transparent;
 }
 
+table tr {
+	
+}
+
+table tr td{
+	white-space: nowrap;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+}
 
