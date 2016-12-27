@@ -14,6 +14,7 @@
 <script src="webapp/assets/js/common-dom.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<script src="webapp/assets/js/CalendarDialog.js"></script>
 <script src="webapp/assets/js/moment.js"></script>
 <script src="webapp/assets/js/ComboPopup.js"></script>
 <script src="webapp/assets/js/ProductManagement.js"></script>

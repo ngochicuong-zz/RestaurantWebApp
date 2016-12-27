@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping  package="com.foodStore.model">
+    <class name="Appointment" table="APPOINTMENT">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">APPOINTMENT_ID</param>
+            </generator>
+        </id>
+        <property name="customName" column="CUSTOM_NAME"/>
+        <property name="customPhone" column="CUSTOM_PHONE"/>
+        <property name="customEmail" column="CUSTOM_EMAIL"/>
+        <property name="customGender" column="CUSTOM_GENDER" type="int"/>
+        <many-to-one name="seatTable" class="com.foodStore.model.SeatTable" fetch="select">
+            <column name="SEATTABLEID" not-null="false" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

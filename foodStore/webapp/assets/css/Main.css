@@ -264,7 +264,7 @@ select {
 .combo-popup  {
 	display: block;
     position: absolute;
-    z-index: 10;
+    z-index: 100;
     background-color: rgba(234, 234, 234, 0.87);
     border: solid 1px #a7a7a7;
     box-shadow: 1px 1px 2px #cfcfcf;

@@ -22,5 +22,12 @@
             </key>
             <one-to-many class="com.foodStore.model.Order"/>
         </set>
+        <set name="appointments" table="APPOINTMENT"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="SEATTABLEID" not-null="false" />
+            </key>
+            <one-to-many class="com.foodStore.model.Appointment"/>
+        </set>
     </class>
 </hibernate-mapping>

@@ -1,33 +1,42 @@
 function AppointmentPage() {
 	this.name = "appointment-page";
+	
 	this.pageContainer = this.table = Dom.newDOMElement({
-		_name : "div",
-		id : "dp"
+		_name : "vbox",
+		id : "pageContainer",
+		flex: "1"
 	});
 	var thiz = this;
-	window.setTimeout(function() {
-		thiz.dp = new DayPilot.Calendar(thiz.pageContainer);
-		thiz.dp.viewType = "Week";
-		thiz.dp.init();
-		thiz.setupEvent();
-	}, 10);
+	var callback = function(htmlText) {
+		thiz.pageContainer.innerHTML = htmlText;
+		thiz.init();
+	}
+	serverReport.getHTML("/getAppointmentPage.do", "GET", callback);
 }
 
+AppointmentPage.prototype.init = function() {
+	this.dayPilot = new DayPilot.Calendar(this.pageContainer.querySelector("#day-pilot"));
+	this.dayPilot.viewType = "Week";
+	this.dayPilot.init();
+	this.setupEvent();
+	
+}
 AppointmentPage.prototype.setupEvent = function() {
 	var thiz = this;
-	this.dp.onEventMoved = function(args) {
+	this.dayPilot.onEventMoved = function(args) {
 		console.log(args);
 	};
-	this.dp.onTimeRangeSelected = function(args) {
-		console.log(args);
-		var e = new DayPilot.Event({
-		      start: args.start,
-		      end: args.end,
-		      id: DayPilot.guid(),
-		      resource: args.resource,
-		      text: name
-		  });
-		  thiz.dp.events.add(e);
+	this.dayPilot.onTimeRangeSelected = function(args) {
+		var calendarDgl = new CalendarDialog(thiz.dayPilot);
+		calendarDgl.show(args);
+//		var e = new DayPilot.Event({
+//		      start: args.start,
+//		      end: args.end,
+//		      id: DayPilot.guid(),
+//		      resource: args.resource,
+//		      text: name
+//		  });
+//		  thiz.dayPilot.events.add(e);
 	};
 }
 

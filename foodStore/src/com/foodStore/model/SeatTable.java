@@ -9,6 +9,7 @@ public class SeatTable extends BaseModelObject {
 	private int priority;
 	private char onDesk;
 	private Set<Order> orders = new HashSet<Order>();
+	private Set<Appointment> appointments = new HashSet<Appointment>();
 	
 	public int getRoom() {
 		return room;
@@ -51,6 +52,12 @@ public class SeatTable extends BaseModelObject {
 	}
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+	public Set<Appointment> getAppointments() {
+		return appointments;
+	}
+	public void setAppointments(Set<Appointment> appointments) {
+		this.appointments = appointments;
 	}
 	
 }
