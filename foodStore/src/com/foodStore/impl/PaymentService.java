@@ -8,6 +8,7 @@ import com.foodStore.hibernate.HibernateRepository.CompareKey;
 import com.foodStore.model.Order;
 import com.foodStore.model.Payment;
 import com.foodStore.model.Promotion;
+import com.foodStore.model.SeatTable;
 import com.foodStore.service.IPaymentService;
 
 public class PaymentService extends ServiceBase<Payment> implements IPaymentService {
@@ -39,6 +40,11 @@ public class PaymentService extends ServiceBase<Payment> implements IPaymentServ
 		payment.setTotalToPay(order.getTotal() - payment.getTotalDiscount());
 		payment.setRealPay(realPay);
 		payment.setDebt(payment.getTotalToPay() - realPay);
+		
+		SeatTable seat = this.repository.getItemById(SeatTable.class, order.getSeatTable().getId());
+		seat.setOnDesk('f');
+		this.repository.updateItem(seat);
+		
 		return save(payment);
 	}
 

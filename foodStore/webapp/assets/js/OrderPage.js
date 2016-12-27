@@ -1,6 +1,10 @@
 function OrderPage() {
 	this.name = "order-page";
+	
 	this.seat;
+	this.order;
+	this.orderDetails = new Array();
+	
 	this.pageContainer = this.table = Dom.newDOMElement({
 		_name : "hbox",
 		id : "pageContainer",
@@ -13,9 +17,6 @@ function OrderPage() {
 		thiz.init();
 	}
 	serverReport.getHTML("/getOrderPage.do", "GET", callback);
-	
-	this.order;
-	this.orderDetails = new Array();
 }
 
 OrderPage.prototype.init = function() {
@@ -49,6 +50,7 @@ OrderPage.prototype.init = function() {
 	this.checkoutButton = this.pageContainer.querySelector("#checkout-button");
 	this.backButton = this.pageContainer.querySelector("#back-button");
 	
+	this.promoInfo = this.pageContainer.querySelector("#promo-info");
 	this.totalOnOrder = this.pageContainer.querySelector("#total-on-order");
 	this.promoCodeCombo = this.pageContainer.querySelector("#promo-code-combo");
 	this.discount = this.pageContainer.querySelector("#discount");
@@ -255,7 +257,9 @@ OrderPage.prototype.init = function() {
 		var promoData = thiz.promoCodeCombo.options[thiz.promoCodeCombo.selectedIndex].promoData;
 		var realPay = thiz.realPay;
 		var callback = function(payment) {
-			console.log(payment);
+			if (payment == null) return;
+			Main.pageManagement.active("table-page");
+			Main.pageManagement.activePage.reloadPage();
 //			thiz.renderPromoCombo(promos);
 		}
 		var promotionCode = promoData == null ? "~" : promoData.promotionCode;
@@ -266,7 +270,7 @@ OrderPage.prototype.init = function() {
 		thiz.paymentContainer.style.display = "none";
 		thiz.orderContainer.style.display = "inherit";
 		thiz.totalOnOrder.value = "";
-		this.promoCodeCombo.innerHTML = "";
+		thiz.promoCodeCombo.innerHTML = "";
 		thiz.discount.value = "";
 		thiz.totalPay.value = "";
 		thiz.realPay.value = "";
@@ -279,9 +283,10 @@ OrderPage.prototype.init = function() {
 		if (promoData == null) {
 			thiz.discount.value = "0";
 			thiz.totalPay.value = order.total;
+			thiz.promoInfo.innerHTML = "Discount: ";
 			return;
 		}
-		
+		thiz.promoInfo.innerHTML = "Discount: " + (promoData.discount < 1 ? promoData.discount * 100 + "%" : promoData.discount);
 		if (parseInt(promoData.discount) <= 1 ) {
 			thiz.discount.value = order.total * parseFloat(promoData.discount);
 		} else {
@@ -311,7 +316,7 @@ OrderPage.prototype.renderPromoCombo = function(promos) {
 	this.promoCodeCombo.innerHTML = "";
 	var optionNode = Dom.newDOMElement({
 		_name : "option",
-		_text : "no promo found"
+		_text : promos.length > 0 ? "--Select promotion--" : "--No promo found--"
 	});
 	this.promoCodeCombo.appendChild(optionNode);
 	if (promos.length > 0) {
@@ -320,7 +325,7 @@ OrderPage.prototype.renderPromoCombo = function(promos) {
 			var optionNode = Dom.newDOMElement({
 				_name : "option",
 				value : promo.promotionCode,
-				_text : promo.promotionCode
+				_text : promo.description
 			});
 			optionNode.promoData = promo;
 			this.promoCodeCombo.appendChild(optionNode);
@@ -330,6 +335,9 @@ OrderPage.prototype.renderPromoCombo = function(promos) {
 
 OrderPage.prototype.renewPage = function() {
 	this.seat = null;
+	this.order = null;
+	this.orderDetails = new Array();
+	
 	this.detailTable.tableBody.innerHTML = "";
 	this.seatId.innerHTML = "";
 	this.floor.innerHTML = "";
@@ -337,25 +345,28 @@ OrderPage.prototype.renewPage = function() {
 	this.capacity.innerHTML = "";
 	this.orderCode.innerHTML = "";
 	this.orderDate.innerHTML = "";
-	this.order = null;
-	this.orderDetails = new Array();
+	
 }
 
-OrderPage.prototype.renderWithSeat = function(seat) {
-	this.renewPage();
-	this.seat = seat;
-	this.seatId.innerHTML = this.seat.id;
-	this.floor.innerHTML = this.seat.floor;
-	this.room.innerHTML = this.seat.room;
-	this.capacity.innerHTML = this.seat.capacity;
-	this.renderOrder(seat);
+OrderPage.prototype.open = function(seat) {
+	this.paymentContainer.style.display = "none";
+	this.orderContainer.style.display = "inherit";
+	
+	if (seat != this.seat) {
+		this.renewPage();
+		this.seat = seat;
+		this.seatId.innerHTML = this.seat.id;
+		this.floor.innerHTML = this.seat.floor;
+		this.room.innerHTML = this.seat.room;
+		this.capacity.innerHTML = this.seat.capacity;
+		this.renderOrder(seat);
+	} 
 }
 
 OrderPage.prototype.renderOrder = function(seat){
 	var thiz = this;
 	var callback = function(order){
 		thiz.order = order;
-		console.log(order.id);
 		if (order.id == null) return;
 		thiz.orderCode.innerHTML = order.refCode;
 		thiz.orderTotal.innerHTML = order.total;

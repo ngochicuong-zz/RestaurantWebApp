@@ -6,7 +6,7 @@
     <class name="Order" table="ORDER_BILL">
         <id name="id" column="ID">
             <generator class="sequence">
-                <param name="sequence">Order_id</param>
+                <param name="sequence">ORDER_ID</param>
             </generator>
         </id>
         <property name="refCode" column="REFCODE"/>

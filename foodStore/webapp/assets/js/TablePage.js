@@ -28,22 +28,7 @@ TablePage.prototype.init = function(){
 	var c = this.pageContainer.querySelector("#capacity");
 	var o = this.pageContainer.querySelector("#onDesk");
 	this.searchButton.addEventListener("click", function(ev) {
-		console.log(document);
-		
-		thiz.seatStatus = o.options[o.selectedIndex].value;
-		var floor = f.options[f.selectedIndex].value;
-		var room = r.options[r.selectedIndex].value;
-		var capacity = c.options[c.selectedIndex].value;
-		var onDesk = o.options[o.selectedIndex].value;
-
-		console.log("Search button click.... ");
-
-		var callback = function(json) {
-			thiz.table.render(json);
-		}
-		serverReport.getJson("/getTables.do?floor=" + floor + "&room=" + room
-				+ "&capacity=" + capacity + "&onDesk=" + onDesk + "", "GET",
-				callback);
+		thiz.reloadPage();
 	}, false);
 
 	this.contextMenu = new ContextMenu();
@@ -71,8 +56,8 @@ TablePage.prototype.init = function(){
 					var seat = handleItem.data;
 					var callback = function(json) {
 						var order = json;
-						Main.pageManagement.active("order-page");
-						Main.pageManagement.activePage.renderWithSeat(seat);
+						var orderPage = Main.pageManagement.active("order-page");
+						orderPage.open(seat);
 					};
 					serverReport.getJson("/getOrderWithSeat.do?seatId=" + seat.id +"", "GET", callback);
 				},
@@ -98,6 +83,28 @@ TablePage.prototype.init = function(){
 			thiz.contextMenu.toggleMenuOn(e);
 		}
 	});
+}
+
+TablePage.prototype.reloadPage = function() {
+	var thiz = this;
+	var f = this.pageContainer.querySelector("#floor");
+	var r = this.pageContainer.querySelector("#room");
+	var c = this.pageContainer.querySelector("#capacity");
+	var o = this.pageContainer.querySelector("#onDesk");
+	this.seatStatus = o.options[o.selectedIndex].value;
+	var floor = f.options[f.selectedIndex].value;
+	var room = r.options[r.selectedIndex].value;
+	var capacity = c.options[c.selectedIndex].value;
+	var onDesk = o.options[o.selectedIndex].value;
+
+	console.log("Search button click.... ");
+
+	var callback = function(json) {
+		thiz.table.render(json);
+	}
+	serverReport.getJson("/getTables.do?floor=" + floor + "&room=" + room
+			+ "&capacity=" + capacity + "&onDesk=" + onDesk + "", "GET",
+			callback);
 }
 
 TablePage.prototype.getPageContainer = function() {

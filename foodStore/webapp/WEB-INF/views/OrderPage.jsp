@@ -30,6 +30,10 @@
 		padding: 1em;
 	}
 	
+	#payment-container label{
+		width: 10em;
+	}
+	
 </style>
 <hbox flex="1"> 
 <vbox id="seat-info"> 
@@ -109,18 +113,24 @@
 		</hbox>
 	</vbox>
 </vbox> 
-<vbox id="payment-container"> 
+<vbox flex="1" id="payment-container"> 
 	<hbox class="InputRow">
 		<label>Total on order:</label>
 		<input type="text" id="total-on-order"/>
 	</hbox>
-	
-	<hbox class="InputRow">
-		<label>Promo apply:</label>
-		<select id="promo-code-combo">
-		  <option value= -1 selected>--select promo--</option>
-		</select>
-	</hbox>
+	<vbox >
+		<hbox class="InputRow">
+			<label>Promo apply:</label>
+			<select id="promo-code-combo">
+			  <option value= -1 selected>--select promo--</option>
+			</select>
+		</hbox>
+		<hbox class="InputRow">
+			<label></label>
+			<p flex="1" id="promo-info" style="color: red;"> Discount: </p>
+		</hbox>
+		
+	</vbox>
 	
 	<hbox class="InputRow">
 		<label>Discount on order:</label>

@@ -14,9 +14,6 @@ body {
   flex: 1;
   flex-direction: column;
   display: flex;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   overflow: hidden;
 }
 hbox {
@@ -84,18 +81,15 @@ hbox.InputRow {
 button {
     .btn();
 }
-
 button:not([role]) {
     .btn-default();
 }
-
 button[role='primary'] {
     .btn-primary();
 }
 button[role='danger'] {
     .btn-danger();
 }
-
 */
 footer {
   flex-direction: row;

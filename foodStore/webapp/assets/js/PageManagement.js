@@ -17,6 +17,7 @@ PageManagement.prototype.active = function(pageName){
 	this.activePage = this.pages[pageName];
 	this.container.innerHTML = "";
 	this.container.appendChild(this.activePage.getPageContainer());
+	return this.activePage;
 }
 
 PageManagement.prototype.getActivePage = function(){

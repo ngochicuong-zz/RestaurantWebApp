@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping  package="com.foodStore.model">
+    <class name="Promotion" table="PROMOTION">
+        <id name="id" column="ID">
+            <generator class="sequence">
+                <param name="sequence">PROMOTION_ID</param>
+            </generator>
+        </id>
+        <property name="promotionCode" column="PROMOTIONCODE"/>
+        <property name="payCondition" column="PAYCONDITION" type="double"/>
+        <property name="fromDate" column="FROMDATE" type="timestamp"/>
+        <property name="toDate" column="TODATE" type="timestamp"/>
+        <property name="discount" column="DISCOUNT" type="double"/>
+        <property name="description" column="Description"/>
+    </class>
+</hibernate-mapping>

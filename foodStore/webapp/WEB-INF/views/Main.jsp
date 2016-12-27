@@ -19,6 +19,8 @@
 <script src="webapp/assets/js/ProductManagement.js"></script>
 <script src="webapp/assets/js/PageManagement.js"></script>
 <script src="webapp/assets/js/ContextMenu.js"></script>
+<script src="webapp/assets/js/AppointmentPage.js"></script>
+<script src="webapp/assets/js/daypilot-all.min.js"></script>
 <script src="webapp/assets/js/Main.js"></script>
 <script src="webapp/assets/js/Table.js"></script>
 <script src="webapp/assets/js/TablePage.js"></script>
@@ -66,8 +68,8 @@
 		<hbox class="navbar-items" page-name="menu-page">
 			<p >Product page</p>
 		</hbox>
-		<hbox class="navbar-items" page-name="appointmentManager">
-			<p >Table</p>
+		<hbox class="navbar-items" page-name="appointment-page">
+			<p >Appointment Management</p>
 		</hbox>
 		<hbox class="navbar-items" page-name="systemManger">
 			<p >Table</p>
