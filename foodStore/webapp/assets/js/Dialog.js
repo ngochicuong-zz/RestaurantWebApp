@@ -1,11 +1,9 @@
-function CalendarDialog(dayPilot) {
+function Dialog() {
 	this.contextMenuClassName = "combo-popup";
 	this.contextMenuItemClassName = "combo-popup__item";
 	this.contextMenuLinkClassName = "context-menu__link";
 	this.contextMenuActive = "context-menu--active";
 	
-	this.dayPilot = dayPilot;
-	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
 		style: "position: absolute; height:100%; width:100%; z-index: 99; top: 0px"
@@ -16,61 +14,19 @@ function CalendarDialog(dayPilot) {
 		_children: [
 			{
 				_name : "hbox",
-				class: "InputRow",
 				_children : [
 					{
-						_name: "label",
-						_text: "Customer Name:"
-					},
-					{
-						_name: "input",
-						id: "customer-name",
-						type: "text"
+						_name: "h5",
+						id: "title"
 					}
 				]
 			},
 			{
 				_name : "hbox",
-				class: "InputRow",
 				_children : [
 					{
-						_name: "label",
-						_text: "Phone: "
-					},
-					{
-						_name: "input",
-						id: "customer-phone",
-						type: "text"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Time start: "
-					},
-					{
-						_name: "input",
-						id: "time-start",
-						type: "datetime-local"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Time end: "
-					},
-					{
-						_name: "input",
-						id: "time-end",
-						type: "datetime-local"
+						_name: "p",
+						id: "info"
 					}
 				]
 			},
@@ -94,22 +50,19 @@ function CalendarDialog(dayPilot) {
 	});
 	var thiz = this;
 	window.setTimeout(function() {
-		thiz.customerPhone = thiz.container.querySelector("#customer-phone");
-		thiz.customerName = thiz.container.querySelector("#customer-name");
+		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
 		
-		thiz.timeStart = thiz.container.querySelector("#time-start");
-		thiz.timeEnd = thiz.container.querySelector("#time-end");
-		
 		thiz.acceptButton.addEventListener("click", function(event) {
-			thiz.onAccept();
+			if(thiz.onAccept != null) thiz.onAccept();
+			thiz.close();
 		});
 		thiz.closeButton.addEventListener("click", function(event) {
-			thiz.onCancel();
+			if(thiz.onCancel != null) thiz.onCancel();
+			thiz.close();
 		});
-	}, 10);
-	
+	}, 1);
 }
 
 /*
@@ -125,58 +78,43 @@ function CalendarDialog(dayPilot) {
  * 
  */
 
-CalendarDialog.prototype.onAccept = function() {
-	var thiz = this;
-	var args = this.calendarItem;
-	var start = this.timeStart.value;
-	var end = this.timeEnd.value;
-	
-	args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-	args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
-	var e = new DayPilot.Event({
-	      start: args.start,
-	      end: args.end,
-	      id: DayPilot.guid(),
-	      resource: args.resource,
-	      text: thiz.customerName.value,
-	      cusName: thiz.customerName.value,
-	      cusPhone: thiz.customerPhone.value
-	  });
-	this.dayPilot.events.add(e);
-	this.close();
-}
 
-CalendarDialog.prototype.onCancel = function() {
-	this.close();
-}
 
-CalendarDialog.prototype.getContainer = function() {
+Dialog.prototype.getContainer = function() {
 	return this.container;
 }
 
-CalendarDialog.prototype.show = function(cEvent) {
+Dialog.prototype.show = function(title, info, onAccept, onCancel) {
 	var thiz = this;
-	this.calendarItem = cEvent;
+	this.title = thiz.container.querySelector("#title");
+	this.info = thiz.container.querySelector("#info");
+	this.title.innerHTML = title;
+	this.info.innerHTML = info;
+	this.onAccept = onAccept;
+	this.onCancel = onCancel;
 	document.body.appendChild(this.container);
 	document.body.appendChild(this.busyBackground);
 	window.setTimeout(function(){
 		thiz.positionContainer();
-		thiz.timeStart.value = cEvent.start.value;
-		thiz.timeEnd.value = cEvent.end.value;
 	}, 10)
 	
 }
 
-CalendarDialog.prototype.close = function() {
+Dialog.prototype.close = function() {
 	document.body.removeChild(this.container);
 	document.body.removeChild(this.busyBackground);
 }
 
-CalendarDialog.prototype.positionContainer = function(){
+Dialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
 	
+}
+
+Dialog.alert = function (title, info, onAccept, onCancel) {
+	var dgl = new Dialog(); 
+	dgl.show(title, info, onAccept, onCancel);
 }
 
 

@@ -1,8 +1,11 @@
 package com.foodStore.model;
 
+import java.util.Date;
+
 public class Appointment extends BaseModelObject {
 	private String customName, customPhone, customEmail;
 	private int customGender;
+	private Date timeStart, timeEnd;
 	private SeatTable seatTable;
 	public String getCustomName() {
 		return customName;
@@ -33,5 +36,17 @@ public class Appointment extends BaseModelObject {
 	}
 	public void setSeatTable(SeatTable seatTable) {
 		this.seatTable = seatTable;
+	}
+	public Date getTimeStart() {
+		return timeStart;
+	}
+	public void setTimeStart(Date timeStart) {
+		this.timeStart = timeStart;
+	}
+	public Date getTimeEnd() {
+		return timeEnd;
+	}
+	public void setTimeEnd(Date timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 }

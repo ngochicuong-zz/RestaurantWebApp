@@ -16,6 +16,7 @@
 
 <script src="webapp/assets/js/CalendarDialog.js"></script>
 <script src="webapp/assets/js/moment.js"></script>
+<script src="webapp/assets/js/Dialog.js"></script>
 <script src="webapp/assets/js/ComboPopup.js"></script>
 <script src="webapp/assets/js/ProductManagement.js"></script>
 <script src="webapp/assets/js/PageManagement.js"></script>

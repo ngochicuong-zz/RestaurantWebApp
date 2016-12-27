@@ -26,6 +26,12 @@ AppointmentPage.prototype.setupEvent = function() {
 	this.dayPilot.onEventMoved = function(args) {
 		console.log(args);
 	};
+	this.dayPilot.onEventClick = function(args) {
+		console.log(args);
+		if (args.e.data == null) return;
+		Dialog.alert("Event infomation!","Customer Name: " + args.e.data.cusName + "<br>Customer Phone: " + args.e.data.cusPhone, null, null);
+	};
+	
 	this.dayPilot.onTimeRangeSelected = function(args) {
 		var calendarDgl = new CalendarDialog(thiz.dayPilot);
 		calendarDgl.show(args);

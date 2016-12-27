@@ -16,5 +16,7 @@
         <many-to-one name="seatTable" class="com.foodStore.model.SeatTable" fetch="select">
             <column name="SEATTABLEID" not-null="false" />
         </many-to-one>
+        <property name="timeStart" column="TIMESTART" type="timestamp"/>
+        <property name="timeEnd" column="TIMEEND" type="timestamp"/>
     </class>
 </hibernate-mapping>
