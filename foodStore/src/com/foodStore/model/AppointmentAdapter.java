@@ -16,6 +16,7 @@ public class AppointmentAdapter extends Adapter implements JsonSerializer<Appoin
 		jsonObject.addProperty("name", src.getCustomName());
 		jsonObject.addProperty("phone", src.getCustomPhone());
 		jsonObject.addProperty("email", src.getCustomEmail());
+		jsonObject.addProperty("capacity", src.getCapacity());
 		jsonObject.addProperty("timeStart", src.getTimeStart().toString());
 		jsonObject.addProperty("timeEnd", src.getTimeEnd().toString());
 		return jsonObject;

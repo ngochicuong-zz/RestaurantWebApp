@@ -102,9 +102,13 @@ TablePage.prototype.reloadPage = function() {
 	var callback = function(json) {
 		thiz.table.render(json);
 	}
-	serverReport.getJson("/getTables.do?floor=" + floor + "&room=" + room
-			+ "&capacity=" + capacity + "&onDesk=" + onDesk + "", "GET",
-			callback);
+	serverReport.getJson("/getTables.do", "GET",
+			callback, {
+				"floor" : floor,
+				"room" : room,
+				"capacity" : capacity,
+				"onDesk" : onDesk
+	});
 }
 
 TablePage.prototype.getPageContainer = function() {

@@ -33,18 +33,16 @@ public class AppointmentController {
 		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointments);
 	}
 	
-	@RequestMapping(value = "/createEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/createEvent.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String createEvent(
-			@RequestParam("seatId") int seatId,
 			@RequestParam("name") String name,
 			@RequestParam("phone") String phone, 
 			@RequestParam("gender") int gender,
 			@RequestParam("mail") String mail,
 			@RequestParam("timeStart") Date timeStart ,
-			@RequestParam("timeEnd") Date timeEnd, 
 			ModelMap model) {
-		Appointment appointment = ServiceManagement.get(IAppointmentService.class).createAppointment(name, mail, phone, gender, seatId, timeStart, timeEnd);
+		Appointment appointment = ServiceManagement.get(IAppointmentService.class).createAppointment(name, mail, phone, gender, 0, timeStart, null);
 		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointment);
 	}
 	

@@ -29,7 +29,11 @@ AppointmentPage.prototype.setupEvent = function() {
 	this.dayPilot.onEventClick = function(args) {
 		console.log(args);
 		if (args.e.data == null) return;
-		Dialog.alert("Event infomation!","Customer Name: " + args.e.data.cusName + "<br>Customer Phone: " + args.e.data.cusPhone, null, null);
+		Dialog.alert("Event infomation!","Customer name: " + args.e.data.cusName 
+				+ "<br>Customer phone: " + args.e.data.cusPhone
+				+ "<br>Customer mail: " + args.e.data.cusMail
+				+ "<br>Capacity: " + args.e.data.cusCapacity
+				, null, null);
 	};
 	
 	this.dayPilot.onTimeRangeSelected = function(args) {

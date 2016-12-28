@@ -50,6 +50,37 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
+						_text: "Email: "
+					},
+					{
+						_name: "input",
+						id: "customer-mail",
+						type: "text"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Capacity: "
+					},
+					{
+						_name: "input",
+						id: "customer-capacity",
+						type: "number",
+						min: "0"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
 						_text: "Time start: "
 					},
 					{
@@ -96,6 +127,9 @@ function CalendarDialog(dayPilot) {
 	window.setTimeout(function() {
 		thiz.customerPhone = thiz.container.querySelector("#customer-phone");
 		thiz.customerName = thiz.container.querySelector("#customer-name");
+		thiz.customerMail = thiz.container.querySelector("#customer-mail");
+		thiz.customerCapacity = thiz.container.querySelector("#customer-capacity");
+		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
 		
@@ -127,22 +161,40 @@ function CalendarDialog(dayPilot) {
 
 CalendarDialog.prototype.onAccept = function() {
 	var thiz = this;
-	var args = this.calendarItem;
+	
 	var start = this.timeStart.value;
 	var end = this.timeEnd.value;
+
 	
-	args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-	args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
-	var e = new DayPilot.Event({
-	      start: args.start,
-	      end: args.end,
-	      id: DayPilot.guid(),
-	      resource: args.resource,
-	      text: thiz.customerName.value,
-	      cusName: thiz.customerName.value,
-	      cusPhone: thiz.customerPhone.value
-	  });
-	this.dayPilot.events.add(e);
+	var callback = function(appointment){
+		console.log(appointment);
+	}
+	serverReport.getJson("/createEvent.do", "POST", callback, {
+				"name" : thiz.customerName.value,
+				"phone" : thiz.customerPhone.value,
+				"gender" : "1",
+				"mail": thiz.customerMail.value,
+				"timeStart": start.toString()
+			});
+	
+	
+//	var args = this.calendarItem;
+//	args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
+//	args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
+//	var e = new DayPilot.Event({
+//	      start: args.start,
+//	      end: args.end,
+//	      id: DayPilot.guid(),
+//	      resource: args.resource,
+//	      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
+//	      cusName: thiz.customerName.value,
+//	      cusPhone: thiz.customerPhone.value,
+//	      cusMail: thiz.customerMail.value,
+//	      cusCapacity: thiz.customerCapacity.value
+//	  });
+//	
+//	
+//	this.dayPilot.events.add(e);
 	this.close();
 }
 

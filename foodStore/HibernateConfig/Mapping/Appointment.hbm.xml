@@ -13,6 +13,7 @@
         <property name="customPhone" column="CUSTOM_PHONE"/>
         <property name="customEmail" column="CUSTOM_EMAIL"/>
         <property name="customGender" column="CUSTOM_GENDER" type="int"/>
+        <property name="capacity" column="CAPACITY" type="int"/>
         <many-to-one name="seatTable" class="com.foodStore.model.SeatTable" fetch="select">
             <column name="SEATTABLEID" not-null="false" />
         </many-to-one>

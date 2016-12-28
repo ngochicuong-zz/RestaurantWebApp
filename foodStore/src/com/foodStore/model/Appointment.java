@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Appointment extends BaseModelObject {
 	private String customName, customPhone, customEmail;
-	private int customGender;
+	private int customGender, capacity;
 	private Date timeStart, timeEnd;
 	private SeatTable seatTable;
 	public String getCustomName() {
@@ -48,5 +48,11 @@ public class Appointment extends BaseModelObject {
 	}
 	public void setTimeEnd(Date timeEnd) {
 		this.timeEnd = timeEnd;
+	}
+	public int getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 }
