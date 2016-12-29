@@ -25,9 +25,10 @@ AppointmentPage.prototype.setupEvent = function() {
 	var thiz = this;
 	this.dayPilot.onEventMoved = function(args) {
 		console.log(args);
+		
 	};
 	this.dayPilot.onEventClick = function(args) {
-		console.log(args);
+		console.log(args.e.data.eventId);
 		if (args.e.data == null) return;
 		Dialog.alert("Event infomation!","Customer name: " + args.e.data.cusName 
 				+ "<br>Customer phone: " + args.e.data.cusPhone
@@ -39,15 +40,37 @@ AppointmentPage.prototype.setupEvent = function() {
 	this.dayPilot.onTimeRangeSelected = function(args) {
 		var calendarDgl = new CalendarDialog(thiz.dayPilot);
 		calendarDgl.show(args);
-//		var e = new DayPilot.Event({
-//		      start: args.start,
-//		      end: args.end,
-//		      id: DayPilot.guid(),
-//		      resource: args.resource,
-//		      text: name
-//		  });
-//		  thiz.dayPilot.events.add(e);
 	};
+}
+
+AppointmentPage.prototype.updateEvent = function(evId, newStart, newEnd) {
+	var callback = function(appointment){
+		var args = thiz.calendarItem;
+		args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
+		args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
+		var e = new DayPilot.Event({
+		      start: args.start,
+		      end: args.end,
+		      id: DayPilot.guid(),
+		      resource: args.resource,
+		      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
+		      cusName: thiz.customerName.value,
+		      cusPhone: thiz.customerPhone.value,
+		      cusMail: thiz.customerMail.value,
+		      cusCapacity: thiz.customerCapacity.value,
+		      eventId: appointment.id
+		  });
+		thiz.dayPilot.events.add(e);
+		
+	}
+	serverReport.getJson("/createEvent.do", "POST", callback, {
+				"name" : thiz.customerName.value,
+				"phone" : thiz.customerPhone.value,
+				"gender" : "1",
+				"mail": thiz.customerMail.value,
+				"timeStart": moment(start).format('YYYY-MM-DD HH:mm:ss').toString(),
+				"timeEnd": moment(end).format('YYYY-MM-DD HH:mm:ss').toString()
+			});
 }
 
 AppointmentPage.prototype.getPageContainer = function() {

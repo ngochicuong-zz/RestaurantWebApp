@@ -1,5 +1,8 @@
 package com.foodStore.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -40,9 +43,21 @@ public class AppointmentController {
 			@RequestParam("phone") String phone, 
 			@RequestParam("gender") int gender,
 			@RequestParam("mail") String mail,
-			@RequestParam("timeStart") Date timeStart ,
+			@RequestParam("timeStart") String timestart ,
+			@RequestParam("timeEnd") String timeend ,
 			ModelMap model) {
-		Appointment appointment = ServiceManagement.get(IAppointmentService.class).createAppointment(name, mail, phone, gender, 0, timeStart, null);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date timeStart = new Date();
+		Date timeEnd = new Date();
+		try {
+			timeStart = format.parse(timestart);
+			timeEnd = format.parse(timeend);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Appointment appointment = ServiceManagement.get(IAppointmentService.class).createAppointment(name, mail, phone, gender, 0, timeStart, timeEnd);
 		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointment);
 	}
 	

@@ -31,7 +31,7 @@ public class AppointmentService extends ServiceBase<Appointment> implements IApp
 			public Criteria build(Session session) {
 				Criteria criteria = session.createCriteria(Appointment.class);
 				Conjunction and = Restrictions.conjunction();
-				and.add(Restrictions.eq("seatId", seatId));
+				and.add(Restrictions.eq("seatTable.id", seatId));
 				and.add(Restrictions.le("timeStart", timeStart));
 				and.add(Restrictions.gt("timeEnd", timeEnd));
 				return criteria.add(and);

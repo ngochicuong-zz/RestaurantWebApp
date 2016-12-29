@@ -108,6 +108,7 @@ function CalendarDialog(dayPilot) {
 			{
 				_name : "hbox",
 				class: "InputRow",
+				style: "justify-content: center",
 				_children : [
 					{
 						_name: "button",
@@ -161,20 +162,34 @@ function CalendarDialog(dayPilot) {
 
 CalendarDialog.prototype.onAccept = function() {
 	var thiz = this;
-	
 	var start = this.timeStart.value;
 	var end = this.timeEnd.value;
-
-	
 	var callback = function(appointment){
-		console.log(appointment);
+		var args = thiz.calendarItem;
+		args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
+		args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
+		var e = new DayPilot.Event({
+		      start: args.start,
+		      end: args.end,
+		      id: DayPilot.guid(),
+		      resource: args.resource,
+		      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
+		      cusName: thiz.customerName.value,
+		      cusPhone: thiz.customerPhone.value,
+		      cusMail: thiz.customerMail.value,
+		      cusCapacity: thiz.customerCapacity.value,
+		      eventId: appointment.id
+		  });
+		thiz.dayPilot.events.add(e);
+		
 	}
 	serverReport.getJson("/createEvent.do", "POST", callback, {
 				"name" : thiz.customerName.value,
 				"phone" : thiz.customerPhone.value,
 				"gender" : "1",
 				"mail": thiz.customerMail.value,
-				"timeStart": start.toString()
+				"timeStart": moment(start).format('YYYY-MM-DD HH:mm:ss').toString(),
+				"timeEnd": moment(end).format('YYYY-MM-DD HH:mm:ss').toString()
 			});
 	
 	
@@ -194,7 +209,7 @@ CalendarDialog.prototype.onAccept = function() {
 //	  });
 //	
 //	
-//	this.dayPilot.events.add(e);
+
 	this.close();
 }
 
