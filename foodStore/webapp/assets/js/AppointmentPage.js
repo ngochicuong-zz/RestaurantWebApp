@@ -17,60 +17,74 @@ function AppointmentPage() {
 AppointmentPage.prototype.init = function() {
 	this.dayPilot = new DayPilot.Calendar(this.pageContainer.querySelector("#day-pilot"));
 	this.dayPilot.viewType = "Week";
-	this.dayPilot.init();
-	this.setupEvent();
 	
+	this.setupEvent();
+	var thiz = this;
+	var callback = function(appointments) {
+		console.log(appointments);
+		if (appointments.length == 0) return;
+		thiz.dayPilot.events.list = new Array();
+		for(var i = 0; i < appointments.length; i++) {
+			var appointment = appointments[i];
+			console.log(appointment);
+			var e = {
+			      "start": moment(appointment.timeStart).format('YYYY-MM-DDTHH:mm:ss').toString(),
+			      "end": moment(appointment.timeEnd).format('YYYY-MM-DDTHH:mm:ss').toString(),
+			      "id": DayPilot.guid(),
+			      "text": appointment.customName + "<br/>" + appointment.customPhone + "<br/>" + appointment.customEmail + "<br/>" + appointment.capacity, 
+			      "cusName": appointment.customName,
+			      "cusPhone": appointment.customPhone,
+			      "cusMail": appointment.customEmail,
+			      "cusCapacity": appointment.capacity,
+			      "eventId": appointment.id
+			  };
+			thiz.dayPilot.events.list.push(e);
+		}
+		thiz.dayPilot.init();
+	}
+	serverReport.getJson("/getEventByWeek.do?week=-1", "GET", callback, null);
 }
 AppointmentPage.prototype.setupEvent = function() {
 	var thiz = this;
 	this.dayPilot.onEventMoved = function(args) {
-		console.log(args);
-		
+		console.log(thiz.dayPilot);
+		var data = args.e.data;
+		if (data == null) return;
+		var start = data.start.value;
+		var end = data.end.value;
+		var callback = function(updated){
+			console.log(updated);
+		};
+		serverReport.getBoolean("/updateEvent.do", "GET", callback, {
+			"eventId" : data.eventId,
+			"timeStart": moment(start).format('YYYY-MM-DD HH:mm:ss').toString(),
+			"timeEnd": moment(end).format('YYYY-MM-DD HH:mm:ss').toString()
+		});
 	};
 	this.dayPilot.onEventClick = function(args) {
+		console.log(thiz.dayPilot);
 		console.log(args.e.data.eventId);
 		if (args.e.data == null) return;
+		var removeEvent = function() {
+			thiz.remove(args.e);
+		}
 		Dialog.alert("Event infomation!","Customer name: " + args.e.data.cusName 
 				+ "<br>Customer phone: " + args.e.data.cusPhone
 				+ "<br>Customer mail: " + args.e.data.cusMail
 				+ "<br>Capacity: " + args.e.data.cusCapacity
-				, null, null);
+				, "Ok", null, "Delete", removeEvent);
 	};
 	
 	this.dayPilot.onTimeRangeSelected = function(args) {
 		var calendarDgl = new CalendarDialog(thiz.dayPilot);
 		calendarDgl.show(args);
 	};
+	
+	
 }
 
-AppointmentPage.prototype.updateEvent = function(evId, newStart, newEnd) {
-	var callback = function(appointment){
-		var args = thiz.calendarItem;
-		args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-		args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
-		var e = new DayPilot.Event({
-		      start: args.start,
-		      end: args.end,
-		      id: DayPilot.guid(),
-		      resource: args.resource,
-		      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
-		      cusName: thiz.customerName.value,
-		      cusPhone: thiz.customerPhone.value,
-		      cusMail: thiz.customerMail.value,
-		      cusCapacity: thiz.customerCapacity.value,
-		      eventId: appointment.id
-		  });
-		thiz.dayPilot.events.add(e);
-		
-	}
-	serverReport.getJson("/createEvent.do", "POST", callback, {
-				"name" : thiz.customerName.value,
-				"phone" : thiz.customerPhone.value,
-				"gender" : "1",
-				"mail": thiz.customerMail.value,
-				"timeStart": moment(start).format('YYYY-MM-DD HH:mm:ss').toString(),
-				"timeEnd": moment(end).format('YYYY-MM-DD HH:mm:ss').toString()
-			});
+AppointmentPage.prototype.remove = function(e) {
+	this.dayPilot.events.remove(e);
 }
 
 AppointmentPage.prototype.getPageContainer = function() {

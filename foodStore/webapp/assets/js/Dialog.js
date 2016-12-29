@@ -35,34 +35,47 @@ function Dialog() {
 				class: "InputRow",
 				_children : [
 					{
-						_name: "button",
-						id: "accept",
-						_text: "Ok "
+						_name : "hbox",
+						class: "InputRow",
+						_children : [
+							{
+								_name: "button",
+								id: "extra",
+								_text: "extra "
+							}
+						]
 					},
 					{
-						_name: "button",
-						id: "close",
-						_text: "Cancel"
+						_name : "hbox",
+						class: "InputRow",
+						_children : [
+							{
+								_name: "button",
+								id: "close",
+								_text: "Cancel"
+							},
+							{
+								_name: "button",
+								id: "accept",
+								_text: "Ok "
+							}
+						]
 					}
 				]
 			}
 		]
 	});
 	var thiz = this;
-	window.setTimeout(function() {
-		
-		thiz.acceptButton = thiz.container.querySelector("#accept");
-		thiz.closeButton = thiz.container.querySelector("#close");
-		
-		thiz.acceptButton.addEventListener("click", function(event) {
-			if(thiz.onAccept != null) thiz.onAccept();
-			thiz.close();
-		});
-		thiz.closeButton.addEventListener("click", function(event) {
-			if(thiz.onCancel != null) thiz.onCancel();
-			thiz.close();
-		});
-	}, 1);
+	this.acceptButton = this.container.querySelector("#accept");
+	this.closeButton = this.container.querySelector("#close");
+	this.acceptButton.addEventListener("click", function(event) {
+		if(thiz.onAccept != null) thiz.onAccept();
+		thiz.close();
+	});
+	this.closeButton.addEventListener("click", function(event) {
+		if(thiz.onCancel != null) thiz.onCancel();
+		thiz.close();
+	});
 }
 
 /*
@@ -84,12 +97,14 @@ Dialog.prototype.getContainer = function() {
 	return this.container;
 }
 
-Dialog.prototype.show = function(title, info, onAccept, onCancel) {
+Dialog.prototype.show = function(title, info, acceptBtnName,onAccept, cancelBtnName, onCancel) {
 	var thiz = this;
 	this.title = thiz.container.querySelector("#title");
 	this.info = thiz.container.querySelector("#info");
 	this.title.innerHTML = title;
 	this.info.innerHTML = info;
+	this.acceptButton.innerHTML = acceptBtnName;
+	this.closeButton.innerHTML = cancelBtnName;
 	this.onAccept = onAccept;
 	this.onCancel = onCancel;
 	document.body.appendChild(this.container);
@@ -112,9 +127,9 @@ Dialog.prototype.positionContainer = function(){
 	
 }
 
-Dialog.alert = function (title, info, onAccept, onCancel) {
+Dialog.alert = function (title, info, acceptBtnName, onAccept, cancelBtnName, onCancel) {
 	var dgl = new Dialog(); 
-	dgl.show(title, info, onAccept, onCancel);
+	dgl.show(title, info, acceptBtnName, onAccept, cancelBtnName, onCancel);
 }
 
 

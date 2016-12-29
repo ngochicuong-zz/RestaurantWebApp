@@ -6,7 +6,7 @@ serverReport.getHTML = function(patent, method, callback) {
 
 serverReport.getBoolean = function(patent, method, callback, params) {
 	var callBack = function(responseText) {
-		callback(responseText == "true" ? true : false);
+		if (callback) callback(responseText == "true" ? true : false);
 	}
 	serverReport.sendRequest(patent, method, callBack, params);
 }
@@ -16,7 +16,7 @@ serverReport.getJson = function(patent, method, callback, params) {
 		var json = null;
 		if (responseText != null) 
 			json = JSON.parse(responseText);
-		callback(json);
+		if (callback) callback(json);
 	}
 	serverReport.sendRequest(patent, method, callBack, params);
 }
@@ -32,7 +32,7 @@ serverReport.sendRequest = function(patent, method, callBack, params) {
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			if (callBack != null) {
+			if (callBack) {
 				callBack(this.responseText);
 			}
 		}

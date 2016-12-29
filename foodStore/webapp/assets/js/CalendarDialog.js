@@ -188,6 +188,7 @@ CalendarDialog.prototype.onAccept = function() {
 				"phone" : thiz.customerPhone.value,
 				"gender" : "1",
 				"mail": thiz.customerMail.value,
+				"capacity" : thiz.customerCapacity.value,
 				"timeStart": moment(start).format('YYYY-MM-DD HH:mm:ss').toString(),
 				"timeEnd": moment(end).format('YYYY-MM-DD HH:mm:ss').toString()
 			});
