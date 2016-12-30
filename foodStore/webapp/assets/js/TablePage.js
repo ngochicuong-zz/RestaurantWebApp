@@ -50,7 +50,8 @@ TablePage.prototype.init = function(){
 				express : function() {
 					return thiz.seatStatus == "true";
 				}
-			}, {
+			},
+			{
 				name : "View Order Detail",
 				handler : function(handleItem) {
 					var seat = handleItem.data;
@@ -83,6 +84,10 @@ TablePage.prototype.init = function(){
 			thiz.contextMenu.toggleMenuOn(e);
 		}
 	});
+}
+
+TablePage.prototype.bookSeatTable = function(seat, event) {
+	
 }
 
 TablePage.prototype.reloadPage = function() {

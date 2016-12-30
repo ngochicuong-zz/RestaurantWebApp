@@ -5,6 +5,7 @@ function Main() {
 	this.pageManagement.registerPage(new OrderPage());
 	this.pageManagement.registerPage(new MenuPage());
 	this.pageManagement.registerPage(new AppointmentPage());
+	this.pageManagement.registerPage(new AdminPage());
 	var thiz = this;
 	navbar.addEventListener("click", function(event){
 		var target = event.target;

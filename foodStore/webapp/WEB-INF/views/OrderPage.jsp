@@ -58,8 +58,8 @@
 			<label id="seatCapacity"></label>
 		</hbox>
 		<hbox>
-			<hbox style="justify-content: flex-end; color: #000000">
-				<button id="checkout-button" class="glyphicon glyphicon-triangle-left"> Check</button>
+			<hbox class="InputRow" style="justify-content: flex-end; margin-right:0.5em; color: #000000">
+				<button id="checkout-button" class="glyphicon glyphicon-usd">Check</button>
 			</hbox>	
 			<hbox style="justify-content: flex-end; color: #000000">
 				<button id="back-button" class="glyphicon glyphicon-triangle-left"> back</button>
@@ -87,10 +87,13 @@
 				<label id="order-total" ></label>
 		</hbox>
 		<hbox class="InputRow" id="add-detail-panel" style="align-items: flex-start;" >
-			<hbox flex="1">
+			
+			<hbox flex="1" class="InputRow">
+				<label>Food Name: </label>
 				<input flex="1" type="text" id="productText"/>
 			</hbox>
-			<hbox>
+			<hbox class="InputRow">
+				<label>Quality: </label>
 				<input style="width:5em;" type="number" min=0.1 step="0.01" id="quality"/>
 			</hbox>
 			<hbox>

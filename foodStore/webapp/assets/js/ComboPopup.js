@@ -81,11 +81,15 @@ ComboPopup.prototype.getMenu = function() {
 }
 
 ComboPopup.prototype.toggleMenuOn = function(targetNode) {
-	this.positionMenu(targetNode);
 //	this.renderItems();
 	document.body.appendChild(this.menu);
+	var thiz = this;
+	window.setTimeout(function() {
+		thiz.positionMenu(targetNode);
+		thiz.flag = true;
+	})
 //	this.handleItem = e.dataNode;
-	this.flag = true;
+	
 	
 }
 
@@ -94,12 +98,10 @@ ComboPopup.prototype.toggleMenuOff = function() {
 }
 
 ComboPopup.prototype.positionMenu = function(targetNode){
-	var menu = this.menu;
-	
-	menu.style.width = targetNode.offsetWidth + "px";
-	menu.style.height = "200px";
-	menu.style.left = targetNode.offsetLeft + "px";
-	menu.style.top = targetNode.offsetTop - 202 + "px";
+	this.menu.style.width = targetNode.offsetWidth + "px";
+	this.menu.style.height = "200px";
+	this.menu.style.left = targetNode.offsetLeft + "px";
+	this.menu.style.top = targetNode.offsetTop - 202 + "px";
 	
 }
 

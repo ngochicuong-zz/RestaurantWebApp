@@ -1,8 +1,6 @@
 function CalendarDialog(dayPilot) {
-	this.contextMenuClassName = "combo-popup";
-	this.contextMenuItemClassName = "combo-popup__item";
-	this.contextMenuLinkClassName = "context-menu__link";
-	this.contextMenuActive = "context-menu--active";
+	this.contextMenuClassName = "Event-popup";
+	this.contextMenuItemClassName = "Event__item";
 	
 	this.dayPilot = dayPilot;
 	this.calendarItem;
@@ -12,7 +10,7 @@ function CalendarDialog(dayPilot) {
 	});
 	this.container = Dom.newDOMElement({
 		_name : "vbox",
-		class : "combo-popup",
+		class : this.contextMenuClassName,
 		_children: [
 			{
 				_name : "hbox",
@@ -78,37 +76,7 @@ function CalendarDialog(dayPilot) {
 			{
 				_name : "hbox",
 				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Time start: "
-					},
-					{
-						_name: "input",
-						id: "time-start",
-						type: "datetime-local"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Time end: "
-					},
-					{
-						_name: "input",
-						id: "time-end",
-						type: "datetime-local"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				style: "justify-content: center",
+				style: "justify-content: flex-end",
 				_children : [
 					{
 						_name: "button",
@@ -129,8 +97,6 @@ function CalendarDialog(dayPilot) {
 		thiz.customerPhone = thiz.container.querySelector("#customer-phone");
 		thiz.customerName = thiz.container.querySelector("#customer-name");
 		thiz.customerMail = thiz.container.querySelector("#customer-mail");
-		thiz.customerCapacity = thiz.container.querySelector("#customer-capacity");
-		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
 		

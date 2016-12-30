@@ -92,4 +92,20 @@ public class AppointmentService extends ServiceBase<Appointment> implements IApp
 		if (appointment == null) return false;	
 		return this.repository.deleteItem(appointment);
 	}
+
+	@Override
+	public List<Appointment> getEventByCapacity(int capacity) {
+		List<Appointment> appointments = this.repository.customQuery(Appointment.class, new ICriteriaBuilder(){
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(Appointment.class);
+				Conjunction and = Restrictions.conjunction();
+				and.add(Restrictions.ge("timeStart", new Date()));
+				and.add(Restrictions.le("timeEnd", new Date()));
+				and.add(Restrictions.ge("capacity", capacity));
+				return criteria.add(and);
+			}
+		});
+		return appointments;
+	}
 }

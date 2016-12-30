@@ -10,4 +10,6 @@ public interface ISeatTableService{
 	List<SeatTable> getAllTableWithOnDesk(boolean onDesk);
 	List<SeatTable> searchTable(int floor, int room, int capacity, boolean onDesk);
 	List<SeatTable> getAllTable();
+	
+	List<SeatTable> getTableByCapacity(int capacity);
 }

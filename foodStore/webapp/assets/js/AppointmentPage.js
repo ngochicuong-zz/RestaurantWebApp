@@ -67,6 +67,8 @@ AppointmentPage.prototype.setupEvent = function() {
 		if (args.e.data == null) return;
 		var removeEvent = function() {
 			thiz.remove(args.e);
+			
+			
 		}
 		Dialog.alert("Event infomation!","Customer name: " + args.e.data.cusName 
 				+ "<br>Customer phone: " + args.e.data.cusPhone
@@ -84,7 +86,17 @@ AppointmentPage.prototype.setupEvent = function() {
 }
 
 AppointmentPage.prototype.remove = function(e) {
-	this.dayPilot.events.remove(e);
+	var thiz = this;
+	var callback = function(removed) {
+		if (removed) {
+			thiz.dayPilot.events.remove(e);
+		}
+	}
+	serverReport.getBoolean("/removeEvent.do", "GET", callback, {
+		"eventId" : e.data.eventId
+	});
+	
+	
 }
 
 AppointmentPage.prototype.getPageContainer = function() {

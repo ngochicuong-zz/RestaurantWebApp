@@ -5,7 +5,7 @@ function OrderPage() {
 	this.order;
 	this.orderDetails = new Array();
 	
-	this.pageContainer = this.table = Dom.newDOMElement({
+	this.pageContainer = Dom.newDOMElement({
 		_name : "hbox",
 		id : "pageContainer",
 		flex: "1"

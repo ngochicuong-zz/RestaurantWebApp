@@ -113,13 +113,22 @@ public class AppointmentController {
 		return String.valueOf(updated);
 	}
 	
-	@RequestMapping(value = "/updateEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeEvent.do", method = RequestMethod.GET)
 	@ResponseBody
-	public String updateEvent(
+	public String removeEvent(
 			@RequestParam("eventId") int eventId,
 			ModelMap model) {
 		boolean removed = ServiceManagement.get(IAppointmentService.class).removeEvent(eventId);
 		return String.valueOf(removed);
+	}
+	
+	@RequestMapping(value = "/getEventByCapacity.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String getEventByCapacity(
+			@RequestParam("capacity") int capacity,
+			ModelMap model) {
+		List<Appointment> appointments = ServiceManagement.get(IAppointmentService.class).getEventByCapacity(capacity);
+		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointments);
 	}
 }
 

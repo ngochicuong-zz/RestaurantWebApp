@@ -16,7 +16,7 @@
 		
 	}
 	#container-panel {
-		box-shadow: -2px 0px 10px #000000;
+		box-shadow: -2px 10px 10px #000000;
 	}
 </style>
 <hbox flex="1"> 

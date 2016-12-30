@@ -51,5 +51,13 @@ public class TableController {
 		return JsonUtil.build(SeatTable.class, new SeatAdapter()).toJson(tables);
 	}
 	
+	@RequestMapping(value="/getTableByCapacity.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String getTableByCapacity(
+			@RequestParam("capacity") int capacity,
+			ModelMap model) {
+		List<SeatTable> tables = ServiceManagement.get(ISeatTableService.class).getTableByCapacity(capacity);
+		return JsonUtil.build(SeatTable.class, new SeatAdapter()).toJson(tables);
+	}
 }
 

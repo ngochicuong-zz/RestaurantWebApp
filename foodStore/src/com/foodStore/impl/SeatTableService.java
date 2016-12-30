@@ -2,9 +2,14 @@ package com.foodStore.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.foodStore.hibernate.HibernateRepository.CompareKey;
+import com.foodStore.hibernate.HibernateRepository.ICriteriaBuilder;
 import com.foodStore.hibernate.IRepository;
 import com.foodStore.model.SeatTable;
 import com.foodStore.service.ISeatTableService;
@@ -53,6 +58,19 @@ public class SeatTableService extends ServiceBase<SeatTable> implements ISeatTab
 				capacity != -1 ? new CompareKey("capacity", capacity) : null,
 				new CompareKey("onDesk", onDesk ? 't' : 'f'));
 	}
-	
 
+	@Override
+	public List<SeatTable> getTableByCapacity(int capacity) {
+		List<SeatTable> seatTables = this.repository.customQuery(SeatTable.class, new ICriteriaBuilder(){
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(SeatTable.class);
+				Conjunction and = Restrictions.conjunction();
+				and.add(Restrictions.le("onDesk", 'f'));
+				and.add(Restrictions.ge("capacity", capacity));
+				return criteria.add(and);
+			}
+		});
+		return seatTables;
+	}
 }

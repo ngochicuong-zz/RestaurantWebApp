@@ -6,14 +6,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="webapp/assets/css/Main.css">
 <link rel="stylesheet" href="webapp/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="webapp/assets/css/material_icon.css">
+
+
 <script src="webapp/assets/js/jquery-1.11.1.min.js"></script>
 <script src="webapp/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="webapp/assets/js/ServerSide.js"></script>
 <script src="webapp/assets/js/common-dom.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<script src="webapp/assets/js/AdminPage.js"></script>
 <script src="webapp/assets/js/CalendarDialog.js"></script>
 <script src="webapp/assets/js/moment.js"></script>
 <script src="webapp/assets/js/Dialog.js"></script>
@@ -31,16 +36,21 @@
 <title>Que ta restaurant</title>
 <style>
 	#navbar {
-		background-color: #000000;
+		background-color: #555;
 		color: #fff;
 		max-height: 3em;
+		line-height: 3em;
 	}
 	
 	#navbar .navbar-items {
-		line-height: 3em;
 		max-height: 3em;
-		padding-left: 1em;
-		min-width: 10em;
+		padding-right: 1em;
+	}
+	
+	#navbar .navbar-items span{
+		font-weight: bold;
+		display: table-cell;
+		vertical-align: middle;
 	}
 	
 	#navbar .navbar-items .active {
@@ -49,8 +59,7 @@
 	}
 	
 	#navbar .navbar-items:hover {
-		color: #000;
-		background-color: #F90;
+		border-bottom: solid 0.3em #F90;
 	}
 	
 	table > tbody > tr:hover {
@@ -64,19 +73,25 @@
 </head>
 <body>
 	<hbox id="navbar" flex="1"> 
-		<hbox class="navbar-items" page-name="table-page">
-			<p >Seat Management</p>
+		<hbox class="navbar-items InputRow" page-name="table-page">
+			<i class="material-icons orange600 md-16" >airline_seat_recline_normal</i>
+			<span >Seat Management</span>
 		</hbox>
-		<hbox class="navbar-items" page-name="menu-page">
-			<p >Product page</p>
+		<hbox class="navbar-items InputRow" page-name="appointment-page">
+			<i class="material-icons orange600 md-16" >event</i>
+			<span >Appointment Management</span>
 		</hbox>
-		<hbox class="navbar-items" page-name="appointment-page">
-			<p >Appointment Management</p>
+		<hbox class="navbar-items InputRow" page-name="admin-page">
+			<i class="material-icons orange600 md-16" >settings</i>
+			<span >System Management</span>
 		</hbox>
-		<hbox class="navbar-items" page-name="systemManger">
-			<p >Table</p>
+		<hbox flex="1">
+			<hbox flex="1"></hbox>
+			<hbox  class="navbar-items InputRow" style="justify-content: flex-end">
+				<span >Account</span>
+				<i class="material-icons orange600 md-16" >account_circle</i>
+			</hbox>
 		</hbox>
-		<hbox style="width:5em; height:3em;"></hbox>
 	</hbox>
 	<hbox id="main-container">
 	

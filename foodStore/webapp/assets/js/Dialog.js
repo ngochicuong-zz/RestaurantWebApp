@@ -1,8 +1,5 @@
 function Dialog() {
-	this.contextMenuClassName = "combo-popup";
-	this.contextMenuItemClassName = "combo-popup__item";
-	this.contextMenuLinkClassName = "context-menu__link";
-	this.contextMenuActive = "context-menu--active";
+	this.contextMenuClassName = "dialog-popup";
 	
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -10,7 +7,7 @@ function Dialog() {
 	});
 	this.container = Dom.newDOMElement({
 		_name : "vbox",
-		class : "combo-popup",
+		class : this.contextMenuClassName,
 		_children: [
 			{
 				_name : "hbox",
