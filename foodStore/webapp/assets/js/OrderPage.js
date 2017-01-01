@@ -241,7 +241,12 @@ OrderPage.prototype.init = function() {
 			thiz.comboPopup.renderItems(products);
 			thiz.comboPopup.toggleMenuOn(e.target);
 		}
-		serverReport.getJson("/searchProduct.do?name="+ value +"", "GET", callback);
+		serverReport.getJson("/searchProduct.do", "GET",
+				callback, {
+					"name" : value,
+					"price" : -1,
+					"categories" : -1
+		});
 	})
 	
 	// payment handle

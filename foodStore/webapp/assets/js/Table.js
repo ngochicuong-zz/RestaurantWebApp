@@ -2,7 +2,7 @@ function Table() {
 	this.tableBody;
 	var tHeader;
 	var table;
-	var selectedItem;
+	this.selectedItem = null;
 }
 
 Table.prototype.init = function(tHeader) {
@@ -48,8 +48,8 @@ Table.prototype.removeChild = function(itemNode){
 }
 
 Table.prototype.render = function(items) {
-	console.log(items);
 	this.tableBody.innerHTML = "";
+	if ( items.length == 0) return;
 	var thiz = this;
 	var addItem = function(item) {
 		var trNode = Dom.newDOMElement({
@@ -77,7 +77,6 @@ Table.prototype.render = function(items) {
 }
 Table.prototype.getSelectedItemObject = function() {
 	return this.selectedItem;
-	
 }
 
 

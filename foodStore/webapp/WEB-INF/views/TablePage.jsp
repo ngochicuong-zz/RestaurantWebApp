@@ -53,7 +53,8 @@
 	</vbox>
 	<vbox>
 		<label>On desk: </label>
-		<select  id="onDesk">
+		<select  id="onDesk"> 
+		  <option value="undefined">--not selected--</option>
 		  <option value="true">unavailable</option>
 		  <option value="false">available</option>
 		</select>

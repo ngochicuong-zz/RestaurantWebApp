@@ -18,6 +18,11 @@
 <script src="webapp/assets/js/common-dom.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<script src="webapp/assets/js/AddProductDialog.js"></script>
+<script src="webapp/assets/js/AddAccountDialog.js"></script>
+<script src="webapp/assets/js/AccountManagementPage.js"></script>
+<script src="webapp/assets/js/AddTableDialog.js"></script>
+<script src="webapp/assets/js/SeatManagementPage.js"></script>
 <script src="webapp/assets/js/AdminPage.js"></script>
 <script src="webapp/assets/js/CalendarDialog.js"></script>
 <script src="webapp/assets/js/moment.js"></script>
@@ -32,7 +37,7 @@
 <script src="webapp/assets/js/Table.js"></script>
 <script src="webapp/assets/js/TablePage.js"></script>
 <script src="webapp/assets/js/OrderPage.js"></script>
-<script src="webapp/assets/js/MenuPage.js"></script>
+<script src="webapp/assets/js/ProductManagementPage.js"></script>
 <title>Que ta restaurant</title>
 <style>
 	#navbar {
@@ -60,6 +65,11 @@
 	
 	#navbar .navbar-items:hover {
 		border-bottom: solid 0.3em #F90;
+	}
+	
+	#navbar .active {
+		background: rgba(105, 105, 105, 0.93);
+    	box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.59);
 	}
 	
 	table > tbody > tr:hover {

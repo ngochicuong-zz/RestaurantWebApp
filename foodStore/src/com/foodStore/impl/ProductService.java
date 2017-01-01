@@ -50,26 +50,28 @@ public class ProductService extends ServiceBase<Product> implements IProductServ
 		return update(product);
 	}
 	
-	public boolean updateProduct(int productId, double price, String name, int categoryType) {
+	public boolean updateProduct(int productId ,double price, String productName, double quantityPerUnit, String unitType, int categoryType) {
 		Product product = this.repository.getItemById(Product.class, productId);
 		if (product == null) return false;
-		if (price > 1000) product.setPrice(price);
-		if (name != null) product.setProductName(name);
-		if (categoryType != -1) product.setCategoryType(categoryType);
+		product.setPrice(price);
+		product.setProductName(productName);
+		product.setQuantityPerUnit(quantityPerUnit);
+		product.setUnitType(unitType);
+		product.setCategoryType(categoryType);
 		return update(product);
 	}
 
 	@Override
 	public Product createProduct(double price, String productName, double quantityPerUnit, String unitType, int categoryType) {
 		Product product = new Product();
-		product.setId(-1);
+		product.setId(0);
 		product.setPrice(price);
 		product.setProductName(productName);
 		product.setDiscontinued('f');
 		product.setQuantityPerUnit(quantityPerUnit);
 		product.setUnitType(unitType);
 		product.setCategoryType(categoryType);
-		return null;
+		return save(product);
 	}
 
 	@Override
@@ -83,6 +85,25 @@ public class ProductService extends ServiceBase<Product> implements IProductServ
 			}
 		});
 		System.out.println(products);
+		return products;
+	}
+
+	@Override
+	public List<Product> searchProduct(String productName, double price, int categories) {
+		List<Product> products = this.repository.customQuery(Product.class, new ICriteriaBuilder() {
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(Product.class, "p");
+				Conjunction and = Restrictions.conjunction();
+				if (productName != null)
+					and.add(Restrictions.ilike("p.productName", productName, MatchMode.ANYWHERE));
+				if (price != -1)
+					and.add(Restrictions.le("p.Price", price));
+				if (categories != -1)
+					and.add(Restrictions.eq("p.categoryType", categories));
+				return criteria.add(and);
+			}
+		});
 		return products;
 	}
 

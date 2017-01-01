@@ -1,8 +1,10 @@
-function CalendarDialog(dayPilot) {
+function AddTableDialog(seat, callback) {
+	
+	this.seatTable = seat;
+	this.callback = callback;
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
 	
-	this.dayPilot = dayPilot;
 	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -18,11 +20,56 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Customer Name:"
+						_text: "Floor:"
 					},
 					{
 						_name: "input",
-						id: "customer-name",
+						id: "floor",
+						type: "number"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Room: "
+					},
+					{
+						_name: "input",
+						id: "room",
+						type: "number"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Cacpacity: "
+					},
+					{
+						_name: "input",
+						id: "capacity",
+						type: "number"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Description: "
+					},
+					{
+						_name: "input",
+						id: "description",
 						type: "text"
 					}
 				]
@@ -33,43 +80,12 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Phone: "
+						_text: "Priority: "
 					},
 					{
 						_name: "input",
-						id: "customer-phone",
-						type: "text"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Email: "
-					},
-					{
-						_name: "input",
-						id: "customer-mail",
-						type: "text"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Capacity: "
-					},
-					{
-						_name: "input",
-						id: "customer-capacity",
+						id: "priority",
 						type: "number",
-						min: "0"
 					}
 				]
 			},
@@ -94,13 +110,23 @@ function CalendarDialog(dayPilot) {
 	});
 	var thiz = this;
 	window.setTimeout(function() {
-		thiz.customerPhone = thiz.container.querySelector("#customer-phone");
-		thiz.customerName = thiz.container.querySelector("#customer-name");
-		thiz.customerMail = thiz.container.querySelector("#customer-mail");
+		thiz.floor = thiz.container.querySelector("#floor");
+		thiz.room = thiz.container.querySelector("#room");
+		thiz.capacity = thiz.container.querySelector("#capacity");
+		thiz.description = thiz.container.querySelector("#description");
+		thiz.priority = thiz.container.querySelector("#priority");
+		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
-		thiz.customerCapacity = thiz.container.querySelector("#customer-capacity");
 		
+		if (thiz.seatTable != null) {
+			thiz.acceptButton.innerHTML = "Save";
+			thiz.floor.value = thiz.seatTable.floor;
+			thiz.room.value = thiz.seatTable.room;
+			thiz.capacity.value = thiz.seatTable.capacity;
+			thiz.description.value = thiz.seatTable.description == null ? "": thiz.seatTable.description ;
+			thiz.priority.value = thiz.seatTable.priority;
+		}
 		
 		thiz.acceptButton.addEventListener("click", function(event) {
 			thiz.onAccept();
@@ -125,40 +151,35 @@ function CalendarDialog(dayPilot) {
  * 
  */
 
-CalendarDialog.prototype.onAccept = function() {
-	var thiz = this;
-	var args = this.calendarItem;
-	var callback = function(appointment){
-		
-//		args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-//		args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
-		var e = new DayPilot.Event({
-		      start: args.start,
-		      end: args.end,
-		      id: DayPilot.guid(),
-		      resource: args.resource,
-		      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
-		      cusName: thiz.customerName.value,
-		      cusPhone: thiz.customerPhone.value,
-		      cusMail: thiz.customerMail.value,
-		      cusCapacity: thiz.customerCapacity.value,
-		      eventId: appointment.id,
-		      seatId: 0,
-		      room: 0,
-		      floor: 0
-		  });
-		thiz.dayPilot.events.add(e);
-		
+AddTableDialog.prototype.onAccept = function() {
+	if (this.seatTable) {
+		var thiz = this;
+		var callback = function(updated){
+			if (!updated) return;
+		}
+		serverReport.getJson("/updateTable.do", "GET", callback, {
+					"seatId": thiz.seatTable.id,
+					"floor" : thiz.floor.value,
+					"room" : thiz.room.value,
+					"capacity" : thiz.capacity.value,
+					"description": thiz.description.value,
+					"priority" : thiz.priority.value
+				});
+	} else {
+		var thiz = this;
+		var callback = function(seat){
+			if (!seat) return;
+			console.log(seat);
+		}
+		serverReport.getJson("/createSeatTable.do", "GET", callback, {
+					"floor" : thiz.floor.value,
+					"room" : thiz.room.value,
+					"capacity" : thiz.capacity.value,
+					"description": thiz.description.value,
+					"priority" : thiz.priority.value
+				});
 	}
-	serverReport.getJson("/createEvent.do", "POST", callback, {
-				"name" : thiz.customerName.value,
-				"phone" : thiz.customerPhone.value,
-				"gender" : "1",
-				"mail": thiz.customerMail.value,
-				"capacity" : thiz.customerCapacity.value,
-				"timeStart": moment(args.start.value).format('YYYY-MM-DD HH:mm:ss').toString(),
-				"timeEnd": moment(args.end.value).format('YYYY-MM-DD HH:mm:ss').toString()
-			});
+	
 	
 	
 //	var args = this.calendarItem;
@@ -181,17 +202,16 @@ CalendarDialog.prototype.onAccept = function() {
 	this.close();
 }
 
-CalendarDialog.prototype.onCancel = function() {
+AddTableDialog.prototype.onCancel = function() {
 	this.close();
 }
 
-CalendarDialog.prototype.getContainer = function() {
+AddTableDialog.prototype.getContainer = function() {
 	return this.container;
 }
 
-CalendarDialog.prototype.show = function(cEvent) {
+AddTableDialog.prototype.show = function() {
 	var thiz = this;
-	this.calendarItem = cEvent;
 	document.body.appendChild(this.container);
 	document.body.appendChild(this.busyBackground);
 	window.setTimeout(function(){
@@ -200,12 +220,13 @@ CalendarDialog.prototype.show = function(cEvent) {
 	
 }
 
-CalendarDialog.prototype.close = function() {
+AddTableDialog.prototype.close = function() {
 	document.body.removeChild(this.container);
 	document.body.removeChild(this.busyBackground);
+	if (this.callback) this.callback();
 }
 
-CalendarDialog.prototype.positionContainer = function(){
+AddTableDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";

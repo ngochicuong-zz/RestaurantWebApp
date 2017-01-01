@@ -92,7 +92,7 @@ ContextMenu.prototype.renderItems = function() {
 		var li = this.menuItems.children[i];
 		if (li.express != null) {
 			var check = li.express();
-			if  (check) {
+			if  (!check) {
 				li.style.display = "none";
 			} else {
 				li.style.display = "block";

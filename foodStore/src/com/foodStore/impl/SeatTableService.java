@@ -51,12 +51,19 @@ public class SeatTableService extends ServiceBase<SeatTable> implements ISeatTab
 	}
 	
 	@Override
-	public List<SeatTable> searchTable(int floor, int room, int capacity, boolean onDesk){
-		return this.repository.getItemsWithAllKey( SeatTable.class,
-				room != -1 ? new CompareKey("room", room): null,
-				floor != -1 ? new CompareKey("floor", floor) : null,
-				capacity != -1 ? new CompareKey("capacity", capacity) : null,
-				new CompareKey("onDesk", onDesk ? 't' : 'f'));
+	public List<SeatTable> searchTable(int floor, int room, int capacity, Boolean onDesk){
+		return this.repository.customQuery(SeatTable.class, new ICriteriaBuilder(){
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(SeatTable.class);
+				Conjunction and = Restrictions.conjunction();
+				if (floor != -1)  and.add(Restrictions.eq("floor", floor));
+				if (room != -1)  and.add(Restrictions.eq("room", room));
+				if (capacity != -1 ) and.add(Restrictions.eq("capacity", capacity));
+				if (onDesk != null ) and.add(Restrictions.like("onDesk", onDesk == true ? 't' : 'f'));
+				return criteria.add(and);
+			}
+		});
 	}
 
 	@Override
@@ -73,4 +80,34 @@ public class SeatTableService extends ServiceBase<SeatTable> implements ISeatTab
 		});
 		return seatTables;
 	}
+
+	@Override
+	public SeatTable createSeatTable(int floor, int room, int capacity, int priority, String description) {
+		SeatTable seat = new SeatTable();
+		seat.setId(0);
+		seat.setFloor(floor);
+		seat.setRoom(room);
+		seat.setRoom(room);
+		seat.setCapacity(capacity);
+		seat.setPriority(priority);
+		if (description != null || description != "")
+			seat.setDescription(description);
+		seat.setOnDesk('f');
+		return save(seat);
+	}
+
+	@Override
+	public boolean updateSeatTable(int seatId, int floor, int room, int capacity, int priority, String description) {
+		SeatTable seat = this.repository.getItemById(SeatTable.class, seatId);
+		if (seat == null) return false;
+		seat.setFloor(floor);
+		seat.setRoom(room);
+		seat.setDescription(description);
+		seat.setPriority(priority);
+		seat.setCapacity(capacity);
+		return update(seat);
+	}
+
+
+	
 }

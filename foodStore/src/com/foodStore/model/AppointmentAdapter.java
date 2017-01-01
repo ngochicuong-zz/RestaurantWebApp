@@ -13,12 +13,17 @@ public class AppointmentAdapter extends Adapter implements JsonSerializer<Appoin
 	public JsonElement serialize(Appointment src, Type typeOfSrc, JsonSerializationContext context) {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("id", src.getId());
-		jsonObject.addProperty("name", src.getCustomName());
-		jsonObject.addProperty("phone", src.getCustomPhone());
-		jsonObject.addProperty("email", src.getCustomEmail());
+		jsonObject.addProperty("customName", src.getCustomName());
+		jsonObject.addProperty("customPhone", src.getCustomPhone());
+		jsonObject.addProperty("customEmail", src.getCustomEmail());
 		jsonObject.addProperty("capacity", src.getCapacity());
 		jsonObject.addProperty("timeStart", src.getTimeStart().toString());
 		jsonObject.addProperty("timeEnd", src.getTimeEnd().toString());
+		if (src.getSeatTable() != null) {
+			jsonObject.addProperty("seatId", src.getSeatTable().getId());
+			jsonObject.addProperty("room", src.getSeatTable().getRoom());
+			jsonObject.addProperty("floor", src.getSeatTable().getFloor());
+		}
 		return jsonObject;
 	}
 

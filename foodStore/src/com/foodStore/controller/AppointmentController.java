@@ -44,7 +44,7 @@ public class AppointmentController {
 		}
 		if (week == -1) return null;
 		List<Appointment> appointments = ServiceManagement.get(IAppointmentService.class).getEventByWeek(week);
-		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointments);
+		return JsonUtil.build(Appointment.class, new AppointmentAdapter()).toJson(appointments);
 	}
 	
 	@RequestMapping(value = "/getEventByDate.do", method = RequestMethod.GET)
@@ -130,5 +130,16 @@ public class AppointmentController {
 		List<Appointment> appointments = ServiceManagement.get(IAppointmentService.class).getEventByCapacity(capacity);
 		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointments);
 	}
+	
+	@RequestMapping(value = "/bookSeatForEvent.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String bookSeatForEvent(
+			@RequestParam("seatId") int seatId,
+			@RequestParam("eventId") int eventId,
+			ModelMap model) {
+		boolean removed = ServiceManagement.get(IAppointmentService.class).bookSeatForEvent(seatId, eventId);
+		return String.valueOf(removed);
+	}
+	
 }
 

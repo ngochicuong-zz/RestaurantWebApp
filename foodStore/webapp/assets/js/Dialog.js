@@ -29,6 +29,7 @@ function Dialog() {
 			},
 			{
 				_name : "hbox",
+				flex: "1",
 				class: "InputRow",
 				_children : [
 					{
@@ -44,6 +45,8 @@ function Dialog() {
 					},
 					{
 						_name : "hbox",
+						flex: "1",
+						style: "justify-content: flex-end",
 						class: "InputRow",
 						_children : [
 							{
@@ -65,6 +68,8 @@ function Dialog() {
 	var thiz = this;
 	this.acceptButton = this.container.querySelector("#accept");
 	this.closeButton = this.container.querySelector("#close");
+	this.extraButton = this.container.querySelector("#extra");
+	this.extraButton.style.display= "none";
 	this.acceptButton.addEventListener("click", function(event) {
 		if(thiz.onAccept != null) thiz.onAccept();
 		thiz.close();
@@ -72,6 +77,14 @@ function Dialog() {
 	this.closeButton.addEventListener("click", function(event) {
 		if(thiz.onCancel != null) thiz.onCancel();
 		thiz.close();
+	});
+	
+	this.extraButton.addEventListener("click", function(event) {
+		var callback = function(){
+			thiz.close();
+		}
+		if(thiz.onExtra != null) thiz.onExtra(thiz.container, callback);
+		
 	});
 }
 
@@ -94,7 +107,7 @@ Dialog.prototype.getContainer = function() {
 	return this.container;
 }
 
-Dialog.prototype.show = function(title, info, acceptBtnName,onAccept, cancelBtnName, onCancel) {
+Dialog.prototype.show = function(title, info, acceptBtnName,onAccept, cancelBtnName, onCancel, extraButnName, onExtra) {
 	var thiz = this;
 	this.title = thiz.container.querySelector("#title");
 	this.info = thiz.container.querySelector("#info");
@@ -102,6 +115,12 @@ Dialog.prototype.show = function(title, info, acceptBtnName,onAccept, cancelBtnN
 	this.info.innerHTML = info;
 	this.acceptButton.innerHTML = acceptBtnName;
 	this.closeButton.innerHTML = cancelBtnName;
+	if (extraButnName != null || onExtra != null) {
+		this.extraButton.style.display= "inherit";
+		extraButnName != null ? this.extraButton.innerHTML = extraButnName : "";
+		onExtra != null ? this.onExtra = onExtra : "";
+		
+	}
 	this.onAccept = onAccept;
 	this.onCancel = onCancel;
 	document.body.appendChild(this.container);
@@ -124,9 +143,9 @@ Dialog.prototype.positionContainer = function(){
 	
 }
 
-Dialog.alert = function (title, info, acceptBtnName, onAccept, cancelBtnName, onCancel) {
+Dialog.alert = function (title, info, acceptBtnName, onAccept, cancelBtnName, onCancel,  extraButnName, onExtra) {
 	var dgl = new Dialog(); 
-	dgl.show(title, info, acceptBtnName, onAccept, cancelBtnName, onCancel);
+	dgl.show(title, info, acceptBtnName, onAccept, cancelBtnName, onCancel,  extraButnName, onExtra);
 }
 
 

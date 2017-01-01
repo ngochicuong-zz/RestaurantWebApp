@@ -1,8 +1,10 @@
-function CalendarDialog(dayPilot) {
+function AddProductDialog(product, callback) {
+	
+	this.product = product;
+	this.callback = callback;
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
 	
-	this.dayPilot = dayPilot;
 	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -18,11 +20,11 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Customer Name:"
+						_text: "Food name:"
 					},
 					{
 						_name: "input",
-						id: "customer-name",
+						id: "food-name",
 						type: "text"
 					}
 				]
@@ -33,11 +35,11 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Phone: "
+						_text: "Unit type: "
 					},
 					{
 						_name: "input",
-						id: "customer-phone",
+						id: "unit-type",
 						type: "text"
 					}
 				]
@@ -48,11 +50,11 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Email: "
+						_text: "Quantity per unit: "
 					},
 					{
 						_name: "input",
-						id: "customer-mail",
+						id: "quantity-per-unit",
 						type: "text"
 					}
 				]
@@ -63,13 +65,28 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Capacity: "
+						_text: "Price:  "
 					},
 					{
 						_name: "input",
-						id: "customer-capacity",
-						type: "number",
-						min: "0"
+						id: "price",
+						type: "number"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Categories:",
+						
+					},
+					{
+						_name: "input",
+						id: "categories",
+						type: "text"
 					}
 				]
 			},
@@ -94,13 +111,24 @@ function CalendarDialog(dayPilot) {
 	});
 	var thiz = this;
 	window.setTimeout(function() {
-		thiz.customerPhone = thiz.container.querySelector("#customer-phone");
-		thiz.customerName = thiz.container.querySelector("#customer-name");
-		thiz.customerMail = thiz.container.querySelector("#customer-mail");
+		thiz.foodName = thiz.container.querySelector("#food-name");
+		thiz.unit = thiz.container.querySelector("#unit-type");
+		thiz.quantityPerUnit = thiz.container.querySelector("#quantity-per-unit");
+		thiz.price = thiz.container.querySelector("#price");
+		thiz.categories = thiz.container.querySelector("#categories");
+		
+		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
-		thiz.customerCapacity = thiz.container.querySelector("#customer-capacity");
 		
+		if (thiz.product != null) {
+			thiz.acceptButton.innerHTML = "Save";
+			thiz.foodName.value = thiz.product.productName;
+			thiz.unit.value = thiz.product.unitType;
+			thiz.quantityPerUnit.value = thiz.product.quantityPerUnit;
+			thiz.price.value = thiz.product.price;
+			thiz.categories.value = thiz.product.categoryType;
+		}
 		
 		thiz.acceptButton.addEventListener("click", function(event) {
 			thiz.onAccept();
@@ -125,41 +153,31 @@ function CalendarDialog(dayPilot) {
  * 
  */
 
-CalendarDialog.prototype.onAccept = function() {
+AddProductDialog.prototype.onAccept = function() {
 	var thiz = this;
-	var args = this.calendarItem;
-	var callback = function(appointment){
-		
-//		args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-//		args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
-		var e = new DayPilot.Event({
-		      start: args.start,
-		      end: args.end,
-		      id: DayPilot.guid(),
-		      resource: args.resource,
-		      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
-		      cusName: thiz.customerName.value,
-		      cusPhone: thiz.customerPhone.value,
-		      cusMail: thiz.customerMail.value,
-		      cusCapacity: thiz.customerCapacity.value,
-		      eventId: appointment.id,
-		      seatId: 0,
-		      room: 0,
-		      floor: 0
-		  });
-		thiz.dayPilot.events.add(e);
-		
+	if (this.product) {
+		var callback = function(updated){
+		}
+		serverReport.getJson("/updateProduct.do", "GET", callback, {
+			"productId" : thiz.product.id,
+			"productName" : thiz.foodName.value,
+			"unit" : thiz.unit.value,
+			"quantityPerUnit": thiz.quantityPerUnit.value,
+			"price" : thiz.price.value,
+			"categories" : thiz.categories.value,
+		});
+	} else {
+		var callback = function(created){
+			if (!created) return;
+		}
+		serverReport.getBoolean("/createProduct.do", "GET", callback, {
+					"productName" : thiz.foodName.value,
+					"unit" : thiz.unit.value,
+					"quantity": thiz.quantityPerUnit.value,
+					"price" : thiz.price.value,
+					"categories" : thiz.categories.value,
+				});
 	}
-	serverReport.getJson("/createEvent.do", "POST", callback, {
-				"name" : thiz.customerName.value,
-				"phone" : thiz.customerPhone.value,
-				"gender" : "1",
-				"mail": thiz.customerMail.value,
-				"capacity" : thiz.customerCapacity.value,
-				"timeStart": moment(args.start.value).format('YYYY-MM-DD HH:mm:ss').toString(),
-				"timeEnd": moment(args.end.value).format('YYYY-MM-DD HH:mm:ss').toString()
-			});
-	
 	
 //	var args = this.calendarItem;
 //	args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
@@ -181,17 +199,16 @@ CalendarDialog.prototype.onAccept = function() {
 	this.close();
 }
 
-CalendarDialog.prototype.onCancel = function() {
+AddProductDialog.prototype.onCancel = function() {
 	this.close();
 }
 
-CalendarDialog.prototype.getContainer = function() {
+AddProductDialog.prototype.getContainer = function() {
 	return this.container;
 }
 
-CalendarDialog.prototype.show = function(cEvent) {
+AddProductDialog.prototype.show = function() {
 	var thiz = this;
-	this.calendarItem = cEvent;
 	document.body.appendChild(this.container);
 	document.body.appendChild(this.busyBackground);
 	window.setTimeout(function(){
@@ -200,12 +217,13 @@ CalendarDialog.prototype.show = function(cEvent) {
 	
 }
 
-CalendarDialog.prototype.close = function() {
+AddProductDialog.prototype.close = function() {
 	document.body.removeChild(this.container);
 	document.body.removeChild(this.busyBackground);
+	if (this.callback) this.callback();
 }
 
-CalendarDialog.prototype.positionContainer = function(){
+AddProductDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";

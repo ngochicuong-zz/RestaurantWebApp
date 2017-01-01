@@ -22,7 +22,11 @@ AppointmentPage.prototype.init = function() {
 	var thiz = this;
 	var callback = function(appointments) {
 		console.log(appointments);
-		if (appointments.length == 0) return;
+		if (appointments.length == 0) {
+			thiz.dayPilot.init();
+			return;
+			
+		}
 		thiz.dayPilot.events.list = new Array();
 		for(var i = 0; i < appointments.length; i++) {
 			var appointment = appointments[i];
@@ -36,7 +40,11 @@ AppointmentPage.prototype.init = function() {
 			      "cusPhone": appointment.customPhone,
 			      "cusMail": appointment.customEmail,
 			      "cusCapacity": appointment.capacity,
-			      "eventId": appointment.id
+			      "eventId": appointment.id,
+			      "seatId" : appointment.seatId == null ? 0 : appointment.seatId,
+			      "floor" : appointment.floor == null ? 0 : appointment.floor,
+			      "room" : appointment.room == null ? 0 : appointment.room
+			      
 			  };
 			thiz.dayPilot.events.list.push(e);
 		}
@@ -74,7 +82,11 @@ AppointmentPage.prototype.setupEvent = function() {
 				+ "<br>Customer phone: " + args.e.data.cusPhone
 				+ "<br>Customer mail: " + args.e.data.cusMail
 				+ "<br>Capacity: " + args.e.data.cusCapacity
-				, "Ok", null, "Delete", removeEvent);
+				+ "<br>Seat Id: " + args.e.data.seatId + "\t Room:" + args.e.data.room + "\t Floor: " + args.e.data.floor
+				, "Close", null, "Delete", removeEvent, "Book table...", function(extraNode, callback) { thiz.bookSeat(extraNode, args);
+				 	if (callback != null) callback();
+				}
+		);
 	};
 	
 	this.dayPilot.onTimeRangeSelected = function(args) {
@@ -82,6 +94,69 @@ AppointmentPage.prototype.setupEvent = function() {
 		calendarDgl.show(args);
 	};
 	
+	
+}
+
+AppointmentPage.prototype.bookSeat = function(extraNode, event) {
+	var comboPopup = new ComboPopup();
+	comboPopup.renderHandler = function(popupContainer, items){
+		popupContainer.innerHTML = "";
+		for(var i = 0; i < items.length; i++) {
+			var item = items[i];
+			var container =  Dom.newDOMElement({
+				_name : "hbox",
+				flex:"1",
+				style: "padding: 0.5em",
+				class: "combo-popup__item",
+				_children: [
+					{
+						_name : "hbox",
+						_text : "Seat Id: " + item["id"],
+						flex:"2"
+					
+					},
+					{
+						_name : "hbox",
+						_text : "Room: " + item["room"],
+						flex : "1",
+						style: "justify-content: flex-end"
+					},
+					{
+						_name : "hbox",
+						_text : "Floor: " + item["floor"],
+						style: "width: 5em; justify-content: flex-end"
+					}
+				]
+			});
+			container.data = item;
+			popupContainer.appendChild(container);
+		}
+	};
+	comboPopup.action = function(item) {
+		console.log(item);
+		if (item == null  ||item.data == null) return;
+		var seat = item.data;
+		var callback = function(updated) {
+			if (updated) {
+				event.e.data.seatId = seat.id;
+				event.e.data.room = seat.room;
+				event.e.data.floor = seat.floor;
+			}
+		}
+		serverReport.getBoolean("/bookSeatForEvent.do", "GET", null, {
+			"seatId" : seat.id,
+			"eventId" : event.e.data.eventId
+		});
+		
+	}
+	var callback = function(seat) {
+		if (seat == null) return;
+		comboPopup.renderItems(seat);
+		comboPopup.toggleMenuOnCenter();
+	}
+	serverReport.getJson("/getTableByCapacity.do", "GET", callback, {
+		"capacity" : event.e.data.cusCapacity
+	});
 	
 }
 

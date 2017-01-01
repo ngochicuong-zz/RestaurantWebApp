@@ -18,9 +18,9 @@ import com.foodStore.service.ServiceManagement;
 
 @Controller
 public class ProductController {
-	@RequestMapping(value = "/getMenuPage.do", method = RequestMethod.GET)
-	public String getProductPage(ModelMap model) {
-		return "MenuPage";
+	@RequestMapping(value = "/getProductManagementPage.do", method = RequestMethod.GET)
+	public String getProductManagementPage(ModelMap model) {
+		return "ProductManagementPage";
 	}
 	
 	@RequestMapping(value = "/getProducts.do", method = RequestMethod.GET)
@@ -35,9 +35,38 @@ public class ProductController {
 	@ResponseBody
 	public String searchProduct(
 			@RequestParam("name") String name,
+			@RequestParam("price") double price,
+			@RequestParam("categories") int categories,
 			ModelMap model) {
-		List<Product> products = ServiceManagement.get(IProductService.class).searchWithName(name);
-		if (products == null) return "[]";
+		List<Product> products = ServiceManagement.get(IProductService.class).searchProduct(name, price, categories);
 		return JsonUtil.build(Product.class, new ProductAdapter()).toJson(products);
 	}
+	
+	@RequestMapping(value = "/createProduct.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String createProduct(
+			@RequestParam("productName") String productName,
+			@RequestParam("unit") String unit,
+			@RequestParam("quantity") int quantityPerUnit,
+			@RequestParam("price") double price,
+			@RequestParam("categories") int categories,
+			ModelMap model) {
+		Product product = ServiceManagement.get(IProductService.class).createProduct(price, productName, quantityPerUnit, unit, categories);
+		return JsonUtil.build(Product.class, new ProductAdapter()).toJson(product);
+	}
+	
+	@RequestMapping(value = "/updateProduct.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String updateProduct(
+			@RequestParam("productId") int productId,
+			@RequestParam("productName") String productName,
+			@RequestParam("unit") String unit,
+			@RequestParam("quantityPerUnit") int quantityPerUnit,
+			@RequestParam("price") double price,
+			@RequestParam("categories") int categories,
+			ModelMap model) {
+		boolean updated = ServiceManagement.get(IProductService.class).updateProduct(productId, price, productName, quantityPerUnit, unit, categories);
+		return String.valueOf(updated);
+	}
+	
 }

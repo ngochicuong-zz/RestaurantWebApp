@@ -16,7 +16,7 @@ public class AccountAdapter extends Adapter implements JsonSerializer<Account> {
 		jsonObject.addProperty("pass", acc.getPass());
 		jsonObject.addProperty("email", acc.getEmail());
 		jsonObject.addProperty("role", acc.getRole());
-		jsonObject.addProperty("lastSignInAt", acc.getLastSignInAt().toString());
+		jsonObject.addProperty("lastSignInAt", acc.getLastSignInAt() == null ? "" : acc.getLastSignInAt().toString());
 		jsonObject.addProperty("actived", acc.getActived());
 		jsonObject.addProperty("online", acc.getOnline());
 		return jsonObject;

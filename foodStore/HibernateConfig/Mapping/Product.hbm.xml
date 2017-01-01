@@ -6,7 +6,7 @@
     <class name="Product" table="PRODUCT">
         <id name="id" column="ID">
             <generator class="sequence">
-                <param name="sequence">ACCOUNT_ID</param>
+                <param name="sequence">PRODUCT_ID</param>
             </generator>
         </id>
         <property name="productName" column="PRODUCTNAME"/>

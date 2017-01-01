@@ -12,4 +12,6 @@ public interface IAppointmentService {
 	boolean updateEvent(int eventId, Date newTimeStart, Date newTimeEnd);
 	boolean removeEvent(int eventId);
 	List<Appointment> getEventByCapacity(int capacity);
+	
+	boolean bookSeatForEvent(int eventId, int seatId);
 }

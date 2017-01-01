@@ -33,7 +33,10 @@
 	#payment-container label{
 		width: 10em;
 	}
-	
+	#seat-info label {
+		width: 5em;
+		text-align: center;
+	}
 </style>
 <hbox flex="1"> 
 <vbox id="seat-info"> 
@@ -58,11 +61,11 @@
 			<label id="seatCapacity"></label>
 		</hbox>
 		<hbox>
-			<hbox class="InputRow" style="justify-content: flex-end; margin-right:0.5em; color: #000000">
-				<button id="checkout-button" class="glyphicon glyphicon-usd">Check</button>
+			<hbox class="InputRow" style="justify-content: flex-start; margin-right:0.5em; color: #000000">
+				<button id="checkout-button" class="glyphicon glyphicon-usd round-button" title="Check out"></button>
 			</hbox>	
-			<hbox style="justify-content: flex-end; color: #000000">
-				<button id="back-button" class="glyphicon glyphicon-triangle-left"> back</button>
+			<hbox style="justify-content: flex-end; color: #000000" flex="1">
+				<button id="back-button" class="glyphicon glyphicon-hand-left round-button "title="Back"></button>
 			</hbox>	
 		</hbox>
 	</vbox>
@@ -86,13 +89,13 @@
 				<label>Total: </label>
 				<label id="order-total" ></label>
 		</hbox>
-		<hbox class="InputRow" id="add-detail-panel" style="align-items: flex-start;" >
+		<hbox class="InputRow" id="add-detail-panel" style="min-height: 4em; align-items: flex-start;" >
 			
-			<hbox flex="1" class="InputRow">
+			<hbox flex="1" >
 				<label>Food Name: </label>
 				<input flex="1" type="text" id="productText"/>
 			</hbox>
-			<hbox class="InputRow">
+			<hbox >
 				<label>Quality: </label>
 				<input style="width:5em;" type="number" min=0.1 step="0.01" id="quality"/>
 			</hbox>
@@ -100,11 +103,13 @@
 				<button style="width:5em;" id="addOrderDetail">Add</button>
 			</hbox>
 		</hbox>
-		<hbox class="InputRow" id="edit-detail-panel" style="align-items: flex-start;" >
+		<hbox class="InputRow" id="edit-detail-panel" style="min-height: 4em; align-items: flex-start;" >
 			<hbox flex="1">
+				<label>Food Name: </label>
 				<input flex="1" type="text" id="edit-product-text" disabled/>
 			</hbox>
 			<hbox>
+				<label>Quality: </label>
 				<input style="width:5em;" type="number" min=0.1 step="0.01" id="edit-quality"/>
 			</hbox>
 			<hbox>

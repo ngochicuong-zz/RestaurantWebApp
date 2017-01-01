@@ -16,6 +16,7 @@ public class SeatAdapter extends Adapter implements JsonSerializer<SeatTable> {
 		jsonObject.addProperty("room", seat.getRoom());
 		jsonObject.addProperty("capacity", seat.getCapacity());
 		jsonObject.addProperty("onDesk", seat.getOnDesk());
+		jsonObject.addProperty("description", seat.getDescription());
 		jsonObject.addProperty("priority", seat.getPriority());
 		return jsonObject;
 	}

@@ -81,16 +81,29 @@ ComboPopup.prototype.getMenu = function() {
 }
 
 ComboPopup.prototype.toggleMenuOn = function(targetNode) {
-//	this.renderItems();
-	document.body.appendChild(this.menu);
+	this.positionMenu(targetNode);
+	this.flag = true;
+	
 	var thiz = this;
 	window.setTimeout(function() {
-		thiz.positionMenu(targetNode);
-		thiz.flag = true;
+		document.body.appendChild(thiz.menu);
 	})
-//	this.handleItem = e.dataNode;
+}
+
+ComboPopup.prototype.toggleMenuOnCenter = function() {
+	var w = 300;
+	var h = 300;
+	this.menu.style.width = w + "px";
+	this.menu.style.height = h + "px";
+	this.menu.style.left = (window.innerWidth - w) / 2 + "px";
+	this.menu.style.top = (window.innerHeight - h) / 2 + "px";
 	
+	this.flag = true;
 	
+	var thiz = this;
+	window.setTimeout(function() {
+		document.body.appendChild(thiz.menu);
+	})
 }
 
 ComboPopup.prototype.toggleMenuOff = function() {

@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import com.foodStore.hibernate.HibernateRepository.ICriteriaBuilder;
 import com.foodStore.hibernate.IRepository;
 import com.foodStore.model.Appointment;
+import com.foodStore.model.SeatTable;
 import com.foodStore.service.IAppointmentService;
 
 public class AppointmentService extends ServiceBase<Appointment> implements IAppointmentService {
@@ -107,5 +108,18 @@ public class AppointmentService extends ServiceBase<Appointment> implements IApp
 			}
 		});
 		return appointments;
+	}
+
+	@Override
+	public boolean bookSeatForEvent(int seatId, int eventId) {
+		Appointment appointment = this.repository.getItemById(Appointment.class, eventId);
+		SeatTable seat = this.repository.getItemById(SeatTable.class, seatId);
+		System.out.println(appointment + "||" + seat);
+		if (appointment == null || seat == null) return false;
+		appointment.setSeatTable(seat);
+		seat.setOnDesk('t');
+		update(appointment);
+		this.repository.updateItem(seat);
+		return true;
 	}
 }
