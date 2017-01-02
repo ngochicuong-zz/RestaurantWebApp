@@ -12,11 +12,12 @@ public interface IAccountService {
 	void logout(Account account);
 	@Transactional
 	boolean changePassword(Account account, String password);
-	boolean setActive(Account account, boolean active);
+	
 	List<Account> getAllAccountWithOnline(boolean online);
 	List<Account> getAllAccountWithActive(boolean active);
 	
-	boolean createAccount(String user, String pass, String email, int role);
+	boolean setActive(int accountId, boolean active);
+	Account createAccount(String user, String pass, String email, int role);
 	List<Account> getAllAccount();
 	List<Account> getAccountByUser(String user);
 	boolean updateAccount(int userId, String user, String pass, String email, int role);

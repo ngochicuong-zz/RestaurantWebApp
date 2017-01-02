@@ -107,10 +107,10 @@ ContextMenu.prototype.getMenu = function() {
 
 ContextMenu.prototype.toggleMenuOn = function(e) {
 	e.preventDefault();
+	this.handleItem = e.dataNode;
 	this.positionMenu(e);
 	this.renderItems();
 	document.body.appendChild(this.menu);
-	this.handleItem = e.dataNode;
 	this.flag = true;
 	
 }

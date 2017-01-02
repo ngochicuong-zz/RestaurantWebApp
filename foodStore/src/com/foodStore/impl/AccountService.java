@@ -53,10 +53,11 @@ public class AccountService extends ServiceBase<Account> implements IAccountServ
 	
 	@Override
 	@Transactional
-	public boolean setActive(Account account, boolean active) {
-		account.setActived(active ? 't' : 'f');
-		this.repository.updateItem(account);
-		return false;
+	public boolean setActive(int accountId, boolean active) {
+		Account account = this.repository.getItemById(Account.class, accountId);
+		if (account == null) return false;
+		account.setActived(active == true ? 't' : 'f');
+		return this.repository.updateItem(account);
 	}
 
 	@Override
@@ -96,7 +97,7 @@ public class AccountService extends ServiceBase<Account> implements IAccountServ
 	}
 
 	@Override
-	public boolean createAccount(String user, String pass, String email, int role) {
+	public Account createAccount(String user, String pass, String email, int role) {
 		Account account = new Account();
 		account.setUser(user);
 		account.setPass(pass);
@@ -104,7 +105,7 @@ public class AccountService extends ServiceBase<Account> implements IAccountServ
 		account.setRole(role);
 		account.setActived('t');
 		account.setOnline('f');
-		return save(account) != null ? true : false;
+		return save(account);
 	}
 
 	@Override

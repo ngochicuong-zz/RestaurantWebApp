@@ -114,7 +114,6 @@ ComboPopup.prototype.positionMenu = function(targetNode){
 	this.menu.style.width = targetNode.offsetWidth + "px";
 	this.menu.style.height = "200px";
 	this.menu.style.left = targetNode.offsetLeft + "px";
-	this.menu.style.top = targetNode.offsetTop - 202 + "px";
-	
+	this.menu.style.top = targetNode.offsetTop + targetNode.offsetHeight + 2 + "px";
 }
 

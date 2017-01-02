@@ -1,5 +1,5 @@
-function ProductManagementPage() {
-	this.name = "product-manager-page";
+function PromoManagementPage() {
+	this.name = "promotion-manager-page";
 	this.pageContainer = this.table = Dom.newDOMElement({
 		_name : "hbox",
 		id : "     ",
@@ -10,10 +10,10 @@ function ProductManagementPage() {
 		thiz.pageContainer.innerHTML = htmlText;
 		thiz.init();
 	}
-	serverReport.getHTML("/getProductManagementPage.do", "GET", callback);
+	serverReport.getHTML("/getPromoManagementPage.do", "GET", callback);
 }
 
-ProductManagementPage.prototype.init = function(){
+PromoManagementPage.prototype.init = function(){
 	this.addButton = this.pageContainer.querySelector("#add-button");
 	this.searchButton = this.pageContainer.querySelector("#search-button");
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
@@ -21,11 +21,9 @@ ProductManagementPage.prototype.init = function(){
 	this.promoName = this.pageContainer.querySelector("#promo-name");
 	this.fromDate = this.pageContainer.querySelector("#from-date");
 	this.toDate = this.pageContainer.querySelector("#to-date");
-	
 	var thiz = this;
-	
-	var theader = new Array("productName", "unitType", "quantityPerUnit", "price", "discontinued",
-			"categoryType");
+	var theader = new Array("promotionCode", "payCondition", "discount", "fromDate", "toDate",
+			"description");
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
@@ -40,7 +38,7 @@ ProductManagementPage.prototype.init = function(){
 			{
 				name : "Add",
 				handler : function(handleItem) {
-					var dialog = new AddProductDialog();
+					var dialog = new AddPromotionDialog();
 					dialog.show();
 				}
 			},
@@ -52,8 +50,9 @@ ProductManagementPage.prototype.init = function(){
 							thiz.reloadPage();
 						}, 100)
 					}
-					var dialog = new AddProductDialog(handleItem.data, callback);
+					var dialog = new AddPromotionDialog(handleItem.data, callback);
 					dialog.show();
+//				
 			}
 			} ]);
 	this.table.tableBody.addEventListener("contextmenu", function(e) {
@@ -70,27 +69,28 @@ ProductManagementPage.prototype.init = function(){
 	});
 	
 	this.addButton.addEventListener("click", function() {
-		var dialog = new AddProductDialog();
+		var dialog = new AddPromotionDialog();
 		dialog.show();
 	});
 	
 }
 
-ProductManagementPage.prototype.reloadPage = function() {
+PromoManagementPage.prototype.reloadPage = function() {
 	var thiz = this;
-	var c = this.categories;
+	console.log("Search button click.... ");
 
 	var callback = function(seats) {
 		thiz.table.render(seats);
 	}
-	serverReport.getJson("/searchProduct.do", "GET",
+	serverReport.getJson("/searchPromotion.do", "GET",
 			callback, {
-				"name" : this.foodName.value,
-				"price" : this.price.value == "" ? -1 : this.price.value,
-				"categories" : c.options[c.selectedIndex].value
+				"description" : thiz.promoName.value,
+				"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
+				"toDate" : thiz.toDate.value == "" ? thiz.toDate.value : moment(thiz.toDate.value).format('YYYY-MM-DD HH:mm:ss').toString()
+					
 	});
 }
 
-ProductManagementPage.prototype.getPageContainer = function() {
+PromoManagementPage.prototype.getPageContainer = function() {
 	return this.pageContainer;
 }

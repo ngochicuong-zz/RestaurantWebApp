@@ -1,5 +1,8 @@
 package com.foodStore.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -93,6 +96,88 @@ public class OrderController {
 			ModelMap model) {
 		Payment payment = ServiceManagement.get(IPaymentService.class).createPayment(refCode, promotionCode, realPay);
 		return JsonUtil.build(Order.class, new PaymentAdapter()).toJson(payment);
+	}
+	
+	@RequestMapping(value = "/getPromoManagementPage.do", method = RequestMethod.GET)
+	public String getPromoManagementPage(
+			ModelMap model) {
+		return "PromoManagementPage";
+	}
+	
+	@RequestMapping(value = "/searchPromotion.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String searchPromotion(
+			@RequestParam("description") String description,
+			@RequestParam("fromDate") String fromdate,
+			@RequestParam("toDate") String todate,
+			ModelMap model) {
+		System.out.println("from date" + fromdate);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date fromDate = null;
+		Date toDate = null;
+		try {
+			if (fromdate != "") {
+				fromDate = format.parse(fromdate);
+			}
+			if (todate != "") {
+				toDate = format.parse(todate);
+			}
+		} catch (ParseException e) {
+		}
+		List<Promotion> promotions = ServiceManagement.get(IPromotionService.class).searchPromotion(description, fromDate, toDate);
+		return JsonUtil.build(Promotion.class, new PromotionAdapter()).toJson(promotions);
+	}
+	
+	@RequestMapping(value = "/createPromotion.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String createPromotion(
+			@RequestParam("paycondition") double paycondition,
+			@RequestParam("discount") double discount,
+			@RequestParam("fromDate") String fromdate,
+			@RequestParam("toDate") String todate,
+			@RequestParam("description") String descripstion,
+			ModelMap model) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date fromDate = null;
+		Date toDate = null;
+		try {
+			if (fromdate != "") {
+				fromDate = format.parse(fromdate);
+			}
+			if (todate != "") {
+				toDate = format.parse(todate);
+			}
+		} catch (ParseException e) {
+		}
+		Promotion promotion = ServiceManagement.get(IPromotionService.class).createPromotion(paycondition, discount, fromDate, toDate, descripstion);
+		return JsonUtil.build(Promotion.class, new PromotionAdapter()).toJson(promotion);
+	}
+	
+	@RequestMapping(value = "/updatePromotion.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String updatePromotion(
+			@RequestParam("promoId") int promoId,
+			@RequestParam("paycondition") double paycondition,
+			@RequestParam("discount") double discount,
+			@RequestParam("fromDate") String fromdate,
+			@RequestParam("toDate") String todate,
+			@RequestParam("description") String descripstion,
+			ModelMap model) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date fromDate = null;
+		Date toDate = null;
+		try {
+			if (fromdate != "") {
+				fromDate = format.parse(fromdate);
+			}
+			if (todate != "") {
+				toDate = format.parse(todate);
+			}
+		} catch (ParseException e) {
+		}
+		System.out.println(fromDate + "||" + toDate);
+		boolean updated = ServiceManagement.get(IPromotionService.class).updatePromotion(promoId, paycondition, discount, fromDate, toDate, descripstion);
+		return String.valueOf(updated);
 	}
 	
 }

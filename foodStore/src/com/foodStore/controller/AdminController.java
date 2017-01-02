@@ -50,8 +50,8 @@ public class AdminController {
 			@RequestParam("email") String email,
 			@RequestParam("role") int role,
 			ModelMap model) {
-		boolean result = ServiceManagement.get(IAccountService.class).createAccount(user, pass, email, role);
-		return String.valueOf(result);
+		Account account = ServiceManagement.get(IAccountService.class).createAccount(user, pass, email, role);
+		return JsonUtil.build(Account.class, new AccountAdapter()).toJson(account);
 	}
 	
 	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.POST)
@@ -64,6 +64,16 @@ public class AdminController {
 			@RequestParam("role") int role,
 			ModelMap model) {
 		boolean result = ServiceManagement.get(IAccountService.class).updateAccount(userId, user, pass, email, role);
+		return String.valueOf(result);
+	}
+	
+	@RequestMapping(value = "/setActiveAccount.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String updateAccount(
+			@RequestParam("userId") int userId,
+			@RequestParam("active") boolean active,
+			ModelMap model) {
+		boolean result = ServiceManagement.get(IAccountService.class).setActive(userId, active);
 		return String.valueOf(result);
 	}
 }

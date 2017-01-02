@@ -25,30 +25,18 @@
 		<label>Floor</label>
 		<select id="floor">
 		  <option value= -1>--not selected--</option>
-		  <option value= 1>1</option>
-		  <option value= 2>2</option>
-		  <option value= 3>3</option>
-		  <option value= 4>4</option>
 		</select>
 	</vbox>
 	<vbox>
 		<label>Room:</label>
 		<select  id="room">
 		  <option value= -1>--not selected--</option>
-		  <option value= 1>1</option>
-		  <option value= 2>2</option>
-		  <option value= 3>3</option>
-		  <option value= 4>4</option>
 		</select>
 	</vbox>
 	<vbox>
 		<label>Capacity: </label>
 		<select  id="capacity">
 		  <option value= -1>--not selected--</option>
-		  <option value= 1>1</option>
-		  <option value= 2>2</option>
-		  <option value= 3>3</option>
-		  <option value= 4>4</option>
 		</select>
 	</vbox>
 	<vbox>

@@ -4,35 +4,43 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
+</style>
+<style>
 	#search-panel{
 		min-width: 10em;
 		background-color: #313236;
 		color: #ffffff;
 		padding: 0.5em;
 	}
-	#search-panel > vbox + hbox {
-		margin-top:1em;
+	#search-panel > vbox, #search-panel > hbox {
+		margin-left: 1em;
+		
 	}
-	
-	#search-panel label {
-		min-width: 5em;
+	#container-panel {
+		box-shadow: -2px 10px 10px #000000;
 	}
 </style>
 <vbox flex="1"> 
-	<vbox id="search-panel"> 
-		<hbox flex="1" class="InputRow" id="add-detail-panel" style=" align-items: flex-start;" >
-			<hbox flex="1" class="InputRow">
-				<label>Account: </label>
-				<input flex="2" style="color:#000;" type="text" id="account-name"/>
-			</hbox>
-			<hbox flex="1" style="justify-content: flex-start; color: #000000">
+	<hbox id="search-panel"> 
+		<hbox class="InputRow">
+			<label>Promo name: </label>
+			<input id="promo-name" type="text" />
+		</hbox>
+		<hbox class="InputRow">
+			<label>From date: </label>
+			<input id="from-date" type="date" />
+		</hbox>
+		<hbox class="InputRow">
+			<label>To date:  </label>
+			<input id="to-date" type="date" />
+		</hbox>
+		<hbox style="justify-content: flex-end; color: #000000">
+			<hbox style="justify-content: flex-end; color: #000000">
 				<button id="search-button"><i class="material-icons md-dark md-32" >search</i></button>
-			</hbox>
-			<hbox flex="1" style="justify-content: flex-end; color: #000000">
 				<button style="margin-left: 0.5em" id="add-button"><i class="material-icons md-dark md-32" >add</i></button>
 			</hbox>
 		</hbox>
-	</vbox> 
+	</hbox> 
 	<vbox id="container-panel" flex="1">
 	<!-- 
 		<table class="table table-bordered">

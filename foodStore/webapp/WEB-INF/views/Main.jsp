@@ -18,6 +18,8 @@
 <script src="webapp/assets/js/common-dom.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<script src="webapp/assets/js/AddPromotionDialog.js"></script>
+<script src="webapp/assets/js/PromoManagementPage.js"></script>
 <script src="webapp/assets/js/AddProductDialog.js"></script>
 <script src="webapp/assets/js/AddAccountDialog.js"></script>
 <script src="webapp/assets/js/AccountManagementPage.js"></script>

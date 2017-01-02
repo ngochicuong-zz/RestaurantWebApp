@@ -2,7 +2,7 @@ function OrderPage() {
 	this.name = "order-page";
 	
 	this.seat;
-	this.order;
+	this.order = null;
 	this.orderDetails = new Array();
 	
 	this.pageContainer = Dom.newDOMElement({
@@ -126,9 +126,6 @@ OrderPage.prototype.init = function() {
 						}
 					};
 					serverReport.getBoolean("/removeOrderDetail.do?detailId=" + orderDetail.id + "", "GET", callback);
-				},
-				express : function() {
-					return thiz.seatStatus == "true";
 				}
 			}, {
 				name : "Edit",
@@ -160,10 +157,7 @@ OrderPage.prototype.init = function() {
 				
 				thiz.editProductNameIn.value = "";
 				thiz.editQualityIn.value = 0;
-				
 				thiz.editDetailPanel.style.display="none";
-				
-				
 				thiz.orderTotal.innerHTML = thiz.order.total;
 				thiz.addDetailPanel.style.display = "inherit";
 			}
@@ -264,8 +258,6 @@ OrderPage.prototype.init = function() {
 		var callback = function(payment) {
 			if (payment == null) return;
 			Main.pageManagement.active("table-page");
-			Main.pageManagement.activePage.reloadPage();
-//			thiz.renderPromoCombo(promos);
 		}
 		var promotionCode = promoData == null ? "~" : promoData.promotionCode;
 		serverReport.getJson("/createPayment.do?refCode="+ order.refCode +"&promotionCode="+ promotionCode +"&realPay="+ realPay.value +"", "GET", callback);
@@ -364,11 +356,11 @@ OrderPage.prototype.open = function(seat) {
 		this.floor.innerHTML = this.seat.floor;
 		this.room.innerHTML = this.seat.room;
 		this.capacity.innerHTML = this.seat.capacity;
-		this.renderOrder(seat);
+		this.requestOrder(seat);
 	} 
 }
 
-OrderPage.prototype.renderOrder = function(seat){
+OrderPage.prototype.requestOrder = function(seat){
 	var thiz = this;
 	var callback = function(order){
 		thiz.order = order;
@@ -376,12 +368,12 @@ OrderPage.prototype.renderOrder = function(seat){
 		thiz.orderCode.innerHTML = order.refCode;
 		thiz.orderTotal.innerHTML = order.total;
 		thiz.orderDate.innerHTML = moment(order.dataInsert).format("DD-MM-YYYY h:mm a");
-		thiz.renderOrderDetail(order);
+		thiz.requestOrderDetail(order);
 	}
 	serverReport.getJson("/getOrderWithSeat.do?seatId="+ seat.id +"", "GET", callback);
 }
 
-OrderPage.prototype.renderOrderDetail = function(order) {
+OrderPage.prototype.requestOrderDetail = function(order) {
 	if (order == null) return;
 	var thiz = this;
 	var callback = function(orderDetails){
@@ -394,5 +386,6 @@ OrderPage.prototype.renderOrderDetail = function(order) {
 }
 
 OrderPage.prototype.getPageContainer = function() {
+	this.renewPage();
 	return this.pageContainer;
 }

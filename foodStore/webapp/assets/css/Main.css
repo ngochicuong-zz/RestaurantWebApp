@@ -295,6 +295,9 @@ table tr td{
 	white-space: nowrap;
 	word-wrap: break-word;
 	text-overflow: ellipsis;
+	max-width: 5em;
+	text-align: center;
+	overflow: hidden;
 }
 
 

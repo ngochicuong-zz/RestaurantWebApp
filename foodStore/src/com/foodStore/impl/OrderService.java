@@ -76,7 +76,7 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		System.out.println(seat);
 		if (seat == null) return null;
 		List<Order> orders = (List<Order>) this.repository.getItemsWithAllKey(Order.class, new CompareKey("seatTable", seat));
-		Order order = orders.size() == 0 ? null : orders.get(0);
+		Order order = orders.size() == 0 ? null : orders.get(orders.size() - 1);
 		return order;
 	}
 

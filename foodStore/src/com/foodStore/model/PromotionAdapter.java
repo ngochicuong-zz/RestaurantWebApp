@@ -16,8 +16,8 @@ public class PromotionAdapter extends Adapter implements JsonSerializer<Promotio
 		jsonObject.addProperty("promotionCode", src.getPromotionCode());
 		jsonObject.addProperty("payCondition", src.getPayCondition());
 		jsonObject.addProperty("discount", src.getDiscount());
-		jsonObject.addProperty("fromDate", src.getFromDate().toString());
-		jsonObject.addProperty("toDate", src.getToDate().toString());
+		jsonObject.addProperty("fromDate", src.getFromDate() == null ? "" :  src.getFromDate().toString());
+		jsonObject.addProperty("toDate", src.getToDate() == null ? "" : src.getToDate().toString());
 		jsonObject.addProperty("description", src.getDescription());
 		return jsonObject;
 	}

@@ -35,7 +35,12 @@ Table.prototype.init = function(tHeader) {
 	var thiz = this;
 	this.tableBody.addEventListener("hover", function(ev) {
 		var target = ev.target;
-		if (target.data != null) thiz.selectedItem = target;
+		var dataNode = Dom.findUpward(target, {
+			eval : function(n) {
+				return n.data;
+			}
+		});
+		if (dataNode != null) thiz.selectedItem = dataNode;
 	})
 }
 

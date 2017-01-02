@@ -1,6 +1,6 @@
-function AddAccountDialog(account, callback) {
+function AddPromotionDialog(promotion, callback) {
 	
-	this.account = account;
+	this.promotion = promotion;
 	this.callback = callback;
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
@@ -20,57 +20,73 @@ function AddAccountDialog(account, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Account:"
+						_text: "Pay condition:"
 					},
 					{
 						_name: "input",
-						id: "user",
-						type: "text"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Password: "
-					},
-					{
-						_name: "input",
-						id: "pass",
-						type: "password"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Email: "
-					},
-					{
-						_name: "input",
-						id: "email",
-						type: "text"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Role:  "
-					},
-					{
-						_name: "select",
-						id: "role",
+						id: "pay-condition",
 						type: "number"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Discount: "
+					},
+					{
+						_name: "input",
+						id: "discount",
+						type: "number"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "From date: "
+					},
+					{
+						_name: "input",
+						id: "from-date",
+						type: "date"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "To Date:  "
+					},
+					{
+						_name: "input",
+						id: "to-date",
+						type: "date"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Description:",
+						
+					},
+					{
+						_name: "input",
+						id: "description",
+						type: "text"
 					}
 				]
 			},
@@ -95,20 +111,24 @@ function AddAccountDialog(account, callback) {
 	});
 	var thiz = this;
 	window.setTimeout(function() {
-		thiz.user = thiz.container.querySelector("#user");
-		thiz.pass = thiz.container.querySelector("#pass");
-		thiz.email = thiz.container.querySelector("#email");
-		thiz.role = thiz.container.querySelector("#role");
+		thiz.payCondition = thiz.container.querySelector("#pay-condition");
+		thiz.discount = thiz.container.querySelector("#discount");
+		thiz.fromDate = thiz.container.querySelector("#from-date");
+		thiz.toDate = thiz.container.querySelector("#to-date");
+		thiz.description = thiz.container.querySelector("#description");
 		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
 		
-		if (thiz.account != null) {
+		if (thiz.promotion != null) {
 			thiz.acceptButton.innerHTML = "Save";
-			thiz.user.value = thiz.account.user;
-			thiz.pass.value = thiz.account.pass;
-			thiz.email.value = thiz.account.email;
-			thiz.role.value = thiz.account.role;
+			thiz.payCondition.value = thiz.promotion.payCondition;
+			thiz.discount.value = thiz.promotion.discount;
+			
+			thiz.fromDate.value = moment(thiz.promotion.fromDate).format('YYYY-MM-DD').toString();
+			thiz.toDate.value = moment(thiz.promotion.toDate).format('YYYY-MM-DD').toString();
+			
+			thiz.description.value = thiz.promotion.description;
 		}
 		
 		thiz.acceptButton.addEventListener("click", function(event) {
@@ -134,51 +154,44 @@ function AddAccountDialog(account, callback) {
  * 
  */
 
-AddAccountDialog.prototype.onAccept = function() {
+AddPromotionDialog.prototype.onAccept = function() {
 	var thiz = this;
-	if (this.account) {
+	if (this.promotion) {
 		var callback = function(updated){
-			if (updated) {
-				thiz.account.user = thiz.user.value;
-				thiz.account.pass = thiz.pass.value,
-				thiz.account.email = thiz.email.value;
-				thiz.account.role = thiz.role.value;
-				if (thiz.callback) thiz.callback(thiz.account);
-			}
 		}
-		serverReport.getJson("/updateAccount.do", "POST", callback, {
-			"userId" : thiz.account.id,
-			"user" : thiz.user.value,
-			"pass" : thiz.pass.value,
-			"email" : thiz.email.value,
-			"role": thiz.role.value,
+		serverReport.getJson("/updatePromotion.do", "GET", callback, {
+			"promoId" : thiz.promotion.id,
+			"paycondition" : thiz.payCondition.value,
+			"discount" : thiz.discount.value,
+			"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
+			"toDate" : thiz.toDate.value == "" ? thiz.toDate.value : moment(thiz.toDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
+			"description" : thiz.description.value,
 		});
 	} else {
-		var callback = function(newAccount){
-			if (newAccount) {
-				thiz.account = newAccount;
-				if (thiz.callback) thiz.callback(thiz.account);
-			}
+		var callback = function(created){
+			if (!created) return;
 		}
-		serverReport.getJson("/createAccount.do", "POST", callback, {
-					"user" : thiz.user.value,
-					"pass" : thiz.pass.value,
-					"email" : thiz.email.value,
-					"role": thiz.role.value,
+		serverReport.getBoolean("/createPromotion.do", "GET", callback, {
+					"paycondition" : thiz.payCondition.value,
+					"discount" : thiz.discount.value,
+					"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
+					"toDate" : thiz.toDate.value == "" ? thiz.toDate.value : moment(thiz.toDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
+					"description" : thiz.description.value,
 				});
 	}
+	
 	this.close();
 }
 
-AddAccountDialog.prototype.onCancel = function() {
+AddPromotionDialog.prototype.onCancel = function() {
 	this.close();
 }
 
-AddAccountDialog.prototype.getContainer = function() {
+AddPromotionDialog.prototype.getContainer = function() {
 	return this.container;
 }
 
-AddAccountDialog.prototype.show = function() {
+AddPromotionDialog.prototype.show = function() {
 	var thiz = this;
 	document.body.appendChild(this.container);
 	document.body.appendChild(this.busyBackground);
@@ -188,12 +201,13 @@ AddAccountDialog.prototype.show = function() {
 	
 }
 
-AddAccountDialog.prototype.close = function() {
+AddPromotionDialog.prototype.close = function() {
 	document.body.removeChild(this.container);
 	document.body.removeChild(this.busyBackground);
+	if (this.callback) this.callback();
 }
 
-AddAccountDialog.prototype.positionContainer = function(){
+AddPromotionDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
