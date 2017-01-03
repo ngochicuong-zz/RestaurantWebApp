@@ -20,7 +20,7 @@ pageEncoding="UTF-8"%>
 </style>
 <vbox flex="1"> 
 	<vbox id="search-panel"> 
-		<hbox flex="1" class="InputRow" id="add-detail-panel" style=" align-items: flex-start;" >
+		<hbox class="InputRow" id="add-detail-panel" style=" align-items: flex-start;" >
 			<hbox flex="1" class="InputRow">
 				<label>Tài khoản: </label>
 				<input flex="2" style="color:#000;" type="text" id="account-name"/>

@@ -75,8 +75,20 @@ pageEncoding="UTF-8"%>
     	box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.59);
 	}
 	
+	table tr td{
+		white-space: nowrap;
+		word-wrap: break-word;
+		text-overflow: ellipsis;
+		max-width: 5em;
+		text-align: center;
+		overflow: hidden;
+		font-family: liberties;
+		background-color: #f5790000;
+		vertical-align: middle !important;
+	}
+	
 	table > tbody > tr:hover {
-		background-color: #FA6800;
+		outline: solid 1px #FA6800;
 	}
 	
 	table > thead  {
@@ -85,28 +97,30 @@ pageEncoding="UTF-8"%>
 </style>
 </head>
 <body>
-	<hbox id="navbar">
-		<hbox class="navbar-items InputRow" page-name="table-page">
-			<i class="material-icons orange600 md-16" >airline_seat_recline_normal</i>
-			<span>Quản lý bàn</span>
-		</hbox>
-		<hbox class="navbar-items InputRow" page-name="appointment-page">
-			<i class="material-icons orange600 md-16" >event</i>
-			<span >Quản lý đặt bàn</span>
-		</hbox>
-		<hbox class="navbar-items InputRow" page-name="admin-page">
-			<i class="material-icons orange600 md-16" >settings</i>
-			<span>Quản lý hệ thống</span>
-		</hbox>
-		<hbox flex="1">
-			<hbox flex="1"></hbox>
-			<hbox  class="navbar-items InputRow" style="justify-content: flex-end">
-				<i class="material-icons orange600 md-16" >account_circle</i>
+	<vbox flex="1">
+		<hbox id="navbar">
+			<hbox class="navbar-items InputRow" page-name="table-page">
+				<i class="material-icons orange600 md-16" >airline_seat_recline_normal</i>
+				<span>Quản lý bàn</span>
+			</hbox>
+			<hbox class="navbar-items InputRow" page-name="appointment-page">
+				<i class="material-icons orange600 md-16" >event</i>
+				<span >Quản lý đặt bàn</span>
+			</hbox>
+			<hbox class="navbar-items InputRow" page-name="admin-page">
+				<i class="material-icons orange600 md-16" >settings</i>
+				<span>Quản lý hệ thống</span>
+			</hbox>
+			<hbox flex="1">
+				<hbox flex="1"></hbox>
+				<hbox  class="navbar-items InputRow" style="justify-content: flex-end">
+					<i class="material-icons orange600 md-16" >account_circle</i>
+				</hbox>
 			</hbox>
 		</hbox>
-	</hbox>
-	<hbox id="main-container">
-	
-	</hbox>
+		<hbox id="main-container" flex="1">
+		
+		</hbox>
+	</vbox>
 </body>
 </html>

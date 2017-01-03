@@ -7,7 +7,7 @@ function Table() {
 	
 }
 // [{column: "", label: ""}]
-Table.prototype.init = function(tHeader) {
+Table.prototype.init = function(tHeader, action) {
 	this.tHeader = tHeader;
 	this.table = Dom.newDOMElement({
 		_name : "table",
@@ -35,6 +35,17 @@ Table.prototype.init = function(tHeader) {
 	});
 	this.table.appendChild(this.tableBody);
 	var thiz = this;
+	
+	this.tableBody.addEventListener("click", function(ev) {
+		var target = ev.target;
+		var dataNode = Dom.findUpward(target, {
+			eval : function(n) {
+				return n.action;
+			}
+		});
+		if (dataNode != null) dataNode.action();
+	})
+	
 	this.tableBody.addEventListener("hover", function(ev) {
 		var target = ev.target;
 		var dataNode = Dom.findUpward(target, {
@@ -44,6 +55,7 @@ Table.prototype.init = function(tHeader) {
 		});
 		if (dataNode != null) thiz.selectedItem = dataNode;
 	})
+	thiz.renderAction = action;
 }
 
 Table.prototype.getTable = function() {
@@ -78,6 +90,26 @@ Table.prototype.render = function(items) {
 			if (labelRightSide.indexOf(thiz.tHeader[i].label) != -1) tdNode.setAttribute("style", "text-align: right");
 			trNode.appendChild(tdNode);
 			trNode.data = item;
+		}
+		if (thiz.renderBackground) {
+			if (thiz.renderBackground(item)) {
+				trNode.style.background = "#f3f3f3";
+			} else {
+				trNode.style.background = "#fff";
+			}
+		} else {
+			trNode.style.background = "#fff";
+		}
+		if (thiz.renderAction != null) {
+			var buttons = thiz.renderAction(item);
+			for(var i = 0; i < buttons.length; i++) {
+				var button = buttons[i];
+				var tdNode = Dom.newDOMElement({
+					 _name: "td",
+				 });
+				tdNode.appendChild(button);
+				trNode.appendChild(tdNode);
+			}
 		}
 		return trNode;
 	}

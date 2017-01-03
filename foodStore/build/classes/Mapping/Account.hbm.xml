@@ -9,7 +9,7 @@
                 <param name="sequence">ACCOUNT_ID</param>
             </generator>
         </id>
-        <property name="user" column="USERID"/>
+        <property name="user" column="USERID" unique="true"/>
         <property name="pass" column="PASSWORD"/>
         <property name="email" column="EMAIL"/>
         <property name="lastSignInAt" column="LASTSIGNINAT" type="timestamp"/>

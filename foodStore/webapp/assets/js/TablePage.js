@@ -3,7 +3,6 @@ function TablePage() {
 	this.seatStatus == null;
 	this.pageContainer = Dom.newDOMElement({
 		_name : "hbox",
-		id : "     ",
 		flex: "1"
 	});
 	var thiz = this;
@@ -35,7 +34,45 @@ TablePage.prototype.requestItems = function(requestCallBack) {
 }
 
 TablePage.prototype.init = function(){
+	var thiz = this;
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
+	var renderAction = function(seat) {
+		var button = null;
+		if (seat.onDesk == 'f'){
+			button = Dom.newDOMElement({
+				_name : "i",
+				class : "material-icons md-dark md-12",
+				_text : "create"
+			});
+			button.action = function() {
+				var callback = function(order) {
+					if(order.length == 0) return;
+					var newItem = {};
+					newItem = seat;
+					newItem.onDesk = 't';
+					thiz.onUpdate(seat, newItem);
+				};
+				serverReport.getJson("/createOrder.do?seatId=" + seat.id
+						+ "&note='dklfj'&customerId=123", "GET", callback);
+			}
+		} else {
+			button = Dom.newDOMElement({
+				_name : "i",
+				class : "material-icons md-dark md-12",
+				_text : "visibility"
+					
+			});
+			button.action = function() {
+				var callback = function(json) {
+					var order = json;
+					var orderPage = Main.pageManagement.active("order-page");
+					orderPage.open(seat);
+				};
+				serverReport.getJson("/getOrderWithSeat.do?seatId=" + seat.id +"", "GET", callback);
+			}
+		}
+		return new Array(button);
+	}
 	var theader = [
 		{
 			"column" : "Phòng",
@@ -56,17 +93,15 @@ TablePage.prototype.init = function(){
 		{
 			"column" : "Ưu tiên",
 			"label" : "priotity"
-		},
-		{
-			"column" : "Tình trạng",
-			"label" : "onDesk"
 		}];
 	this.table = new Table();
-	this.table.init(theader);
+	this.table.init(theader, renderAction);
+	this.table.renderBackground = function(item) {
+		return item.onDesk =='t';
+	}
 	this.containerPanel.appendChild(this.table.getTable());
 	this.searchButton = this.pageContainer.querySelector("#search-button");
 	
-	var thiz = this;
 	var requestCallBack = function() {
 		thiz.initItemForSelect();
 		thiz.table.render(thiz.seatTables);

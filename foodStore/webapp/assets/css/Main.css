@@ -334,17 +334,6 @@ hbox.combo-popup__item:hover {
  	background-color: transparent;
 }
 
-table tr td{
-	white-space: nowrap;
-	word-wrap: break-word;
-	text-overflow: ellipsis;
-	max-width: 5em;
-	text-align: center;
-	overflow: hidden;
-	font-family: liberties
-}
-
-
 .Event-popup  {
 	display: block;
     position: absolute;
@@ -428,4 +417,8 @@ button {
 }
 span {
 	font-family: liberties
+}
+
+i {
+	cursor:pointer;
 }
