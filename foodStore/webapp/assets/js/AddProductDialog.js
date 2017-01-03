@@ -20,7 +20,7 @@ function AddProductDialog(product, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Food name:"
+						_text: "Món ăn:"
 					},
 					{
 						_name: "input",
@@ -35,7 +35,7 @@ function AddProductDialog(product, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Unit type: "
+						_text: "Đơn vị tính: "
 					},
 					{
 						_name: "input",
@@ -50,7 +50,7 @@ function AddProductDialog(product, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Quantity per unit: "
+						_text: "Số lượng trên 1 đơn vị: "
 					},
 					{
 						_name: "input",
@@ -65,7 +65,7 @@ function AddProductDialog(product, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Price:  "
+						_text: "Giá:  "
 					},
 					{
 						_name: "input",
@@ -80,7 +80,7 @@ function AddProductDialog(product, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Categories:",
+						_text: "Phân loại:",
 						
 					},
 					{

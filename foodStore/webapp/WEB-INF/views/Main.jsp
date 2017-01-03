@@ -85,10 +85,10 @@ pageEncoding="UTF-8"%>
 </style>
 </head>
 <body>
-	<hbox id="navbar" flex="1"> 
+	<hbox id="navbar">
 		<hbox class="navbar-items InputRow" page-name="table-page">
 			<i class="material-icons orange600 md-16" >airline_seat_recline_normal</i>
-			<span>Quản lý chỗ ngồi</span>
+			<span>Quản lý bàn</span>
 		</hbox>
 		<hbox class="navbar-items InputRow" page-name="appointment-page">
 			<i class="material-icons orange600 md-16" >event</i>

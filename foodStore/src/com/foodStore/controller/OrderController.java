@@ -29,12 +29,12 @@ import com.foodStore.service.ServiceManagement;
 @Controller
 public class OrderController {
 	
-	@RequestMapping(value = "/getOrderPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrderPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getPage(ModelMap model) {
 		return "OrderPage";
 	}
 	
-	@RequestMapping(value = "/getOrderWithSeat.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrderWithSeat.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getOrder(
 			@RequestParam("seatId") int seatId,
@@ -44,7 +44,7 @@ public class OrderController {
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(order);
 	}
 	
-	@RequestMapping(value = "/createOrder.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/createOrder.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String createOrder(
 			@RequestParam("seatId") int seatId,
@@ -60,7 +60,7 @@ public class OrderController {
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(order);
 	}
 	
-	@RequestMapping(value = "/getPromotionByPay.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getPromotionByPay.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getPromotionByPay(
 			@RequestParam("pay") double pay,
@@ -71,7 +71,7 @@ public class OrderController {
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(promotions);
 	}
 	
-	@RequestMapping(value = "/getAllPromotionOnDesk.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllPromotionOnDesk.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getAllPromotionOnDesk(
 			ModelMap model) {
@@ -79,7 +79,7 @@ public class OrderController {
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(promotions);
 	}
 	
-	@RequestMapping(value = "/getAllPromotion.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllPromotion.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getAllPromotion(
 			ModelMap model) {
@@ -87,7 +87,7 @@ public class OrderController {
 		return JsonUtil.build(Order.class, new PromotionAdapter()).toJson(promotions);
 	}
 	
-	@RequestMapping(value = "/createPayment.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/createPayment.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getPromotionByPay(
 			@RequestParam("refCode") String refCode,
@@ -98,13 +98,13 @@ public class OrderController {
 		return JsonUtil.build(Order.class, new PaymentAdapter()).toJson(payment);
 	}
 	
-	@RequestMapping(value = "/getPromoManagementPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getPromoManagementPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getPromoManagementPage(
 			ModelMap model) {
 		return "PromoManagementPage";
 	}
 	
-	@RequestMapping(value = "/searchPromotion.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchPromotion.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String searchPromotion(
 			@RequestParam("description") String description,
@@ -128,7 +128,7 @@ public class OrderController {
 		return JsonUtil.build(Promotion.class, new PromotionAdapter()).toJson(promotions);
 	}
 	
-	@RequestMapping(value = "/createPromotion.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/createPromotion.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String createPromotion(
 			@RequestParam("paycondition") double paycondition,
@@ -153,7 +153,7 @@ public class OrderController {
 		return JsonUtil.build(Promotion.class, new PromotionAdapter()).toJson(promotion);
 	}
 	
-	@RequestMapping(value = "/updatePromotion.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/updatePromotion.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String updatePromotion(
 			@RequestParam("promoId") int promoId,

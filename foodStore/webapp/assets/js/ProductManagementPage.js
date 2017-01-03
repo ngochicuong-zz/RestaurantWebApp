@@ -40,8 +40,32 @@ ProductManagementPage.prototype.init = function(){
 	this.requestItems();
 	var thiz = this;
 	
-	var theader = new Array("productName", "unitType", "quantityPerUnit", "price", "discontinued",
-			"categoryType");
+	var theader = [
+		{
+			"column" : "Tên thực phẩm",
+			"label" : "productName"
+		},
+		{
+			"column" : "Đơn vị tính",
+			"label" : "unitType"
+		},
+		{
+			"column" : "Số lượng trên 1 đơn vị",
+			"label" : "quantityPerUnit"
+		},
+		{
+			"column" : "Giá",
+			"label" : "price"
+		},
+		{
+			"column" : "Tình trạng kinh doanh",
+			"label" : "discontinued"
+		},
+		{
+			"column" : "Phân loại",
+			"label" : "categoryType"
+		},
+		];
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
@@ -89,9 +113,13 @@ ProductManagementPage.prototype.init = function(){
 			thiz.contextMenu.toggleMenuOn(e);
 		}
 	});
-	
 	this.addButton.addEventListener("click", function() {
-		var dialog = new AddProductDialog();
+		var callback = function(newItem) {
+			if (newItem) {
+				thiz.onCreateItem(newItem);
+			}
+		}
+		var dialog = new AddProductDialog(null, callback);
 		dialog.show();
 	});
 	

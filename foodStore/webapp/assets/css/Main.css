@@ -77,34 +77,34 @@ box > * {
   flex-shrink: 0;
 }
 *[flex='1'] {
-  flex: 1 1 auto;
+  flex: 1 1 1em;
 }
 *[flex='2'] {
-  flex: 2 1 auto;
+  flex: 2 1 1em;
 }
 *[flex='3'] {
-  flex: 3 1 auto;
+  flex: 3 1 1em;
 }
 *[flex='4'] {
-  flex: 4 1 auto;
+  flex: 4 1 1em;
 }
 *[flex='5'] {
-  flex: 5 1 auto;
+  flex: 5 1 1em;
 }
 *[flex='6'] {
-  flex: 6 1 auto;
+  flex: 6 1 1em;
 }
 *[flex='7'] {
-  flex: 7 1 auto;
+  flex: 7 1 1em;
 }
 *[flex='8'] {
-  flex: 8 1 auto;
+  flex: 8 1 1em;
 }
 *[flex='9'] {
-  flex: 9 1 auto;
+  flex: 9 1 1em;
 }
 *[flex='10'] {
-  flex: 10 1 auto;
+  flex: 10 1 1em;
 }
 hbox.InputRow > * + *,
 hbox.InputRow > * + input[type] {
@@ -229,6 +229,7 @@ body[loaded] #bootingIndicator {
 @font-face {
     font-family: liberties;
     src: url(../font-awesome/fonts/LinLibertine_R.ttf);
+    font-size: 1em;
 }
 html {
   user-select: none;
@@ -340,6 +341,7 @@ table tr td{
 	max-width: 5em;
 	text-align: center;
 	overflow: hidden;
+	font-family: liberties
 }
 
 
@@ -390,6 +392,7 @@ button {
   background-color: #f57900;
   border: none;
   border-radius: 2px;
+  font-family: liberties !important;
 }
 
 .dialog-popup{

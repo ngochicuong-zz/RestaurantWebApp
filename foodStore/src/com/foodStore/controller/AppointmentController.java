@@ -23,12 +23,12 @@ import com.foodStore.service.ServiceManagement;
 
 @Controller
 public class AppointmentController {
-	@RequestMapping(value = "/getAppointmentPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAppointmentPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getPage(ModelMap model) {
 		return "AppointmentPage";
 	}
 	
-	@RequestMapping(value = "/getEventByWeek.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getEventByWeek.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getEventByWeek(
 			@RequestParam("week") int week ,
@@ -47,7 +47,7 @@ public class AppointmentController {
 		return JsonUtil.build(Appointment.class, new AppointmentAdapter()).toJson(appointments);
 	}
 	
-	@RequestMapping(value = "/getEventByDate.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getEventByDate.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getEventFromDate(
 			@RequestParam("fromDate") String fromdate,
@@ -67,7 +67,7 @@ public class AppointmentController {
 		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointments);
 	}
 	
-	@RequestMapping(value = "/createEvent.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/createEvent.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String createEvent(
 			@RequestParam("name") String name,
@@ -92,7 +92,7 @@ public class AppointmentController {
 		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointment);
 	}
 	
-	@RequestMapping(value = "/updateEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateEvent.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String updateEvent(
 			@RequestParam("eventId") int eventId,
@@ -113,7 +113,7 @@ public class AppointmentController {
 		return String.valueOf(updated);
 	}
 	
-	@RequestMapping(value = "/removeEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeEvent.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String removeEvent(
 			@RequestParam("eventId") int eventId,
@@ -122,7 +122,7 @@ public class AppointmentController {
 		return String.valueOf(removed);
 	}
 	
-	@RequestMapping(value = "/getEventByCapacity.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getEventByCapacity.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getEventByCapacity(
 			@RequestParam("capacity") int capacity,
@@ -131,7 +131,7 @@ public class AppointmentController {
 		return JsonUtil.build(Order.class, new AppointmentAdapter()).toJson(appointments);
 	}
 	
-	@RequestMapping(value = "/bookSeatForEvent.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/bookSeatForEvent.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String bookSeatForEvent(
 			@RequestParam("seatId") int seatId,

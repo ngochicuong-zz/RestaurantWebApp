@@ -36,8 +36,31 @@ TablePage.prototype.requestItems = function(requestCallBack) {
 
 TablePage.prototype.init = function(){
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
-	var theader = new Array("room", "floor", "capacity", "description",
-			"priority", "onDesk");
+	var theader = [
+		{
+			"column" : "Phòng",
+			"label" : "room"
+		},
+		{
+			"column" : "Lầu",
+			"label" : "floor"
+		},
+		{
+			"column" : "Chỗ ngồi",
+			"label" : "capacity"
+		},
+		{
+			"column" : "Ghi chú",
+			"label" : "description"
+		},
+		{
+			"column" : "Ưu tiên",
+			"label" : "priotity"
+		},
+		{
+			"column" : "Tình trạng",
+			"label" : "onDesk"
+		}];
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
@@ -60,7 +83,7 @@ TablePage.prototype.init = function(){
 	var thiz = this;
 	this.contextMenu.init([
 			{
-				name : "Make order",
+				name : "Tạo hóa đơn",
 				handler : function(handleItem) {
 					var seat = handleItem.data;
 					var callback = function(order) {
@@ -81,7 +104,7 @@ TablePage.prototype.init = function(){
 				}
 			},
 			{
-				name : "View Order Detail",
+				name : "Xem chi tiết hóa đơn",
 				handler : function(handleItem) {
 					var seat = handleItem.data;
 					var callback = function(json) {
@@ -98,12 +121,7 @@ TablePage.prototype.init = function(){
 					if (seat.onDesk == 't') return true;
 				}
 
-			}, {
-				name : "View",
-				handler : function(handleItem) {
-					console.log(handleItem);
-				}
-			} ]);
+			}]);
 	this.table.tableBody.addEventListener("contextmenu", function(e) {
 		var target = e.target;
 		var dataNode = Dom.findUpward(target, {

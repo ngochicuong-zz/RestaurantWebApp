@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%>
 	<vbox id="search-panel"> 
 		<hbox flex="1" class="InputRow" id="add-detail-panel" style=" align-items: flex-start;" >
 			<hbox flex="1" class="InputRow">
-				<label>Account: </label>
+				<label>Tài khoản: </label>
 				<input flex="2" style="color:#000;" type="text" id="account-name"/>
 			</hbox>
 			<hbox flex="1" style="justify-content: flex-start; color: #000000">

@@ -23,7 +23,7 @@ public class ProductController {
 		return "ProductManagementPage";
 	}
 	
-	@RequestMapping(value = "/getProducts.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getProducts.do",produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getProducts(ModelMap model) {
 		List<Product> products = ServiceManagement.get(IProductService.class).getAllProduct();
@@ -31,7 +31,7 @@ public class ProductController {
 		return JsonUtil.build(Product.class, new ProductAdapter()).toJson(products);
 	}
 	
-	@RequestMapping(value = "/searchProduct.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/searchProduct.do",produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String searchProduct(
 			@RequestParam("name") String name,
@@ -42,7 +42,7 @@ public class ProductController {
 		return JsonUtil.build(Product.class, new ProductAdapter()).toJson(products);
 	}
 	
-	@RequestMapping(value = "/createProduct.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/createProduct.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String createProduct(
 			@RequestParam("productName") String productName,
@@ -55,7 +55,7 @@ public class ProductController {
 		return JsonUtil.build(Product.class, new ProductAdapter()).toJson(product);
 	}
 	
-	@RequestMapping(value = "/updateProduct.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateProduct.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String updateProduct(
 			@RequestParam("productId") int productId,

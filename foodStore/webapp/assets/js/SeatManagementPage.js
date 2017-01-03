@@ -9,7 +9,6 @@ function SeatManagementPage() {
 	var callback = function(htmlText) {
 		thiz.pageContainer.innerHTML = htmlText;
 		thiz.init();
-		console.log(thiz.containerPanel);
 	}
 	serverReport.getHTML("/getSeatMangementPage.do", "GET", callback);
 }
@@ -83,8 +82,31 @@ SeatManagementPage.prototype.initItemForSelect = function() {
 SeatManagementPage.prototype.init = function(){
 	var thiz = this;
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
-	var theader = new Array("room", "floor", "capacity", "description",
-			"priority", "onDesk");
+	var theader = [
+		{
+			"column" : "Phòng",
+			"label" : "room"
+		},
+		{
+			"column" : "Lầu",
+			"label" : "floor"
+		},
+		{
+			"column" : "Chỗ ngồi",
+			"label" : "capacity"
+		},
+		{
+			"column" : "Ghi chú",
+			"label" : "description"
+		},
+		{
+			"column" : "Ưu tiên",
+			"label" : "priotity"
+		},
+		{
+			"column" : "Tình trạng",
+			"label" : "onDesk"
+		}];
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
@@ -107,19 +129,19 @@ SeatManagementPage.prototype.init = function(){
 	this.requestItems(requestCallBack);
 	this.contextMenu.init([
 			{
-				name : "Add",
+				name : "Thêm mới",
 				handler : function(handleItem) {
 					var callback = function(newItem) {
 						if (newItem) {
 							thiz.onCreateItem(newItem);
 						}
 					}
-					var dialog = new AddTableDialog(null, callback1);
+					var dialog = new AddTableDialog(null, callback);
 					dialog.show();
 				}
 			},
 			{
-				name : "Edit",
+				name : "Chỉnh sửa",
 				handler : function(handleItem) {
 					var callback = function(newItem) {
 						var oldItem = handleItem.data;

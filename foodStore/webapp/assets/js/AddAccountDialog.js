@@ -20,7 +20,7 @@ function AddAccountDialog(account, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Account:"
+						_text: "Tài khoản:"
 					},
 					{
 						_name: "input",
@@ -35,7 +35,7 @@ function AddAccountDialog(account, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Password: "
+						_text: "Mật khẩu: "
 					},
 					{
 						_name: "input",
@@ -65,7 +65,7 @@ function AddAccountDialog(account, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Role:  "
+						_text: "Phân quyền:  "
 					},
 					{
 						_name: "select",
@@ -119,7 +119,7 @@ function AddAccountDialog(account, callback) {
 					{
 						_name: "button",
 						id: "close",
-						_text: "Cancel"
+						_text: "Đóng"
 					}
 				]
 			}

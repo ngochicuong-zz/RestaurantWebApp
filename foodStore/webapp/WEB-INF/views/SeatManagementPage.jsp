@@ -21,17 +21,7 @@ pageEncoding="UTF-8"%>
 <vbox flex="1"> 
 	<hbox id="search-panel"> 
 		<hbox class="InputRow">
-			<label>Floor: </label>
-			<select id="floor">
-			  <option value= -1>--not selected--</option>
-			  <option value= 1>1</option>
-			  <option value= 2>2</option>
-			  <option value= 3>3</option>
-			  <option value= 4>4</option>
-			</select>
-		</hbox>
-		<hbox class="InputRow">
-			<label>Room: </label>
+			<label>Phòng: </label>
 			<select  id="room">
 			  <option value= -1>--not selected--</option>
 			  <option value= 1>1</option>
@@ -41,7 +31,17 @@ pageEncoding="UTF-8"%>
 			</select>
 		</hbox>
 		<hbox class="InputRow">
-			<label>Capacity: </label>
+			<label>Lầu: </label>
+			<select id="floor">
+			  <option value= -1>--not selected--</option>
+			  <option value= 1>1</option>
+			  <option value= 2>2</option>
+			  <option value= 3>3</option>
+			  <option value= 4>4</option>
+			</select>
+		</hbox>
+		<hbox class="InputRow">
+			<label>Chỗ ngồi: </label>
 			<select  id="capacity">
 			  <option value= -1>--not selected--</option>
 			  <option value= 1>1</option>

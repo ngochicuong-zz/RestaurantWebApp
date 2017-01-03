@@ -13,6 +13,25 @@ function PromoManagementPage() {
 	serverReport.getHTML("/getPromoManagementPage.do", "GET", callback);
 }
 
+PromoManagementPage.prototype.requestItems = function(requestCallBack) {
+	var thiz = this;
+	var callback = function(promotions) {
+		if (promotions.length > 1) {
+			promotions.sort(function(a, b){
+				return a.id - b.id;
+			});
+		}
+		thiz.promotions = promotions;
+		if(requestCallBack) requestCallBack();
+	}
+	serverReport.getJson("/searchPromotion.do", "GET",
+			callback, {
+				"description" : "",
+				"fromDate" : "",
+				"toDate" : ""
+	});
+}
+
 PromoManagementPage.prototype.init = function(){
 	this.addButton = this.pageContainer.querySelector("#add-button");
 	this.searchButton = this.pageContainer.querySelector("#search-button");
@@ -22,33 +41,62 @@ PromoManagementPage.prototype.init = function(){
 	this.fromDate = this.pageContainer.querySelector("#from-date");
 	this.toDate = this.pageContainer.querySelector("#to-date");
 	var thiz = this;
-	var theader = new Array("promotionCode", "payCondition", "discount", "fromDate", "toDate",
-			"description");
+	var theader = [
+		{
+			"column" : "Tên chương trình",
+			"label" : "description"
+		},
+		{
+			"column" : "Giảm giá",
+			"label" : "discount"
+		},
+		{
+			"column" : "Điều kiện",
+			"label" : "payCondition"
+		},
+		{
+			"column" : "Từ ngày",
+			"label" : "fromDate"
+		},
+		{
+			"column" : "Đến ngày",
+			"label" : "toDate"
+		}];
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
 	
 	this.searchButton.addEventListener("click", function(ev) {
-		thiz.reloadPage();
+		var result = thiz.onSearch();
+		thiz.table.render(result);
 	}, false);
 
 	this.contextMenu = new ContextMenu();
 	var thiz = this;
+	this.promotions = new Array();
+	var requestCallBack = function() {
+		thiz.table.render(thiz.promotions);
+	}
+	this.requestItems(requestCallBack);
 	this.contextMenu.init([
 			{
-				name : "Add",
+				name : "Thêm",
 				handler : function(handleItem) {
-					var dialog = new AddPromotionDialog();
+					var callback = function(newItem) {
+						if (newItem) {
+							thiz.onCreateItem(newItem);
+						}
+					}
+					var dialog = new AddPromotionDialog(null, callback);
 					dialog.show();
 				}
 			},
 			{
-				name : "Edit",
+				name : "Chỉnh sửa",
 				handler : function(handleItem) {
-					var callback = function() {
-						window.setTimeout(function() {
-							thiz.reloadPage();
-						}, 100)
+					var callback = function(newItem) {
+						var oldItem = handleItem.data;
+						thiz.onUpdateItem(oldItem, newItem);
 					}
 					var dialog = new AddPromotionDialog(handleItem.data, callback);
 					dialog.show();
@@ -69,7 +117,12 @@ PromoManagementPage.prototype.init = function(){
 	});
 	
 	this.addButton.addEventListener("click", function() {
-		var dialog = new AddPromotionDialog();
+		var callback = function(newItem) {
+			if (newItem) {
+				thiz.onCreateItem(newItem);
+			}
+		}
+		var dialog = new AddPromotionDialog(null, callback);
 		dialog.show();
 	});
 	
@@ -91,6 +144,53 @@ PromoManagementPage.prototype.reloadPage = function() {
 	});
 }
 
+
+PromoManagementPage.prototype.onSearch = function() {
+	
+	var promoName = this.promoName.value;
+	var fromDate = this.fromDate.value;
+	var toDate = this.toDate.value;
+	
+	if (promoName == "" && fromDate == "" && toDate == "") return this.promotions;
+	
+	var result = new Array();
+	var thiz = this;
+	this.promotions.forEach(function(promotion){
+		if ((promoName == "" || promotion.description.indexOf(promoName) != -1)
+			&& (fromDate == "" || new Date(promotion.fromDate) >= new Date(fromDate) )
+			&& (toDate == "" || new Date(promotion.toDate) <= new Date(toDate) ))
+				result.push(promotion);
+	});
+	return result;
+}
+
+PromoManagementPage.prototype.onCreateItem = function(newItem) {
+	if (newItem != null) {
+		this.promotions.push(newItem);
+		var thiz = this;
+		window.setTimeout(function() {
+			var result = thiz.onSearch();
+			thiz.table.render(result);
+		}, 100);
+	}
+}
+
+PromoManagementPage.prototype.onUpdateItem = function(oldItem, newItem) {
+	var index = this.promotions.indexOf(oldItem);
+	if (index == -1) return;
+	this.promotions[index] = newItem;
+	var thiz = this;
+	window.setTimeout(function() {
+		var result = thiz.onSearch();
+		thiz.table.render(result);
+	}, 10);
+}
+
 PromoManagementPage.prototype.getPageContainer = function() {
+	var thiz = this;
+	this.requestItems(function() {
+		var result = thiz.onSearch();
+		thiz.table.render(result);
+	});
 	return this.pageContainer;
 }

@@ -4,8 +4,9 @@ function Table() {
 	var table;
 	this.selectedItem = null;
 	console.log(this);
+	
 }
-
+// [{column: "", label: ""}]
 Table.prototype.init = function(tHeader) {
 	this.tHeader = tHeader;
 	this.table = Dom.newDOMElement({
@@ -20,7 +21,7 @@ Table.prototype.init = function(tHeader) {
 		var h = tHeader[i];
 		var tdNode = Dom.newDOMElement({
 			_name : "td",
-			_text : h
+			_text : h.column,
 		});
 		trNode.appendChild(tdNode);
 	}
@@ -54,6 +55,7 @@ Table.prototype.removeChild = function(itemNode){
 }
 
 Table.prototype.render = function(items) {
+	var labelRightSide = new Array("price", "total", "payCondition");
 	this.tableBody.innerHTML = "";
 	if ( items.length == 0) return;
 	var thiz = this;
@@ -67,11 +69,13 @@ Table.prototype.render = function(items) {
 				 _name: "td",
 			 });
 			for(var index in item) {
-				if (index == thiz.tHeader[i]) {
-					tdNode.innerHTML = item[index];
+				if (index == thiz.tHeader[i].label) {
+					if (labelRightSide.indexOf(thiz.tHeader[i].label) != -1) tdNode.innerHTML = parseInt(item[index].toString().replace("Đ", "")).formatMoney(0, " Đ");
+					else tdNode.innerHTML = item[index];
 					break;
 				}
 			}
+			if (labelRightSide.indexOf(thiz.tHeader[i].label) != -1) tdNode.setAttribute("style", "text-align: right");
 			trNode.appendChild(tdNode);
 			trNode.data = item;
 		}

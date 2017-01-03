@@ -17,7 +17,7 @@ import com.foodStore.service.ServiceManagement;
 
 @Controller
 public class OrderDetailController {
-	@RequestMapping(value = "/getOrderDetailByRefCode.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getOrderDetailByRefCode.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getOrderDetail(
 			@RequestParam("refCode") String refCode,
@@ -27,7 +27,7 @@ public class OrderDetailController {
 		return JsonUtil.build(OrderDetail.class, new OrderDetailAdapter()).toJson(orderDetails);
 	}
 	
-	@RequestMapping(value = "/createOrderDetail.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/createOrderDetail.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String createOrderDetail(
 			@RequestParam("refCode") String refCode,
@@ -39,7 +39,7 @@ public class OrderDetailController {
 		return JsonUtil.build(OrderDetail.class, new OrderDetailAdapter()).toJson(orderDetail);
 	}
 	
-	@RequestMapping(value = "/removeOrderDetail.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeOrderDetail.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String removeOrderDetail(
 			@RequestParam("detailId") int detailId,
@@ -48,7 +48,7 @@ public class OrderDetailController {
 		return String.valueOf(result);
 	}
 	
-	@RequestMapping(value = "/updateOrderDetail.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/updateOrderDetail.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String createOrderDetail(
 			@RequestParam("detailId") int detailId,

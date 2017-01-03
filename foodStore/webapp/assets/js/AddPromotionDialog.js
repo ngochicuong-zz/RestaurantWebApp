@@ -20,12 +20,13 @@ function AddPromotionDialog(promotion, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Pay condition:"
+						_text: "Tên chương trình:",
+						
 					},
 					{
 						_name: "input",
-						id: "pay-condition",
-						type: "number"
+						id: "description",
+						type: "text"
 					}
 				]
 			},
@@ -35,7 +36,7 @@ function AddPromotionDialog(promotion, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Discount: "
+						_text: "Giảm giá: "
 					},
 					{
 						_name: "input",
@@ -50,7 +51,22 @@ function AddPromotionDialog(promotion, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "From date: "
+						_text: "Điều kiện: "
+					},
+					{
+						_name: "input",
+						id: "pay-condition",
+						type: "number"
+					}
+				]
+			},
+			{
+				_name : "hbox",
+				class: "InputRow",
+				_children : [
+					{
+						_name: "label",
+						_text: "Từ ngày: "
 					},
 					{
 						_name: "input",
@@ -65,28 +81,12 @@ function AddPromotionDialog(promotion, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "To Date:  "
+						_text: "Đến ngày:  "
 					},
 					{
 						_name: "input",
 						id: "to-date",
 						type: "date"
-					}
-				]
-			},
-			{
-				_name : "hbox",
-				class: "InputRow",
-				_children : [
-					{
-						_name: "label",
-						_text: "Description:",
-						
-					},
-					{
-						_name: "input",
-						id: "description",
-						type: "text"
 					}
 				]
 			},
@@ -158,6 +158,14 @@ AddPromotionDialog.prototype.onAccept = function() {
 	var thiz = this;
 	if (this.promotion) {
 		var callback = function(updated){
+			if (updated) {
+				thiz.promotion.payCondition = thiz.payCondition.value;
+				thiz.promotion.discount = thiz.discount.value;
+				thiz.promotion.fromDate =  thiz.fromDate.value;
+				thiz.promotion.toDate = thiz.toDate.value;
+				thiz.promotion.description = thiz.description.value;
+				if (thiz.callback) thiz.callback(thiz.promotion);
+			}
 		}
 		serverReport.getJson("/updatePromotion.do", "GET", callback, {
 			"promoId" : thiz.promotion.id,
@@ -168,10 +176,12 @@ AddPromotionDialog.prototype.onAccept = function() {
 			"description" : thiz.description.value,
 		});
 	} else {
-		var callback = function(created){
-			if (!created) return;
+		var callback = function(newPromotion){
+			if (newPromotion) {
+				if (thiz.callback) thiz.callback(newPromotion);
+			}
 		}
-		serverReport.getBoolean("/createPromotion.do", "GET", callback, {
+		serverReport.getJson("/createPromotion.do", "GET", callback, {
 					"paycondition" : thiz.payCondition.value,
 					"discount" : thiz.discount.value,
 					"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
@@ -204,7 +214,6 @@ AddPromotionDialog.prototype.show = function() {
 AddPromotionDialog.prototype.close = function() {
 	document.body.removeChild(this.container);
 	document.body.removeChild(this.busyBackground);
-	if (this.callback) this.callback();
 }
 
 AddPromotionDialog.prototype.positionContainer = function(){

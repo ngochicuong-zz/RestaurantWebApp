@@ -19,17 +19,17 @@ import com.foodStore.service.ServiceManagement;
 @Controller
 public class TableController {
 	
-	@RequestMapping(value = "/getTablePage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getTablePage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String render(Model model) {
 		return "TablePage";
 	}
 	
-	@RequestMapping(value = "/getSeatMangementPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getSeatMangementPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getSeatMangementPage(Model model) {
 		return "SeatManagementPage";
 	}
 	
-	@RequestMapping(value="/getAllTable.do", method = RequestMethod.GET)
+	@RequestMapping(value="/getAllTable.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getAllTable(
 			ModelMap model) {
@@ -37,7 +37,7 @@ public class TableController {
 		return JsonUtil.build(SeatTable.class, new SeatAdapter()).toJson(tables);
 	}
 	
-	@RequestMapping(value="/searchTable.do", method = RequestMethod.GET)
+	@RequestMapping(value="/searchTable.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String searchSeatTable(
 			@RequestParam("floor") int floor,
@@ -49,7 +49,7 @@ public class TableController {
 		return JsonUtil.build(SeatTable.class, new SeatAdapter()).toJson(tables);
 	}
 	
-	@RequestMapping(value="/createSeatTable.do", method = RequestMethod.GET)
+	@RequestMapping(value="/createSeatTable.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String createSeatTable(
 			@RequestParam("floor") int floor,
@@ -62,7 +62,7 @@ public class TableController {
 		return JsonUtil.build(SeatTable.class, new SeatAdapter()).toJson(table);
 	}
 	
-	@RequestMapping(value="/getTableByCapacity.do", method = RequestMethod.GET)
+	@RequestMapping(value="/getTableByCapacity.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getTableByCapacity(
 			@RequestParam("capacity") int capacity,
@@ -71,7 +71,7 @@ public class TableController {
 		return JsonUtil.build(SeatTable.class, new SeatAdapter()).toJson(tables);
 	}
 	
-	@RequestMapping(value="/updateTable.do", method = RequestMethod.GET)
+	@RequestMapping(value="/updateTable.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String updateTable(
 			@RequestParam("floor") int seatId,
@@ -84,7 +84,6 @@ public class TableController {
 		boolean updated = ServiceManagement.get(ISeatTableService.class).updateSeatTable(seatId, floor, room, capacity, priority, description);
 		return String.valueOf(updated);
 	}
-	
 	
 }
 

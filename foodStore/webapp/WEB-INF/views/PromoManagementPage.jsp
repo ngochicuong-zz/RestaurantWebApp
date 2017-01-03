@@ -23,20 +23,22 @@ pageEncoding="UTF-8"%>
 <vbox flex="1"> 
 	<hbox id="search-panel"> 
 		<hbox class="InputRow">
-			<label>Promo name: </label>
+			<label>Tên chương trình: </label>
 			<input id="promo-name" type="text" />
 		</hbox>
 		<hbox class="InputRow">
-			<label>From date: </label>
+			<label>Từ ngày: </label>
 			<input id="from-date" type="date" />
 		</hbox>
 		<hbox class="InputRow">
-			<label>To date:  </label>
+			<label>Đến ngày:  </label>
 			<input id="to-date" type="date" />
 		</hbox>
-		<hbox style="justify-content: flex-end; color: #000000">
-			<hbox style="justify-content: flex-end; color: #000000">
+		<hbox flex="1">
+			<hbox style="justify-content: flex-start; color: #000000">
 				<button id="search-button"><i class="material-icons md-dark md-32" >search</i></button>
+			</hbox>
+			<hbox flex="1" style="justify-content: flex-end; color: #000000">
 				<button style="margin-left: 0.5em" id="add-button"><i class="material-icons md-dark md-32" >add</i></button>
 			</hbox>
 		</hbox>

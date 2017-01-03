@@ -23,12 +23,12 @@ import com.foodStore.service.ServiceManagement;
 
 @Controller
 public class AdminController {
-	@RequestMapping(value = "/getAdminPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAdminPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getPage(ModelMap model) {
 		return "AdminPage";
 	}
 	
-	@RequestMapping(value = "/getAccountManagementPage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAccountManagementPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getAccountManagementPage(ModelMap model) {
 		return "AccountManagementPage";
 	}
@@ -41,7 +41,7 @@ public class AdminController {
 		return JsonUtil.build(Account.class, new AccountAdapter()).toJson(accounts);
 	}
 	
-	@RequestMapping(value = "/createAccount.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/createAccount.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String createAccounts(
 			@RequestParam("user") String user,
@@ -53,7 +53,7 @@ public class AdminController {
 		return JsonUtil.build(Account.class, new AccountAdapter()).toJson(account);
 	}
 	
-	@RequestMapping(value = "/updateAccount.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateAccount.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAccount(
 			@RequestParam("userId") int userId,
@@ -66,7 +66,7 @@ public class AdminController {
 		return String.valueOf(result);
 	}
 	
-	@RequestMapping(value = "/setActiveAccount.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/setActiveAccount.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String updateAccount(
 			@RequestParam("userId") int userId,

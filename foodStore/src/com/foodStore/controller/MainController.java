@@ -20,12 +20,12 @@ import com.foodStore.service.ServiceManagement;
 
 @Controller
 public class MainController {
-	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/main.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String startMain(ModelMap model) {
 		return "Main";
 	}
 	
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/login.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
 	public String login(
 			@RequestParam("user") String user,
 			@RequestParam("pass") String pass,

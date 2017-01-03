@@ -33,13 +33,13 @@ serverReport.sendRequest = function(patent, method, callBack, params) {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			if (callBack) {
-				callBack(this.responseText);
+				callBack(decodeURIComponent(this.responseText));
 			}
 		}
 	};
 	if (method == "POST"){
 		xhttp.open(method, patent, true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=UTF-8");
 		if (paramString != null) xhttp.send(paramString);
 		else xhttp.send();
 	} else {

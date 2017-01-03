@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
 	}
 	
 	#payment-container button{
-		width: 5em;
+		width: 8em;
 		height: 3em;
 	}
 	
@@ -71,10 +71,10 @@ pageEncoding="UTF-8"%>
 		</hbox>
 		<hbox>
 			<hbox class="InputRow" style="justify-content: flex-start; margin-right:0.5em; color: #000000">
-				<button id="checkout-button" class="glyphicon glyphicon-usd round-button" title="Check out"></button>
+				<button id="checkout-button" class="round-button" title="Check out"><i class="material-icons md-light md-32">payment</i></button>
 			</hbox>	
 			<hbox style="justify-content: flex-end; color: #000000" flex="1">
-				<button id="back-button" class="glyphicon glyphicon-hand-left round-button "title="Back"></button>
+				<button id="back-button" class="round-button" title="Back"><i class="material-icons md-light md-32">replay</i></button>
 			</hbox>	
 		</hbox>
 	</vbox>
@@ -93,37 +93,37 @@ pageEncoding="UTF-8"%>
 	<vbox id="orderDetailPanel" flex="1">
 		<hbox class="InputRow" id="add-detail-panel" style="margin-bottom: 0.5em; align-items: flex-start;" >
 			<hbox flex="1" >
-				<label>Food Name: </label>
+				<label>Món ăn: </label>
 				<input flex="1" type="text" id="productText"/>
 			</hbox>
 			<hbox >
-				<label>Quality: </label>
+				<label>Số lượng: </label>
 				<input style="width:5em;" type="number" min=0.1 step="0.01" id="quality"/>
 			</hbox>
 			<hbox>
-				<button style="width:5em;" id="addOrderDetail">Add</button>
+				<button style="width:5em;" id="addOrderDetail">Thêm</button>
 			</hbox>
 		</hbox>
 		<hbox class="InputRow" id="edit-detail-panel" style="margin-bottom: 0.5em; align-items: flex-start;" >
 			<hbox flex="1">
-				<label>Food Name: </label>
+				<label>Món ăn: </label>
 				<input flex="1" type="text" id="edit-product-text" disabled/>
 			</hbox>
 			<hbox>
-				<label>Quality: </label>
+				<label>Số lượng: </label>
 				<input style="width:5em;" type="number" min=0.1 step="0.01" id="edit-quality"/>
 			</hbox>
 			<hbox>
-				<button style="width:5em;" id="edit-detail-button">Save</button>
+				<button style="width:5em;" id="edit-detail-button">Lưu</button>
 			</hbox>
 			<hbox>
-				<button style="width:5em;" id="edit-detail-button-cancel">Cancel</button>
+				<button style="width:5em;" id="edit-detail-button-cancel">Thoát</button>
 			</hbox>
 		</hbox>
 		<vbox id="orderDetailTable" style="overflow-y:auto; margin-bottom: 1em; " flex="1">
 		</vbox>
 		<hbox class="InputRow" style="justify-content: flex-end">
-				<label>Total: </label>
+				<label>Tổng cộng: </label>
 				<label id="order-total" ></label>
 		</hbox>
 	</vbox>
@@ -131,48 +131,48 @@ pageEncoding="UTF-8"%>
 <hbox flex="1" id="payment-container" style="margin-top: 1em; justify-content: center" > 
 	<vbox>
 		<hbox class="InputRow">
-			<label>Total on order:</label>
+			<label>Tổng tiền trên hóa đơn:</label>
 			<input type="text" id="total-on-order"/>
 		</hbox>
 		<vbox >
 			<hbox class="InputRow">
-				<label>Promo apply:</label>
+				<label>Khuyến mãi áp dụng:</label>
 				<select id="promo-code-combo">
-				  <option value= -1 selected>--select promo--</option>
+				  <option value= -1 selected>--Không chọn--</option>
 				</select>
 			</hbox>
 			<hbox class="InputRow">
 				<label></label>
-				<p flex="1" id="promo-info" style="color: red;"> Discount: </p>
+				<p flex="1" id="promo-info" style="color: red;"> Giảm giá: </p>
 			</hbox>
 			
 		</vbox>
 		
 		<hbox class="InputRow">
-			<label>Discount on order:</label>
+			<label>Tổng tiền được giảm:</label>
 			<input type="text" id="discount"/>
 		</hbox>
 		
 		<hbox class="InputRow">
-			<label>Total to pay:</label>
+			<label>Tổng tiền phải trả:</label>
 			<input type="text" id="total-pay"/>
 		</hbox>
 		
 		<hbox class="InputRow">
-			<label>Real pay:</label>
+			<label>Thực nhận:</label>
 			<input type="text" id="realpay"/>
 		</hbox>
 		
 		<hbox class="InputRow">
 			<label>Payment type:</label>
 			<select id="payment-type">
-			  <option value= 1 selected>Cash</option>
+			  <option value= 1 selected>Tiền mặt</option>
 			</select>
 		</hbox>
 		
 		<hbox style="justify-content: center">
-			<button id="accept-button" style="margin-right:1em" >Accept</button>
-			<button id="cancel-button">Cancel</button>
+			<button id="accept-button" style="margin-right:1em" >Thanh toán</button>
+			<button id="cancel-button">Thoát</button>
 		</hbox>
 	</vbox>
 </hbox> 

@@ -34,7 +34,31 @@ AccountManagementPage.prototype.init = function(){
 	this.addButton = this.pageContainer.querySelector("#add-button");
 	this.accountName = this.pageContainer.querySelector("#account-name");
 	
-	var theader = new Array("user", "pass", "email", "role", "lastSignInAt", "actived", "online");
+	var theader = [
+		{
+			"column" : "Tài khoản",
+			"label" : "user"
+		},
+		{
+			"column" : "Mật khẩu",
+			"label" : "pass"
+		},
+		{
+			"column" : "Email",
+			"label" : "email"
+		},
+		{
+			"column" : "Lần cuối đăng nhập",
+			"label" : "lastSignInAt"
+		},
+		{
+			"column" : "Chế độ",
+			"label" : "actived"
+		},
+		{
+			"column" : "Tình trạng",
+			"label" : "online"
+		}];
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
@@ -49,7 +73,7 @@ AccountManagementPage.prototype.init = function(){
 	this.contextMenu = new ContextMenu();
 	this.contextMenu.init([
 			{
-				name : "Add",
+				name : "Thêm mới",
 				handler : function(handleItem) {
 					var callback = function(newItem) {
 						if (newItem) {
@@ -61,7 +85,7 @@ AccountManagementPage.prototype.init = function(){
 				}
 			},
 			{
-				name : "Edit",
+				name : "Chỉnh sửa",
 				handler : function(handleItem) {
 					var callback = function(newItem) {
 						var oldItem = handleItem.data;
@@ -72,7 +96,7 @@ AccountManagementPage.prototype.init = function(){
 				}
 			},
 			{
-				name : "Deactive",
+				name : "Khóa tài khoản",
 				handler : function(handleItem) {
 					var account = handleItem.data;
 					var callback = function(updated) {
@@ -97,7 +121,7 @@ AccountManagementPage.prototype.init = function(){
 				}
 			},
 			{
-				name : "Active",
+				name : "Mở tài khoản",
 				handler : function(handleItem) {
 					var account = handleItem.data;
 					var callback = function(updated) {

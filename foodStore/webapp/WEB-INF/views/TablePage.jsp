@@ -22,33 +22,33 @@ pageEncoding="UTF-8"%>
 <hbox flex="1"> 
 <vbox id="search-panel"> 
 	<vbox>
-		<label>Floor</label>
+		<label>Lầu: </label>
 		<select id="floor">
-		  <option value= -1>--not selected--</option>
+		  <option value= -1>--không chọn--</option>
 		</select>
 	</vbox>
 	<vbox>
-		<label>Room:</label>
+		<label>Phòng hoặc mã bàn: </label>
 		<select  id="room">
-		  <option value= -1>--not selected--</option>
+		  <option value= -1>--không chọn--</option>
 		</select>
 	</vbox>
 	<vbox>
-		<label>Capacity: </label>
+		<label>Số chỗ ngồi: </label>
 		<select  id="capacity">
-		  <option value= -1>--not selected--</option>
+		  <option value= -1>--không chọn--</option>
 		</select>
 	</vbox>
 	<vbox>
-		<label>On desk: </label>
+		<label>Hiện trạng: </label>
 		<select  id="onDesk"> 
-		  <option value="undefined">--not selected--</option>
-		  <option value="true">unavailable</option>
-		  <option value="false">available</option>
+		  <option value="undefined">--Không chọn--</option>
+		  <option value="true">Đang có khách</option>
+		  <option value="false">Bàn trống</option>
 		</select>
 	</vbox>
 	<hbox style="justify-content: flex-end; color: #000000">
-		<button id="search-button"> submit</button>
+		<button id="search-button">Tìm kiếm</button>
 	</hbox>
 </vbox> 
 <vbox id="container-panel" flex="1">

@@ -78,7 +78,7 @@ OrderPage.prototype.init = function() {
 			thiz.orderDetails.push(orderDetail);
 			thiz.detailTable.render(thiz.orderDetails);
 			thiz.order.total += orderDetail.total;
-			thiz.orderTotal.innerHTML = thiz.order.total;
+			thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
 			console.log(orderDetail);
 		}
 		for(var i = 0; i < thiz.orderDetails.length; i++) {
@@ -92,7 +92,7 @@ OrderPage.prototype.init = function() {
 					thiz.orderDetails[index].quality = quality;
 					thiz.orderDetails[index].total = quality * orderDetail.price;
 					thiz.detailTable.render(thiz.orderDetails);
-					thiz.orderTotal.innerHTML = thiz.order.total;
+					thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
 					
 					thiz.productNameIn.value = "";
 					thiz.qualityIn.value = "";
@@ -104,7 +104,24 @@ OrderPage.prototype.init = function() {
 		}
 		serverReport.getJson("/createOrderDetail.do?refCode="+ thiz.order.refCode +"&quality="+ thiz.qualityIn.value +"&productId="+ e.target.data.id +"", "GET", callback);
 	});
-	var theader = new Array("productName", "quality", "price", "total");
+	var theader = [
+		{
+			"column" : "Món ăn",
+			"label" : "productName"
+		},
+		{
+			"column" : "Số lượng",
+			"label" : "quality"
+		},
+		{
+			"column" : "Giá tiền",
+			"label" : "price"
+		},
+		{
+			"column" : "Thành tiền",
+			"label" : "total"
+		}
+		]
 	this.detailTable = new Table();
 	this.detailTable.init(theader);
 	this.orderDetailTable.insertBefore(this.detailTable.getTable(), this.orderDetailTable.childNodes[0]);
@@ -113,7 +130,7 @@ OrderPage.prototype.init = function() {
 	var thiz = this;
 	this.contextMenu.init([
 			{
-				name : "Remove",
+				name : "Hủy món đã gọi",
 				handler : function(handleItem) {
 					var orderDetail = handleItem.data;
 					var callback = function(bool) {
@@ -122,13 +139,13 @@ OrderPage.prototype.init = function() {
 							thiz.orderDetails.splice(index,1);
 							thiz.detailTable.removeChild(handleItem);
 							thiz.order.total -= orderDetail.total;
-							thiz.orderTotal.innerHTML = thiz.order.total;
+							thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
 						}
 					};
 					serverReport.getBoolean("/removeOrderDetail.do?detailId=" + orderDetail.id + "", "GET", callback);
 				}
 			}, {
-				name : "Edit",
+				name : "Chỉnh sửa món ăn",
 				handler : function(handleItem) {
 					if (handleItem == null || handleItem.data == null) return;
 					thiz.editDetailPanel.style.display="inherit";
@@ -158,7 +175,7 @@ OrderPage.prototype.init = function() {
 				thiz.editProductNameIn.value = "";
 				thiz.editQualityIn.value = 0;
 				thiz.editDetailPanel.style.display="none";
-				thiz.orderTotal.innerHTML = thiz.order.total;
+				thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
 				thiz.addDetailPanel.style.display = "inherit";
 			}
 		};
@@ -204,7 +221,7 @@ OrderPage.prototype.init = function() {
 					},
 					{
 						_name : "hbox",
-						_text : item["price"] + " vnd",
+						_text : item["price"].formatMoney(0, " Đ"),
 						flex : "1",
 						style: "justify-content: flex-end"
 					},
@@ -302,6 +319,7 @@ OrderPage.prototype.paymentInit = function() {
 	this.realPay.value = "";
 	this.paymentType.value = 1;
 	this.totalOnOrder.value = order.total;
+	this.totalPay.value = order.total;
 	var thiz = this;
 	var callback = function(promos) {
 		thiz.renderPromoCombo(promos);
@@ -313,7 +331,7 @@ OrderPage.prototype.renderPromoCombo = function(promos) {
 	this.promoCodeCombo.innerHTML = "";
 	var optionNode = Dom.newDOMElement({
 		_name : "option",
-		_text : promos.length > 0 ? "--Select promotion--" : "--No promo found--"
+		_text : promos.length > 0 ? "--Không chọn--" : "--Không tìm thấy khuyến mãi--"
 	});
 	this.promoCodeCombo.appendChild(optionNode);
 	if (promos.length > 0) {
@@ -366,7 +384,7 @@ OrderPage.prototype.requestOrder = function(seat){
 		thiz.order = order;
 		if (order.id == null) return;
 		thiz.orderCode.innerHTML = order.refCode;
-		thiz.orderTotal.innerHTML = order.total;
+		thiz.orderTotal.innerHTML = order.total.formatMoney(0, " Đ");
 		thiz.orderDate.innerHTML = moment(order.dataInsert).format("DD-MM-YYYY h:mm a");
 		thiz.requestOrderDetail(order);
 	}

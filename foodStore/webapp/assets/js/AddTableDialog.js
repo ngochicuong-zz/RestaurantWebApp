@@ -20,7 +20,7 @@ function AddTableDialog(seat, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Floor:"
+						_text: "Lầu:"
 					},
 					{
 						_name: "input",
@@ -35,7 +35,7 @@ function AddTableDialog(seat, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Room: "
+						_text: "Phòng: "
 					},
 					{
 						_name: "input",
@@ -50,7 +50,7 @@ function AddTableDialog(seat, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Cacpacity: "
+						_text: "Số lượng chỗ ngồi: "
 					},
 					{
 						_name: "input",
@@ -65,7 +65,7 @@ function AddTableDialog(seat, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Description: "
+						_text: "Ghi chú: "
 					},
 					{
 						_name: "input",
@@ -80,7 +80,7 @@ function AddTableDialog(seat, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Priority: "
+						_text: "Ưu tiên: "
 					},
 					{
 						_name: "input",

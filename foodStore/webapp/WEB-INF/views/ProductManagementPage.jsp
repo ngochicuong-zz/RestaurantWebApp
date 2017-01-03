@@ -23,19 +23,19 @@ pageEncoding="UTF-8"%>
 <vbox flex="1"> 
 	<hbox id="search-panel"> 
 		<hbox class="InputRow">
-			<label>Floor name: </label>
+			<label>Món ăn: </label>
 			<input id="food-name" type="text" />
 		</hbox>
 		<hbox class="InputRow">
-			<label>Price: </label>
+			<label>Giá: </label>
 			<input id="price" type="number"/>
 		</hbox>
 		<hbox class="InputRow">
-			<label>Categories: </label>
+			<label>Phân loại: </label>
 			<select  id="categories">
-			  <option value= -1>--not selected--</option>
-			  <option value= 0> Food</option>
-			  <option value= 1> Water</option>
+			  <option value= -1>--Không chọn--</option>
+			  <option value= 0> Đồ ăn</option>
+			  <option value= 1> Thức uống</option>
 			</select>
 		</hbox>
 		<hbox flex="1">
