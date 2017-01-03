@@ -3,6 +3,7 @@ function Table() {
 	var tHeader;
 	var table;
 	this.selectedItem = null;
+	console.log(this);
 }
 
 Table.prototype.init = function(tHeader) {
@@ -80,9 +81,11 @@ Table.prototype.render = function(items) {
 		this.tableBody.appendChild(addItem(items[i]));
 	}
 }
+
 Table.prototype.getSelectedItemObject = function() {
 	return this.selectedItem;
 }
+
 
 
 

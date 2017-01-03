@@ -152,10 +152,18 @@ function AddTableDialog(seat, callback) {
  */
 
 AddTableDialog.prototype.onAccept = function() {
+	
 	if (this.seatTable) {
 		var thiz = this;
 		var callback = function(updated){
-			if (!updated) return;
+			if (updated) {
+				thiz.seatTable.floor = thiz.floor.value;
+				thiz.seatTable.room = thiz.room.value,
+				thiz.seatTable.capacity = thiz.capacity.value;
+				thiz.seatTable.description = thiz.description.value;
+				thiz.seatTable.priority = thiz.priority.value;
+				if (thiz.callback) thiz.callback(thiz.seatTable);
+			}
 		}
 		serverReport.getJson("/updateTable.do", "GET", callback, {
 					"seatId": thiz.seatTable.id,
@@ -167,9 +175,10 @@ AddTableDialog.prototype.onAccept = function() {
 				});
 	} else {
 		var thiz = this;
-		var callback = function(seat){
-			if (!seat) return;
-			console.log(seat);
+		var callback = function(newSeat){
+			if (newSeat) {
+				if (thiz.callback) thiz.callback(newSeat);
+			}
 		}
 		serverReport.getJson("/createSeatTable.do", "GET", callback, {
 					"floor" : thiz.floor.value,
@@ -179,26 +188,6 @@ AddTableDialog.prototype.onAccept = function() {
 					"priority" : thiz.priority.value
 				});
 	}
-	
-	
-	
-//	var args = this.calendarItem;
-//	args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-//	args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
-//	var e = new DayPilot.Event({
-//	      start: args.start,
-//	      end: args.end,
-//	      id: DayPilot.guid(),
-//	      resource: args.resource,
-//	      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
-//	      cusName: thiz.customerName.value,
-//	      cusPhone: thiz.customerPhone.value,
-//	      cusMail: thiz.customerMail.value,
-//	      cusCapacity: thiz.customerCapacity.value
-//	  });
-//	
-//	
-
 	this.close();
 }
 
@@ -223,7 +212,6 @@ AddTableDialog.prototype.show = function() {
 AddTableDialog.prototype.close = function() {
 	document.body.removeChild(this.container);
 	document.body.removeChild(this.busyBackground);
-	if (this.callback) this.callback();
 }
 
 AddTableDialog.prototype.positionContainer = function(){

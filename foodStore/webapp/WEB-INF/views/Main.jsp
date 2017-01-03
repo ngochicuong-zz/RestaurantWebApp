@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,11 +18,11 @@
 <script src="webapp/assets/js/common-dom.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+
 <script src="webapp/assets/js/AddPromotionDialog.js"></script>
 <script src="webapp/assets/js/PromoManagementPage.js"></script>
 <script src="webapp/assets/js/AddProductDialog.js"></script>
 <script src="webapp/assets/js/AddAccountDialog.js"></script>
-<script src="webapp/assets/js/AccountManagementPage.js"></script>
 <script src="webapp/assets/js/AddTableDialog.js"></script>
 <script src="webapp/assets/js/SeatManagementPage.js"></script>
 <script src="webapp/assets/js/AdminPage.js"></script>
@@ -40,7 +40,8 @@
 <script src="webapp/assets/js/TablePage.js"></script>
 <script src="webapp/assets/js/OrderPage.js"></script>
 <script src="webapp/assets/js/ProductManagementPage.js"></script>
-<title>Que ta restaurant</title>
+<script src="webapp/assets/js/AccountManagementPage.js"></script>
+<title>Quê Ta restaurant</title>
 <style>
 	#navbar {
 		background-color: #555;
@@ -87,20 +88,19 @@
 	<hbox id="navbar" flex="1"> 
 		<hbox class="navbar-items InputRow" page-name="table-page">
 			<i class="material-icons orange600 md-16" >airline_seat_recline_normal</i>
-			<span >Seat Management</span>
+			<span>Quản lý chỗ ngồi</span>
 		</hbox>
 		<hbox class="navbar-items InputRow" page-name="appointment-page">
 			<i class="material-icons orange600 md-16" >event</i>
-			<span >Appointment Management</span>
+			<span >Quản lý đặt bàn</span>
 		</hbox>
 		<hbox class="navbar-items InputRow" page-name="admin-page">
 			<i class="material-icons orange600 md-16" >settings</i>
-			<span >System Management</span>
+			<span>Quản lý hệ thống</span>
 		</hbox>
 		<hbox flex="1">
 			<hbox flex="1"></hbox>
 			<hbox  class="navbar-items InputRow" style="justify-content: flex-end">
-				<span >Account</span>
 				<i class="material-icons orange600 md-16" >account_circle</i>
 			</hbox>
 		</hbox>

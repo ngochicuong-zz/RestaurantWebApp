@@ -14,15 +14,18 @@ function AccountManagementPage() {
 	serverReport.getHTML("/getAccountManagementPage.do", "GET", callback);
 }
 
-AccountManagementPage.prototype.requestItems = function() {
+AccountManagementPage.prototype.requestItems = function(requestCallBack) {
 	var thiz = this;
 	var callback = function(accounts) {
+		if (accounts.length > 1) {
+			accounts.sort(function(a, b){
+				return a.id - b.id;
+			});
+		}
 		thiz.accounts = accounts;
-		thiz.table.render(thiz.accounts);
+		if(requestCallBack) requestCallBack();
 	}
-	serverReport.getJson("/getAccounts.do", "POST", callback, {
-		"user" : ""
-	});
+	serverReport.getJson("/getAccounts.do", "POST", callback);
 }
 
 AccountManagementPage.prototype.init = function(){
@@ -35,10 +38,14 @@ AccountManagementPage.prototype.init = function(){
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
-	this.accounts = new Array();
-	this.requestItems();
+	
 	
 	var thiz = this;
+	var requestCallBack = function() {
+		thiz.table.render(thiz.accounts);
+	}
+	this.accounts = new Array();
+	this.requestItems(requestCallBack);
 	this.contextMenu = new ContextMenu();
 	this.contextMenu.init([
 			{
@@ -178,5 +185,10 @@ AccountManagementPage.prototype.onCreateItem = function(newItem) {
 }
 
 AccountManagementPage.prototype.getPageContainer = function() {
+	var thiz = this;
+	this.requestItems(function() {
+		var result = thiz.onSearch();
+		thiz.table.render(result);
+	});
 	return this.pageContainer;
 }

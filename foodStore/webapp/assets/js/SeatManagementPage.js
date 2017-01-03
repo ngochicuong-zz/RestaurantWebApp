@@ -9,48 +9,124 @@ function SeatManagementPage() {
 	var callback = function(htmlText) {
 		thiz.pageContainer.innerHTML = htmlText;
 		thiz.init();
+		console.log(thiz.containerPanel);
 	}
 	serverReport.getHTML("/getSeatMangementPage.do", "GET", callback);
+}
+
+SeatManagementPage.prototype.requestItems = function(requestCallBack) {
+	var thiz = this;
+	var callback = function(seatTables) {
+		if (seatTables.length > 1) {
+			seatTables.sort(function(a, b){
+				return a.id - b.id;
+			});
+		}
+		thiz.seatTables = seatTables;
+		if(requestCallBack) requestCallBack();
+	}
+	serverReport.getJson("/searchTable.do", "GET",
+			callback, {
+				"floor" : -1,
+				"room" : -1,
+				"capacity" : -1,
+				"onDesk" : ""
+	});
+}
+
+SeatManagementPage.prototype.initItemForSelect = function() {
+	var f = this.pageContainer.querySelector("#floor");
+	var r = this.pageContainer.querySelector("#room");
+	var c = this.pageContainer.querySelector("#capacity");
+	
+	var floorCount = new Array();
+	var roomCount = new Array();
+	var capacityCount = new Array();
+	for (var i = 0; i < this.seatTables.length; i++) {
+		var seat = this.seatTables[i];
+		if (floorCount.indexOf(seat.floor) < 0) floorCount.push(seat.floor);
+		if (roomCount.indexOf(seat.room) < 0) roomCount.push(seat.room);
+		if (capacityCount.indexOf(seat.capacity) < 0) capacityCount.push(seat.capacity);
+	}
+	floorCount.sort();
+	roomCount.sort();
+	capacityCount.sort(function(a, b){return a-b});
+	for (var i = 0; i < Math.max(floorCount.length, roomCount.length, capacityCount.length); i++) {
+		var index = i;
+		if (i < floorCount.length) {
+			var option = Dom.newDOMElement({
+				_name : "option",
+				value : floorCount[index],
+				_text : floorCount[index]
+			});
+			f.appendChild(option);
+		}
+		if (i < roomCount.length) {
+			var option = Dom.newDOMElement({
+				_name : "option",
+				value : roomCount[index],
+				_text : roomCount[index]
+			});
+			r.appendChild(option);
+		}
+		if (i < capacityCount.length) {
+			var option = Dom.newDOMElement({
+				_name : "option",
+				value : capacityCount[index],
+				_text : capacityCount[index]
+			});
+			c.appendChild(option);
+		}
+	}
 }
 
 SeatManagementPage.prototype.init = function(){
 	var thiz = this;
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
-	var theader = new Array("id", "room", "floor", "capacity", "description",
+	var theader = new Array("room", "floor", "capacity", "description",
 			"priority", "onDesk");
 	this.table = new Table();
 	this.table.init(theader);
 	this.containerPanel.appendChild(this.table.getTable());
+	
 	this.addButton = this.pageContainer.querySelector("#add-button");
 	this.searchButton = this.pageContainer.querySelector("#search-button");
-	var f = this.pageContainer.querySelector("#floor");
-	var r = this.pageContainer.querySelector("#room");
-	var c = this.pageContainer.querySelector("#capacity");
+	
+	var thiz = this;
 	this.searchButton.addEventListener("click", function(ev) {
-		thiz.reloadPage();
+		var result = thiz.onSearch();
+		thiz.table.render(result);
 	}, false);
 
 	this.contextMenu = new ContextMenu();
-	var thiz = this;
+	this.seatTables = new Array();
+	var requestCallBack = function() {
+		thiz.initItemForSelect();
+		thiz.table.render(thiz.seatTables);
+	}
+	this.requestItems(requestCallBack);
 	this.contextMenu.init([
 			{
 				name : "Add",
 				handler : function(handleItem) {
-					var dialog = new AddTableDialog();
+					var callback = function(newItem) {
+						if (newItem) {
+							thiz.onCreateItem(newItem);
+						}
+					}
+					var dialog = new AddTableDialog(null, callback1);
 					dialog.show();
 				}
 			},
 			{
 				name : "Edit",
 				handler : function(handleItem) {
-					var callback = function() {
-						window.setTimeout(function() {
-							thiz.reloadPage();
-						}, 100)
+					var callback = function(newItem) {
+						var oldItem = handleItem.data;
+						thiz.onUpdateItem(oldItem, newItem);
 					}
 					var dialog = new AddTableDialog(handleItem.data, callback);
 					dialog.show();
-//				
 			}
 			} ]);
 	this.table.tableBody.addEventListener("contextmenu", function(e) {
@@ -73,29 +149,55 @@ SeatManagementPage.prototype.init = function(){
 	
 }
 
-SeatManagementPage.prototype.reloadPage = function() {
-	var thiz = this;
+SeatManagementPage.prototype.onSearch = function() {
 	var f = this.pageContainer.querySelector("#floor");
 	var r = this.pageContainer.querySelector("#room");
 	var c = this.pageContainer.querySelector("#capacity");
+	
 	var floor = f.options[f.selectedIndex].value;
 	var room = r.options[r.selectedIndex].value;
 	var capacity = c.options[c.selectedIndex].value;
-
-	console.log("Search button click.... ");
-
-	var callback = function(seats) {
-		thiz.table.render(seats);
-	}
-	serverReport.getJson("/searchTable.do", "GET",
-			callback, {
-				"floor" : floor,
-				"room" : room,
-				"capacity" : capacity,
-				"onDesk" : ""
+	
+	if (floor == -1 && room == -1 && capacity == -1) return this.seatTables;
+	
+	var result = new Array();
+	var thiz = this;
+	this.seatTables.forEach(function(seat){
+		if ((floor == -1 || seat.floor == floor)
+			&& (room == -1 || seat.room == room )
+			&& (capacity == -1 || seat.capacity <= capacity ))
+				result.push(seat);
 	});
+	return result;
+}
+
+SeatManagementPage.prototype.onCreateItem = function(newItem) {
+	if (newItem != null) {
+		this.seatTables.push(newItem);
+		var thiz = this;
+		window.setTimeout(function() {
+			var result = thiz.onSearch();
+			thiz.table.render(result);
+		}, 100);
+	}
+}
+
+SeatManagementPage.prototype.onUpdateItem = function(oldItem, newItem) {
+	var index = this.seatTables.indexOf(oldItem);
+	if (index == -1) return;
+	this.seatTables[index] = newItem;
+	var thiz = this;
+	window.setTimeout(function() {
+		var result = thiz.onSearch();
+		thiz.table.render(result);
+	}, 10);
 }
 
 SeatManagementPage.prototype.getPageContainer = function() {
+	var thiz = this;
+	this.requestItems(function() {
+		var result = thiz.onSearch();
+		thiz.table.render(result);
+	});
 	return this.pageContainer;
 }

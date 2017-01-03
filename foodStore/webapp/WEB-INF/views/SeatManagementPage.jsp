@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -50,15 +50,16 @@
 			  <option value= 4>4</option>
 			</select>
 		</hbox>
-		<hbox style="justify-content: flex-end; color: #000000">
-			<hbox style="justify-content: flex-end; color: #000000">
+		<hbox flex="1">
+			<hbox style="justify-content: flex-start; color: #000000">
 				<button id="search-button"><i class="material-icons md-dark md-32" >search</i></button>
+			</hbox>
+			<hbox flex="1" style="justify-content: flex-end; color: #000000">
 				<button style="margin-left: 0.5em" id="add-button"><i class="material-icons md-dark md-32" >add</i></button>
 			</hbox>
 		</hbox>
-		
 	</hbox> 
-	<vbox id="container-panel" flex="1">
+	<vbox id="container-panel" flex="1" style="overflow: auto;">
 	<!-- 
 		<table class="table table-bordered">
 			<thead>

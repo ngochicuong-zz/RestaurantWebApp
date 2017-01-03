@@ -13,15 +13,31 @@ function ProductManagementPage() {
 	serverReport.getHTML("/getProductManagementPage.do", "GET", callback);
 }
 
+ProductManagementPage.prototype.requestItems = function() {
+	var thiz = this;
+	var callback = function(products) {
+		thiz.products = products;
+		thiz.table.render(thiz.products);
+	}
+	serverReport.getJson("/searchProduct.do", "GET",
+			callback, {
+				"name" : "" ,
+				"price" : -1 ,
+				"categories" : "-1"
+	});
+}
+
 ProductManagementPage.prototype.init = function(){
 	this.addButton = this.pageContainer.querySelector("#add-button");
 	this.searchButton = this.pageContainer.querySelector("#search-button");
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
 	
-	this.promoName = this.pageContainer.querySelector("#promo-name");
-	this.fromDate = this.pageContainer.querySelector("#from-date");
-	this.toDate = this.pageContainer.querySelector("#to-date");
+	this.foodName = this.pageContainer.querySelector("#food-name");
+	this.price = this.pageContainer.querySelector("#price");
+	this.categories = this.pageContainer.querySelector("#categories");
 	
+	this.products = new Array();
+	this.requestItems();
 	var thiz = this;
 	
 	var theader = new Array("productName", "unitType", "quantityPerUnit", "price", "discontinued",
@@ -31,7 +47,8 @@ ProductManagementPage.prototype.init = function(){
 	this.containerPanel.appendChild(this.table.getTable());
 	
 	this.searchButton.addEventListener("click", function(ev) {
-		thiz.reloadPage();
+		var result = thiz.onSearch();
+		thiz.table.render(result);
 	}, false);
 
 	this.contextMenu = new ContextMenu();
@@ -40,17 +57,21 @@ ProductManagementPage.prototype.init = function(){
 			{
 				name : "Add",
 				handler : function(handleItem) {
-					var dialog = new AddProductDialog();
+					var callback = function(newItem) {
+						if (newItem) {
+							thiz.onCreateItem(newItem);
+						}
+					}
+					var dialog = new AddProductDialog(null, callback);
 					dialog.show();
 				}
 			},
 			{
 				name : "Edit",
 				handler : function(handleItem) {
-					var callback = function() {
-						window.setTimeout(function() {
-							thiz.reloadPage();
-						}, 100)
+					var callback = function(newItem) {
+						var oldItem = handleItem.data;
+						thiz.onUpdateItem(oldItem, newItem);
 					}
 					var dialog = new AddProductDialog(handleItem.data, callback);
 					dialog.show();
@@ -76,19 +97,43 @@ ProductManagementPage.prototype.init = function(){
 	
 }
 
-ProductManagementPage.prototype.reloadPage = function() {
+ProductManagementPage.prototype.onSearch = function() {
+	var foodName = this.foodName.value;
+	var price = this.price.value;
+	var categories = this.categories.options[this.categories.selectedIndex].value;
+	
+	if (foodName == "" && price == "" && categories == -1) return this.products;
+	var result = new Array();
 	var thiz = this;
-	var c = this.categories;
-
-	var callback = function(seats) {
-		thiz.table.render(seats);
-	}
-	serverReport.getJson("/searchProduct.do", "GET",
-			callback, {
-				"name" : this.foodName.value,
-				"price" : this.price.value == "" ? -1 : this.price.value,
-				"categories" : c.options[c.selectedIndex].value
+	this.products.forEach(function(product){
+		if ((foodName == "" || product.productName.indexOf(foodName) != -1)
+			&& (price == "" || product.price <= price )
+			&& ((categories == -1 || product.categoryType == categories)))
+				result.push(product);
 	});
+	return result;
+}
+
+ProductManagementPage.prototype.onUpdateItem = function(oldItem, newItem) {
+	var index = this.products.indexOf(oldItem);
+	if (index == -1) return;
+	this.products[index] = newItem;
+	var thiz = this;
+	window.setTimeout(function() {
+		var result = thiz.onSearch();
+		thiz.table.render(result);
+	}, 100);
+}
+
+ProductManagementPage.prototype.onCreateItem = function(newItem) {
+	if (newItem != null) {
+		this.products.push(newItem);
+		var thiz = this;
+		window.setTimeout(function() {
+			var result = thiz.onSearch();
+			thiz.table.render(result);
+		}, 100);
+	}
 }
 
 ProductManagementPage.prototype.getPageContainer = function() {

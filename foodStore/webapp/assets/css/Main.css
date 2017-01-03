@@ -1,39 +1,75 @@
 .hbox {
   flex-direction: row;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 .vbox {
   flex-direction: column;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 html {
   flex-direction: row;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 body {
   flex: 1;
   flex-direction: column;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
   overflow: hidden;
 }
 hbox {
   flex-direction: row;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 vbox {
   flex-direction: column;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 box {
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 box[orient="vertical"] {
   flex-direction: column;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 box[orient="horizontal"] {
   flex-direction: row;
-  display: flex;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;;
 }
 vbox > *,
 hbox > *,
@@ -93,6 +129,10 @@ button[role='danger'] {
 */
 footer {
   flex-direction: row;
+   display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   padding: 0.5em;
 }
@@ -185,6 +225,11 @@ body[loaded] #bootingIndicator {
     opacity: 0;
   }
 }
+
+@font-face {
+    font-family: liberties;
+    src: url(../font-awesome/fonts/LinLibertine_R.ttf);
+}
 html {
   user-select: none;
   -o-user-select: none;
@@ -194,6 +239,7 @@ html {
 }
 label {
   font-weight: normal;
+  font-family: liberties
 }
 icon {
   line-height: 1em;
@@ -287,10 +333,6 @@ hbox.combo-popup__item:hover {
  	background-color: transparent;
 }
 
-table tr {
-	
-}
-
 table tr td{
 	white-space: nowrap;
 	word-wrap: break-word;
@@ -325,6 +367,7 @@ table tr td{
 }
 
 input{
+  font-family: liberties
   display: block;
   margin: 0;
   min-width: 5em;
@@ -379,4 +422,7 @@ button {
     background: #fb8c00;
     color: #000000;
     border: none;
+}
+span {
+	font-family: liberties
 }

@@ -36,9 +36,8 @@ public class AdminController {
 	@RequestMapping(value = "/getAccounts.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String getAccounts(
-			@RequestParam("user") String user,
 			ModelMap model) {
-		List<Account> accounts = user == null ? ServiceManagement.get(IAccountService.class).getAllAccount() : ServiceManagement.get(IAccountService.class).getAccountByUser(user);
+		List<Account> accounts = ServiceManagement.get(IAccountService.class).getAllAccount();
 		return JsonUtil.build(Account.class, new AccountAdapter()).toJson(accounts);
 	}
 	

@@ -84,9 +84,21 @@ function AddProductDialog(product, callback) {
 						
 					},
 					{
-						_name: "input",
+						_name: "select",
 						id: "categories",
-						type: "text"
+						_children: [
+							{
+								_name: "option",
+								value: 0,
+								_text: "Food"
+							},
+							{
+								_name: "option",
+								value: 1,
+								_text: "Water"
+							}
+						]
+							
 					}
 				]
 			},
@@ -127,7 +139,7 @@ function AddProductDialog(product, callback) {
 			thiz.unit.value = thiz.product.unitType;
 			thiz.quantityPerUnit.value = thiz.product.quantityPerUnit;
 			thiz.price.value = thiz.product.price;
-			thiz.categories.value = thiz.product.categoryType;
+			thiz.categories.selectedIndex = thiz.product.categoryType;
 		}
 		
 		thiz.acceptButton.addEventListener("click", function(event) {
@@ -157,6 +169,14 @@ AddProductDialog.prototype.onAccept = function() {
 	var thiz = this;
 	if (this.product) {
 		var callback = function(updated){
+			if (updated) {
+				thiz.product.productName = thiz.foodName.value;
+				thiz.product.unitType = thiz.unit.value,
+				thiz.product.quantityPerUnit = thiz.quantityPerUnit.value;
+				thiz.product.price = thiz.price.value;
+				thiz.product.categoryType = thiz.categories.options[thiz.categories.selectedIndex].value;
+				if (thiz.callback) thiz.callback(thiz.product);
+			}
 		}
 		serverReport.getJson("/updateProduct.do", "GET", callback, {
 			"productId" : thiz.product.id,
@@ -164,18 +184,21 @@ AddProductDialog.prototype.onAccept = function() {
 			"unit" : thiz.unit.value,
 			"quantityPerUnit": thiz.quantityPerUnit.value,
 			"price" : thiz.price.value,
-			"categories" : thiz.categories.value,
+			"categories" : thiz.categories.options[thiz.categories.selectedIndex].value,
 		});
 	} else {
-		var callback = function(created){
-			if (!created) return;
+		var callback = function(newProduct){
+			if (newProduct) {
+				thiz.product = newProduct;
+				if (thiz.callback) thiz.callback(thiz.product);
+			}
 		}
-		serverReport.getBoolean("/createProduct.do", "GET", callback, {
+		serverReport.getJson("/createProduct.do", "GET", callback, {
 					"productName" : thiz.foodName.value,
 					"unit" : thiz.unit.value,
 					"quantity": thiz.quantityPerUnit.value,
 					"price" : thiz.price.value,
-					"categories" : thiz.categories.value,
+					"categories" : thiz.categories.options[thiz.categories.selectedIndex].value,
 				});
 	}
 	
@@ -220,7 +243,6 @@ AddProductDialog.prototype.show = function() {
 AddProductDialog.prototype.close = function() {
 	document.body.removeChild(this.container);
 	document.body.removeChild(this.busyBackground);
-	if (this.callback) this.callback();
 }
 
 AddProductDialog.prototype.positionContainer = function(){

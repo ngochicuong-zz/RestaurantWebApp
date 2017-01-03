@@ -70,7 +70,39 @@ function AddAccountDialog(account, callback) {
 					{
 						_name: "select",
 						id: "role",
-						type: "number"
+						type: "number",
+						_children: [
+							{
+								_name: "option",
+								value: 0,
+								_text: "User"
+							},
+							{
+								_name: "option",
+								value: 1,
+								_text: "Manager"
+							},
+							{
+								_name: "option",
+								value: 2,
+								_text: "Admin"
+							},
+							{
+								_name: "option",
+								value: 3,
+								_text: "Recipt"
+							},{
+								_name: "option",
+								value: 4,
+								_text: "Kitchen"
+							},
+							{
+								_name: "option",
+								value: 5,
+								_text: "Cashier"
+							}
+						]
+							
 					}
 				]
 			},
@@ -142,7 +174,7 @@ AddAccountDialog.prototype.onAccept = function() {
 				thiz.account.user = thiz.user.value;
 				thiz.account.pass = thiz.pass.value,
 				thiz.account.email = thiz.email.value;
-				thiz.account.role = thiz.role.value;
+				thiz.account.role = thiz.role.options[thiz.role.selectedIndex].value;
 				if (thiz.callback) thiz.callback(thiz.account);
 			}
 		}
@@ -151,7 +183,7 @@ AddAccountDialog.prototype.onAccept = function() {
 			"user" : thiz.user.value,
 			"pass" : thiz.pass.value,
 			"email" : thiz.email.value,
-			"role": thiz.role.value,
+			"role": thiz.role.options[thiz.role.selectedIndex].value,
 		});
 	} else {
 		var callback = function(newAccount){
@@ -164,7 +196,7 @@ AddAccountDialog.prototype.onAccept = function() {
 					"user" : thiz.user.value,
 					"pass" : thiz.pass.value,
 					"email" : thiz.email.value,
-					"role": thiz.role.value,
+					"role": thiz.role.options[thiz.role.selectedIndex].value,
 				});
 	}
 	this.close();

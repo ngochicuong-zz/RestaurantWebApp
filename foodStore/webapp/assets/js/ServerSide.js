@@ -41,6 +41,7 @@ serverReport.sendRequest = function(patent, method, callBack, params) {
 		xhttp.open(method, patent, true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		if (paramString != null) xhttp.send(paramString);
+		else xhttp.send();
 	} else {
 		xhttp.open(method, patent + (paramString != null ? "?" + paramString : ""), true);
 		xhttp.send();
