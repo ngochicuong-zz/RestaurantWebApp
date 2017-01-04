@@ -87,6 +87,10 @@ pageEncoding="UTF-8"%>
 		vertical-align: middle !important;
 	}
 	
+	table > tbody > tr > td > i{
+		padding-left: 0.1em;
+	}
+	
 	table > tbody > tr:hover {
 		outline: solid 1px #FA6800;
 	}

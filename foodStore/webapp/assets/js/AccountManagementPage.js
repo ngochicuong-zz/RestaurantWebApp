@@ -29,11 +29,74 @@ AccountManagementPage.prototype.requestItems = function(requestCallBack) {
 }
 
 AccountManagementPage.prototype.init = function(){
+	var thiz = this;
+	
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
 	this.searchButton = this.pageContainer.querySelector("#search-button");
 	this.addButton = this.pageContainer.querySelector("#add-button");
 	this.accountName = this.pageContainer.querySelector("#account-name");
-	
+	var renderAction = function(account) {
+		var buttons = new Array();
+		if (account.actived == 't'){
+			var button = Dom.newDOMElement({
+				_name : "i",
+				class : "material-icons md-dark md-18",
+				_text : "lock_open"
+			});
+			button.action = function() {
+				var callback = function(updated) {
+					if (updated) {
+						var newItem = {};
+						newItem = account;
+						newItem.actived = 'f';
+						thiz.onUpdateItem(account, newItem);
+					}
+				}
+				serverReport.getJson("/setActiveAccount.do", "GET", callback, {
+					"userId" : account.id,
+					"active" : false
+				});
+			}
+			buttons.push(button);
+		} 
+		if (account.actived == 'f') {
+			var button = Dom.newDOMElement({
+				_name : "i",
+				class : "material-icons md-dark md-18",
+				_text : "lock"
+			});
+			button.action = function() {
+				var callback = function(updated) {
+					if (updated) {
+						var newItem = {};
+						newItem = account;
+						newItem.actived = 't';
+						thiz.onUpdateItem(account, newItem);
+					}
+				}
+				serverReport.getJson("/setActiveAccount.do", "GET", callback, {
+					"userId" : account.id,
+					"active" : true
+				});
+			}
+			buttons.push(button);
+		}
+		var button = Dom.newDOMElement({
+			_name : "i",
+			class : "material-icons md-dark md-18",
+			_text : "mode_edit"
+		});
+		button.action = function() {
+			var callback = function(newItem) {
+				var oldItem = account;
+				thiz.onUpdateItem(oldItem, newItem);
+			}
+			var dialog = new AddAccountDialog(account, callback);
+			dialog.show();
+		}
+		buttons.push(button);
+		return buttons;
+	}
 	var theader = [
 		{
 			"column" : "Tài khoản",
@@ -52,19 +115,16 @@ AccountManagementPage.prototype.init = function(){
 			"label" : "lastSignInAt"
 		},
 		{
-			"column" : "Chế độ",
-			"label" : "actived"
-		},
-		{
 			"column" : "Tình trạng",
 			"label" : "online"
 		}];
 	this.table = new Table();
-	this.table.init(theader);
+	this.table.init(theader, renderAction);
+	this.table.renderBackground = function(item) {
+		return item.actived =='f';
+	}
 	this.containerPanel.appendChild(this.table.getTable());
 	
-	
-	var thiz = this;
 	var requestCallBack = function() {
 		thiz.table.render(thiz.accounts);
 	}

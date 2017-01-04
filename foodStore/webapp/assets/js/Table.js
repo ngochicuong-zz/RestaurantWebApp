@@ -102,11 +102,12 @@ Table.prototype.render = function(items) {
 		}
 		if (thiz.renderAction != null) {
 			var buttons = thiz.renderAction(item);
+			if (buttons.length == 0) return;
+			var tdNode = Dom.newDOMElement({
+				 _name: "td",
+			 });
 			for(var i = 0; i < buttons.length; i++) {
 				var button = buttons[i];
-				var tdNode = Dom.newDOMElement({
-					 _name: "td",
-				 });
 				tdNode.appendChild(button);
 				trNode.appendChild(tdNode);
 			}
