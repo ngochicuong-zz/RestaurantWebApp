@@ -361,7 +361,7 @@ input{
   font-family: liberties
   display: block;
   margin: 0;
-  min-width: 5em;
+  width: 10em;
   font-family: sans-serif;
   appearance: none;
   box-shadow: none;

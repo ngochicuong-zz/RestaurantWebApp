@@ -5,11 +5,11 @@ pageEncoding="UTF-8"%>
 
 <style>
 	#seat-info{
-		height: 100vh;
 		min-width: 10em;
 		background-color: #313236;
 		color: #ffffff;
 		padding: 0.5em;
+		
 	}
 	#search-info > vbox + hbox {
 		margin-top:1em;
@@ -42,54 +42,43 @@ pageEncoding="UTF-8"%>
 		height: 3em;
 	}
 	
-	#seat-info label {
-		width: 5em;
-		text-align: center;
-	}
 </style>
-<hbox flex="1"> 
-<vbox id="seat-info"> 
-	<vbox id="seat-Image">
-		<img></img>
-	</vbox>
+<vbox flex="1"> 
+<hbox id="seat-info"> 
 	<vbox flex="1">
-		<hbox class="InputRow" >
+		<hbox class="InputRow" style="display:none;">
 			<label>Seat id:</label>
 			<label id="seatIdText"></label>
 		</hbox>
-		<hbox class="InputRow">
-			<label>floor:</label>
-			<label id="floorText"></label>
-		</hbox>
-		<hbox class="InputRow">
-			<label>room:</label>
-			<label id="roomText"></label>
-		</hbox>
-		<hbox class="InputRow">
-			<label>capacity:</label>
-			<label id="seatCapacity"></label>
-		</hbox>
-		<hbox>
-			<hbox class="InputRow" style="justify-content: flex-start; margin-right:0.5em; color: #000000">
-				<button id="checkout-button" class="round-button" title="Check out"><i class="material-icons md-light md-32">payment</i></button>
-			</hbox>	
-			<hbox style="justify-content: flex-end; color: #000000" flex="1">
-				<button id="back-button" class="round-button" title="Back"><i class="material-icons md-light md-32">replay</i></button>
-			</hbox>	
-		</hbox>
-	</vbox>
-</vbox> 
-<vbox id="container-panel" flex="1">
-	<vbox>
-		<hbox class="InputRow" flex="1" style="justify-content: center">
-			<label>Order code: </label>
-			<label id="order-code" ></label>
-		</hbox>
 		<hbox class="InputRow" style="justify-content: center">
-			<label>Date: </label>
+			<label>Ngày: </label>
 			<label id="orderDate"></label>
 		</hbox>
+		<hbox class="InputRow" style="justify-content: center">
+			<label>Mã hóa đơn: </label>
+			<label id="order-code" ></label>
+		</hbox>
+		<hbox style="justify-content: center">
+			<hbox class="InputRow" style="padding-left:0.1em;">
+				<span>Lầu: </span>
+				<span id="floorText"></span>
+			</hbox>
+			<hbox class="InputRow"  style="padding-left:0.1em;">
+				<span>Phòng:</span>
+				<span id="roomText"></span>
+			</hbox>
+			<hbox class="InputRow"  style="padding-left:0.1em;">
+				<span>Chỗ ngồi:</span>
+				<span id="seatCapacity"></span>
+			</hbox>
+		</hbox>
 	</vbox>
+	<hbox class="InputRow" style="justify-content: flex-end;color: #000000">
+		<button id="checkout-button" class="round-button" title="Check out"><i class="material-icons md-light md-32">payment</i></button>
+		<button id="back-button" class="round-button" title="Back"><i class="material-icons md-light md-32">replay</i></button>
+	</hbox>	
+</hbox> 
+<vbox id="container-panel" flex="1">
 	<vbox id="orderDetailPanel" flex="1">
 		<hbox class="InputRow" id="add-detail-panel" style="margin-bottom: 0.5em; align-items: flex-start;" >
 			<hbox flex="1" >
@@ -176,4 +165,4 @@ pageEncoding="UTF-8"%>
 		</hbox>
 	</vbox>
 </hbox> 
-</hbox>
+</vbox>

@@ -50,7 +50,7 @@ function AddProductDialog(product, callback) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Số lượng trên 1 đơn vị: "
+						_text: "Số lượng / đơn vị: "
 					},
 					{
 						_name: "input",

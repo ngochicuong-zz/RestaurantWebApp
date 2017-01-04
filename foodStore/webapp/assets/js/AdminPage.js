@@ -13,7 +13,7 @@ function AdminPage() {
 		thiz.init();
 	}
 	serverReport.getHTML("/getAdminPage.do", "GET", callback);
-	
+	this.activeNav = null;
 }
 
 AdminPage.prototype.init = function() {
@@ -28,6 +28,9 @@ AdminPage.prototype.init = function() {
 			}
 		}); 
 		if (!pageNode) return;
+		if (thiz.activeNav != null) thiz.activeNav.classList.remove("active");
+		thiz.activeNav = pageNode;
+		thiz.activeNav.className += " active";
 		var page = Main.pageManagement.pages[pageNode.getAttribute("page-name")];
 		if (!page) return;
 		thiz.container.innerHTML = "";

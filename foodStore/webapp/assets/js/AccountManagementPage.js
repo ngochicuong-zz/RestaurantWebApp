@@ -41,7 +41,9 @@ AccountManagementPage.prototype.init = function(){
 			var button = Dom.newDOMElement({
 				_name : "i",
 				class : "material-icons md-dark md-18",
-				_text : "lock_open"
+				_text : "lock_open",
+				title : "Khóa tài khoản"
+					
 			});
 			button.action = function() {
 				var callback = function(updated) {
@@ -63,7 +65,8 @@ AccountManagementPage.prototype.init = function(){
 			var button = Dom.newDOMElement({
 				_name : "i",
 				class : "material-icons md-dark md-18",
-				_text : "lock"
+				_text : "lock",
+				title : "Mở khóa tài khoản"
 			});
 			button.action = function() {
 				var callback = function(updated) {
@@ -84,7 +87,8 @@ AccountManagementPage.prototype.init = function(){
 		var button = Dom.newDOMElement({
 			_name : "i",
 			class : "material-icons md-dark md-18",
-			_text : "mode_edit"
+			_text : "mode_edit",
+			title : "Chỉnh sửa tài khoản"
 		});
 		button.action = function() {
 			var callback = function(newItem) {

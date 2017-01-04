@@ -28,6 +28,7 @@ ProductManagementPage.prototype.requestItems = function() {
 }
 
 ProductManagementPage.prototype.init = function(){
+	var thiz = this;
 	this.addButton = this.pageContainer.querySelector("#add-button");
 	this.searchButton = this.pageContainer.querySelector("#search-button");
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
@@ -38,8 +39,73 @@ ProductManagementPage.prototype.init = function(){
 	
 	this.products = new Array();
 	this.requestItems();
-	var thiz = this;
 	
+	var renderAction = function(product) {
+		var buttons = new Array();
+		if (product.discontinued == 't'){
+			var button = Dom.newDOMElement({
+				_name : "i",
+				class : "material-icons md-dark md-18",
+				_text : "turned_in",
+				title : "Đặt món ăn"
+					
+			});
+			button.action = function() {
+				var callback = function(updated) {
+					if (updated) {
+						var newItem = {};
+						newItem = product;
+						newItem.discontinued = 'f';
+						thiz.onUpdateItem(product, newItem);
+					}
+				}
+				serverReport.getJson("/setDiscontinuedProduct.do", "GET", callback, {
+					"productId" : product.id,
+					"discontinued" : false
+				});
+			}
+			buttons.push(button);
+		} 
+		if (product.discontinued == 'f'){
+			var button = Dom.newDOMElement({
+				_name : "i",
+				class : "material-icons md-dark md-18",
+				_text : "turned_in_not",
+				title : "Dừng món ăn"
+			});
+			button.action = function() {
+				var callback = function(updated) {
+					if (updated) {
+						var newItem = {};
+						newItem = product;
+						newItem.discontinued = 't';
+						thiz.onUpdateItem(product, newItem);
+					}
+				}
+				serverReport.getJson("/setDiscontinuedProduct.do", "GET", callback, {
+					"productId" : product.id,
+					"discontinued" : true
+				});
+			}
+			buttons.push(button);
+		} 
+		var button = Dom.newDOMElement({
+			_name : "i",
+			class : "material-icons md-dark md-18",
+			_text : "mode_edit",
+			title : "Chỉnh sửa"
+		});
+		button.action = function() {
+			var callback = function(newItem) {
+				var oldItem = product;
+				thiz.onUpdateItem(oldItem, newItem);
+			}
+			var dialog = new AddProductDialog(product, callback);
+			dialog.show();
+		}
+		buttons.push(button);
+		return buttons;
+	}
 	var theader = [
 		{
 			"column" : "Tên thực phẩm",
@@ -58,16 +124,15 @@ ProductManagementPage.prototype.init = function(){
 			"label" : "price"
 		},
 		{
-			"column" : "Tình trạng kinh doanh",
-			"label" : "discontinued"
-		},
-		{
 			"column" : "Phân loại",
 			"label" : "categoryType"
 		},
 		];
 	this.table = new Table();
-	this.table.init(theader);
+	this.table.init(theader, renderAction);
+	this.table.renderBackground = function(item) {
+		return item.discontinued =='t';
+	}
 	this.containerPanel.appendChild(this.table.getTable());
 	
 	this.searchButton.addEventListener("click", function(ev) {

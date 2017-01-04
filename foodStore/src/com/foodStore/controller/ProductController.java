@@ -69,4 +69,14 @@ public class ProductController {
 		return String.valueOf(updated);
 	}
 	
+	@RequestMapping(value = "/setDiscontinuedProduct.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@ResponseBody
+	public String setDiscontinueProduct(
+			@RequestParam("productId") int productId,
+			@RequestParam("discontinued") boolean discontinued,
+			ModelMap model) {
+		boolean updated = ServiceManagement.get(IProductService.class).setDiscontinued(productId, discontinued);
+		return String.valueOf(updated);
+	}
+	
 }

@@ -41,6 +41,25 @@ PromoManagementPage.prototype.init = function(){
 	this.fromDate = this.pageContainer.querySelector("#from-date");
 	this.toDate = this.pageContainer.querySelector("#to-date");
 	var thiz = this;
+	var renderAction = function(promo) {
+		var buttons = new Array();
+		var button = Dom.newDOMElement({
+			_name : "i",
+			class : "material-icons md-dark md-18",
+			_text : "mode_edit",
+			title : "Chỉnh sửa"
+		});
+		button.action = function() {
+			var callback = function(newItem) {
+				var oldItem = promo;
+				thiz.onUpdateItem(oldItem, newItem);
+			}
+			var dialog = new AddPromotionDialog(promo, callback);
+			dialog.show();
+		}
+		buttons.push(button);
+		return buttons;
+	}
 	var theader = [
 		{
 			"column" : "Tên chương trình",
@@ -63,7 +82,11 @@ PromoManagementPage.prototype.init = function(){
 			"label" : "toDate"
 		}];
 	this.table = new Table();
-	this.table.init(theader);
+	this.table.init(theader, renderAction);
+	this.table.renderBackground = function(item) {
+		var toDate = new Date(item.toDate);
+		return new Date() > toDate;
+	}
 	this.containerPanel.appendChild(this.table.getTable());
 	
 	this.searchButton.addEventListener("click", function(ev) {

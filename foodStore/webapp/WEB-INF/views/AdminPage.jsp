@@ -16,17 +16,21 @@ pageEncoding="UTF-8"%>
     word-break: break-word;
 }
 
+.active {
+	background-color: #00000080;
+	box-shadow: 1px 1px 5px #000;
+}
+
 .admin-item:hover{
-	outline: solid 1px #fb8c00;
 	background-color: #00000080;
 	color: #fff;
+	box-shadow: 1px 1px 5px #000;
 }
 </style>
 <hbox flex="1">
 	<vbox style="justify-content: flex-start;
 			height: 100vh;
 			background-color: #3b3b3b;
-			box-shadow: 1px 3px 3px #000;
 			color: #fff; padding-top: 1em">	
 		<vbox page-name="account-manager-page" class="admin-item" style="text-align: center;">
 			<i class="material-icons orange600 md-32" >account_circle</i>

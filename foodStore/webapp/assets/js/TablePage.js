@@ -41,8 +41,10 @@ TablePage.prototype.init = function(){
 		if (seat.onDesk == 'f'){
 			button = Dom.newDOMElement({
 				_name : "i",
-				class : "material-icons md-dark md-12",
-				_text : "create"
+				class : "material-icons md-dark md-18",
+				_text : "create",
+				title : "Tạo hóa đơn"
+					
 			});
 			button.action = function() {
 				var callback = function(order) {
@@ -58,9 +60,9 @@ TablePage.prototype.init = function(){
 		} else {
 			button = Dom.newDOMElement({
 				_name : "i",
-				class : "material-icons md-dark md-12",
-				_text : "visibility"
-					
+				class : "material-icons md-dark md-18",
+				_text : "visibility",
+				title : "Xem chi tiết hóa đơn"
 			});
 			button.action = function() {
 				var callback = function(json) {

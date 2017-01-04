@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
 			</hbox>
 		</hbox>
 	</vbox> 
-	<vbox id="container-panel" flex="1">
+	<vbox id="container-panel" flex="1" style="overflow: auto">
 	<!-- 
 		<table class="table table-bordered">
 			<thead>

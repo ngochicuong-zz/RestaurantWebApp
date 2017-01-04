@@ -82,6 +82,23 @@ SeatManagementPage.prototype.initItemForSelect = function() {
 SeatManagementPage.prototype.init = function(){
 	var thiz = this;
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
+	var renderAction = function(seat) {
+		var button = Dom.newDOMElement({
+			_name : "i",
+			class : "material-icons md-dark md-18",
+			_text : "mode_edit",
+			title : "Chỉnh sửa"
+		});
+		button.action = function() {
+			var callback = function(newItem) {
+				var oldItem = handleItem.data;
+				thiz.onUpdateItem(oldItem, newItem);
+			}
+			var dialog = new AddTableDialog(seat, callback);
+			dialog.show();
+		}
+		return new Array(button);
+	}
 	var theader = [
 		{
 			"column" : "Phòng",
@@ -108,7 +125,10 @@ SeatManagementPage.prototype.init = function(){
 			"label" : "onDesk"
 		}];
 	this.table = new Table();
-	this.table.init(theader);
+	this.table.init(theader, renderAction);
+	this.table.renderBackground = function(item) {
+		return item.onDesk =='t';
+	}
 	this.containerPanel.appendChild(this.table.getTable());
 	
 	this.addButton = this.pageContainer.querySelector("#add-button");
