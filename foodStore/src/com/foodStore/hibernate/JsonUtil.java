@@ -10,4 +10,9 @@ public class JsonUtil {
 		bGson.registerTypeAdapter(clazz, adapter);
 		return bGson.create();
 	}
+	
+	public static <T> String quickBuild(T data){
+		Gson gson = new Gson();
+		return gson.toJson(data);
+	}
 }

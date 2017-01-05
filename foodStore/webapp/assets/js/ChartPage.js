@@ -16,26 +16,49 @@ ChartPage.prototype.init = function(){
 	this.profitByMonth = this.pageContainer.querySelector("#profit-by-month");
 	this.profitByYear = this.pageContainer.querySelector("#profit-by-year");
 	this.profitByPrecious= this.pageContainer.querySelector("#profit-by-precious");
-	
-	 var data = google.visualization.arrayToDataTable([
-	      ['Year', 'Asia'],
-		  ['2012',  900],
-	      ['2013',  1000],
-	      ['2014',  1170],
-	      ['2015',  1250],
-	      ['2016',  1530]
-	   ]);
-
-	   var options = {
-	      title: 'Population (in millions)'	  
-	   }; 
-
-	   // Instantiate and draw the chart.
-	   var chart = new google.visualization.ColumnChart(document.getElementById('container'));
-	   chart.draw(data, options);
+	this.GroupOrderByYearRender();
+//	 
 }
 
-TablePage.prototype.requestItems = function(requestCallBack) {
+ChartPage.prototype.GroupOrderByYearRender = function() {
+	var thiz = this;
+	var callback = function(data) {
+		console.log(data);
+		var hotdata = data;
+		var drawChart = function() {
+			var label = new Array();
+			var element = new Array();
+			for (var i = 0; i < hotdata.length; i ++) {
+				var item = hotdata[i];
+				var temp = new Array();
+				for(index in item) {
+					if (i == 0) {
+						label.push(index);
+					}
+					temp.push(item[index]);
+				}
+				element.push(temp);
+			}
+			element.unshift(label);
+			
+			var data = google.visualization.arrayToDataTable(element);
+			var options = {
+			     title: 'Population (in millions)'	  
+			}; 
+		
+			   // Instantiate and draw the chart.
+			var chart = new google.visualization.ColumnChart(thiz.profitByYear);
+			chart.draw(data, options);
+		}
+		google.charts.load('current', {packages: ['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+	}
+	serverReport.getJson("/timeStatistic.do", "GET", callback, {
+		"year" : "2017"
+	});
+}
+
+ChartPage.prototype.requestItems = function(requestCallBack) {
 	var thiz = this;
 	var callback = function(seatTables) {
 		if (seatTables.length > 1) {
@@ -57,7 +80,7 @@ TablePage.prototype.requestItems = function(requestCallBack) {
 
 
 
-TablePage.prototype.onSearch = function() {
+ChartPage.prototype.onSearch = function() {
 	var f = this.pageContainer.querySelector("#floor");
 	var r = this.pageContainer.querySelector("#room");
 	var c = this.pageContainer.querySelector("#capacity");
@@ -82,7 +105,7 @@ TablePage.prototype.onSearch = function() {
 	return result;
 }
 
-TablePage.prototype.initItemForSelect = function() {
+ChartPage.prototype.initItemForSelect = function() {
 	var f = this.pageContainer.querySelector("#floor");
 	var r = this.pageContainer.querySelector("#room");
 	var c = this.pageContainer.querySelector("#capacity");
@@ -128,7 +151,7 @@ TablePage.prototype.initItemForSelect = function() {
 	}
 }
 
-TablePage.prototype.onUpdate = function(oldItem, newItem) {
+ChartPage.prototype.onUpdate = function(oldItem, newItem) {
 	var index = this.seatTables.indexOf(oldItem);
 	if (index == -1) return;
 	this.seatTables[index] = newItem;
@@ -139,11 +162,11 @@ TablePage.prototype.onUpdate = function(oldItem, newItem) {
 	}, 10);
 }
 
-TablePage.prototype.getPageContainer = function() {
-	var thiz = this;
-	this.requestItems(function() {
-		var result = thiz.onSearch();
-		thiz.table.render(result);
-	});
+ChartPage.prototype.getPageContainer = function() {
+//	var thiz = this;
+//	this.requestItems(function() {
+//		var result = thiz.onSearch();
+//		thiz.table.render(result);
+//	});
 	return this.pageContainer;
 }

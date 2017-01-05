@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -15,6 +16,7 @@ import com.foodStore.hibernate.HibernateRepository.CompareKey;
 import com.foodStore.hibernate.HibernateRepository.ICriteriaBuilder;
 import com.foodStore.hibernate.IRepository;
 import com.foodStore.model.Account;
+import com.foodStore.model.GroupYearReturn;
 import com.foodStore.model.Order;
 import com.foodStore.model.OrderDetail;
 import com.foodStore.model.SeatTable;
@@ -80,37 +82,30 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		Order order = orders.size() == 0 ? null : orders.get(orders.size() - 1);
 		return order;
 	}
-
+	
 	@Override
-	public List<Order> sumOrderByYear() {
-		Object total = this.repository.customQuery(OrderDetail.class, new ICriteriaBuilder(){
-			@Override
-			public Criteria build(Session session) {
-				Criteria criteria = session.createCriteria(OrderDetail.class);
-				ProjectionList projList = Projections.projectionList();
-				projList.add(Projections.sum("total"));
-			    projList.add(Projections.groupProperty("dateInsert"));
-
-			        crit.setProjection(projList);
-			        List results = crit.list();
-			        displayObjectsList(results);
-				criteria.add(Restrictions.eq("order", orderId));
-				return criteria.setProjection(Projections.sum("total"));
-			}
-		});
-		return null;
+	public List<? extends Object> sumOrderByYear() {
+		String sqlCommand = "select EXTRACT(YEAR FROM dateinsert) as year, sum(total) as total from order_bill group by year";
+		return this.repository.runSqlQuery(sqlCommand);
 	}
 
 	@Override
-	public List<Order> sumOrderByMonth(String year) {
-		// TODO Auto-generated method stub
-		return null;
+	public  List<? extends Object> sumOrderByMonth(String year) {
+		String sqlCommand = "select  EXTRACT(MONTH FROM dateinsert) as month, sum(total) as total from order_bill where extract(year from dateinsert) = "+ year +"  group by month";
+		return this.repository.runSqlQuery(sqlCommand);
 	}
 
 	@Override
-	public List<Order> sumOrderByPrecious(String year) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<? extends Object> sumOrderByFoodOnYear() {
+		String sqlCommand = "select c.productname, sum(b.total), extract(year from a.dateinsert) as year from order_bill as a, orderdetail as b, product as c"
+				+ "where b.refcode like a.refcode and c.id = b.product_id group by year, c.productname order by year desc";
+		return this.repository.runSqlQuery(sqlCommand);
 	}
 
+	@Override
+	public List<? extends Object> sumOrderByFoodOnMonth(String year) {
+		String sqlCommand = "select c.productname, sum(b.total), extract(month from a.dateinsert) as month from order_bill as a, orderdetail as b, product as c "
+				+ "where b.refcode like a.refcode and c.id = b.product_id and extract(year from a.dateinsert) = " + year + " group by month, c.productname order by month desc";
+		return this.repository.runSqlQuery(sqlCommand);
+	}
 }

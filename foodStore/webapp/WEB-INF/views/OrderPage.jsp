@@ -8,15 +8,14 @@ pageEncoding="UTF-8"%>
 		min-width: 10em;
 		background-color: #313236;
 		color: #ffffff;
-		padding: 0.5em;
+		padding: 0.1em;
 		
 	}
 	#search-info > vbox + hbox {
-		margin-top:1em;
+		
 		
 	}
 	#container-panel {
-		padding-top: 1em;
 	}
 	#container-panel > table {
 		
@@ -54,22 +53,22 @@ pageEncoding="UTF-8"%>
 			<label>Ngày: </label>
 			<label id="orderDate"></label>
 		</hbox>
-		<hbox class="InputRow" style="justify-content: center">
+		<hbox class="InputRow" style="justify-content: center; display:none;">
 			<label>Mã hóa đơn: </label>
 			<label id="order-code" ></label>
 		</hbox>
-		<hbox style="justify-content: center">
-			<hbox class="InputRow" style="padding-left:0.1em;">
-				<span>Lầu: </span>
-				<span id="floorText"></span>
+		<hbox style="justify-content: center; margin-left: 0.5em">
+			<hbox class="InputRow" style="padding-right:0.5em;">
+				<label>Lầu: </label>
+				<label id="floorText"></label>
 			</hbox>
-			<hbox class="InputRow"  style="padding-left:0.1em;">
-				<span>Phòng:</span>
-				<span id="roomText"></span>
+			<hbox class="InputRow"  style="padding-right:0.5em;">
+				<label>Phòng:</label>
+				<label id="roomText"></label>
 			</hbox>
-			<hbox class="InputRow"  style="padding-left:0.1em;">
-				<span>Chỗ ngồi:</span>
-				<span id="seatCapacity"></span>
+			<hbox class="InputRow"  style="padding-right:0.5em;">
+				<label>Chỗ ngồi:</label>
+				<label id="seatCapacity"></label>
 			</hbox>
 		</hbox>
 	</vbox>

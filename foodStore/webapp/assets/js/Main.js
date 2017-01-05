@@ -8,6 +8,7 @@ function Main() {
 	this.pageManagement.registerPage(new AppointmentPage());
 	this.pageManagement.registerPage(new AccountManagementPage());
 	this.pageManagement.registerPage(new PromoManagementPage());
+	this.pageManagement.registerPage(new ChartPage());
 	this.pageManagement.registerPage(new AdminPage());
 	var thiz = this;
 	var navActived = null;

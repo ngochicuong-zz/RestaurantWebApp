@@ -19,4 +19,6 @@ public interface IRepository {
 	<T> List<T> getItemsWithOneKey(Class<T> entityType, CompareKey...keys);
 	<T> List<T> customQuery(Class<T> entityType, ICriteriaBuilder criteriaBuilder);
 	<T> List<T> getAll(Class<T> entityType);
+	
+	<T> List<? extends Object> runSqlQuery(String sqlCommand);
 }

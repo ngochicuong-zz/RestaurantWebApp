@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.foodStore.app.FoodStore;
 import com.foodStore.hibernate.JsonUtil;
 import com.foodStore.model.Account;
+import com.foodStore.model.GroupYearReturn;
 import com.foodStore.model.Order;
 import com.foodStore.model.OrderAdapter;
 import com.foodStore.model.Payment;
@@ -32,6 +33,11 @@ public class OrderController {
 	@RequestMapping(value = "/getOrderPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getPage(ModelMap model) {
 		return "OrderPage";
+	}
+	
+	@RequestMapping(value = "/getChartPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	public String getChartPage(ModelMap model) {
+		return "ChartPage";
 	}
 	
 	@RequestMapping(value = "/getOrderWithSeat.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
@@ -178,6 +184,28 @@ public class OrderController {
 		System.out.println(fromDate + "||" + toDate);
 		boolean updated = ServiceManagement.get(IPromotionService.class).updatePromotion(promoId, paycondition, discount, fromDate, toDate, descripstion);
 		return String.valueOf(updated);
+	}
+	
+	@RequestMapping(value = "/timeStatistic.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@ResponseBody
+	public String timeStatistic(
+			@RequestParam("year") String year,
+			ModelMap model) {
+		List<Object> results = null;
+		if (year != null) results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByMonth(year);
+		else results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByYear();
+		return JsonUtil.quickBuild(results);
+	}
+	
+	@RequestMapping(value = "/foodStatistic.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@ResponseBody
+	public String foodStatistic(
+			@RequestParam("year") String year,
+			ModelMap model) {
+		List<Object> results = null;
+		if (year != null) results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByFoodOnMonth(year);
+		else results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByFoodOnYear();
+		return JsonUtil.quickBuild(results);
 	}
 	
 }

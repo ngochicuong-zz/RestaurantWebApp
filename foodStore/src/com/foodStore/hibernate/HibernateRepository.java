@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
@@ -11,6 +12,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.foodStore.model.OrderDetail;
 import com.sun.msv.datatype.xsd.regex.Match;
 
 public class HibernateRepository implements IRepository {
@@ -135,8 +137,18 @@ public class HibernateRepository implements IRepository {
 		return (List<T>)criteria.list();
 	}
 	@Override
+	@Transactional
 	public <T> List<T> getAll(Class<T> entityType) {
 		Criteria criteria = getSession().createCriteria(entityType);
 		return (List<T>)criteria.list();
 	}
+	
+	@Override
+	public <T> List<? extends Object> runSqlQuery(String sqlCommand) {
+		SQLQuery query = getSession().createSQLQuery(sqlCommand);
+		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		return query.list();
+	}
+	
+	
 }

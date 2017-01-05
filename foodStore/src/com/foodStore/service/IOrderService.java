@@ -10,7 +10,9 @@ public interface IOrderService{
 	boolean updateOrderTotal(int orderId);
 	Order getOrderWithSeat(int seatId);
 	
-	List<Order> sumOrderByYear();
-	List<Order> sumOrderByMonth(String year);
-	List<Order> sumOrderByPrecious(String year);
+	List<? extends Object> sumOrderByYear();
+	List<? extends Object> sumOrderByMonth(String year);
+	
+	List<? extends Object> sumOrderByFoodOnYear();
+	List<? extends Object> sumOrderByFoodOnMonth(String year);
 }
