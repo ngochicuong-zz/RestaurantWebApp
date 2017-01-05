@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,38 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		List<Order> orders = (List<Order>) this.repository.getItemsWithAllKey(Order.class, new CompareKey("seatTable", seat));
 		Order order = orders.size() == 0 ? null : orders.get(orders.size() - 1);
 		return order;
+	}
+
+	@Override
+	public List<Order> sumOrderByYear() {
+		Object total = this.repository.customQuery(OrderDetail.class, new ICriteriaBuilder(){
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(OrderDetail.class);
+				ProjectionList projList = Projections.projectionList();
+				projList.add(Projections.sum("total"));
+			    projList.add(Projections.groupProperty("dateInsert"));
+
+			        crit.setProjection(projList);
+			        List results = crit.list();
+			        displayObjectsList(results);
+				criteria.add(Restrictions.eq("order", orderId));
+				return criteria.setProjection(Projections.sum("total"));
+			}
+		});
+		return null;
+	}
+
+	@Override
+	public List<Order> sumOrderByMonth(String year) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Order> sumOrderByPrecious(String year) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

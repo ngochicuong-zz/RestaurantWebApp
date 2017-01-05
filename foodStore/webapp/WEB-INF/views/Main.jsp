@@ -18,7 +18,8 @@ pageEncoding="UTF-8"%>
 <script src="webapp/assets/js/common-dom.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="webapp/assets/js/ChartPage.js"></script>
 <script src="webapp/assets/js/AddPromotionDialog.js"></script>
 <script src="webapp/assets/js/PromoManagementPage.js"></script>
 <script src="webapp/assets/js/AddProductDialog.js"></script>
@@ -110,6 +111,10 @@ pageEncoding="UTF-8"%>
 			<hbox class="navbar-items InputRow" page-name="appointment-page">
 				<i class="material-icons orange600 md-16" >event</i>
 				<span >Quản lý đặt bàn</span>
+			</hbox>
+			<hbox class="navbar-items InputRow" page-name="chart-page">
+				<i class="material-icons orange600 md-16" >pie_chart</i>
+				<span>Thống kê</span>
 			</hbox>
 			<hbox class="navbar-items InputRow" page-name="admin-page">
 				<i class="material-icons orange600 md-16" >settings</i>
