@@ -97,15 +97,18 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 
 	@Override
 	public List<? extends Object> sumOrderByFoodOnYear() {
-		String sqlCommand = "select c.productname, sum(b.total), extract(year from a.dateinsert) as year from order_bill as a, orderdetail as b, product as c"
-				+ "where b.refcode like a.refcode and c.id = b.product_id group by year, c.productname order by year desc";
+		
+		String sqlCommand = "select c.productname, sum(b.total) as total, extract(year from a.dateinsert) as year from order_bill as a, orderdetail as b, product as c"
+				+ " where b.refcode like a.refcode and c.id = b.product_id group by year, c.productname order by year desc";
+		System.out.println(sqlCommand);
 		return this.repository.runSqlQuery(sqlCommand);
 	}
 
 	@Override
 	public List<? extends Object> sumOrderByFoodOnMonth(String year) {
-		String sqlCommand = "select c.productname, sum(b.total), extract(month from a.dateinsert) as month from order_bill as a, orderdetail as b, product as c "
-				+ "where b.refcode like a.refcode and c.id = b.product_id and extract(year from a.dateinsert) = " + year + " group by month, c.productname order by month desc";
+		String sqlCommand = "select c.productname, sum(b.total) as total, extract(month from a.dateinsert) as month from order_bill as a, orderdetail as b, product as c "
+				+ " where b.refcode like a.refcode and c.id = b.product_id and extract(year from a.dateinsert) = " + year + " group by month, c.productname order by month desc";
+		System.out.println(sqlCommand);
 		return this.repository.runSqlQuery(sqlCommand);
 	}
 }

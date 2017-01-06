@@ -6,7 +6,17 @@ pageEncoding="UTF-8"%>
 <style>
 </style>
 <vbox flex="1">
-	<hbox id="profit-by-month"></hbox>
-	<hbox id="profit-by-year"></hbox>
-	<hbox id="profit-by-precious"></hbox>
+	<hbox id="chart-container"></hbox>
+	<hbox id="chart-controls">
+		<vbox flex="1">
+			<hbox class="InputRow">
+				<label>Năm: </label>
+				<select id="year-combo"></select>
+			</hbox>	
+			<hbox class="InputRow">
+				<label>Type: </label>
+				<select id="type-combo"></select>
+			</hbox>	
+		</vbox>
+	</hbox>
 </vbox>

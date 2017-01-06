@@ -192,7 +192,7 @@ public class OrderController {
 			@RequestParam("year") String year,
 			ModelMap model) {
 		List<Object> results = null;
-		if (year != null) results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByMonth(year);
+		if (year.equals(null)) results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByMonth(year);
 		else results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByYear();
 		return JsonUtil.quickBuild(results);
 	}
@@ -202,8 +202,9 @@ public class OrderController {
 	public String foodStatistic(
 			@RequestParam("year") String year,
 			ModelMap model) {
+		System.out.println(year);
 		List<Object> results = null;
-		if (year != null) results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByFoodOnMonth(year);
+		if (year.equals(null) == true) results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByFoodOnMonth(year);
 		else results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByFoodOnYear();
 		return JsonUtil.quickBuild(results);
 	}
