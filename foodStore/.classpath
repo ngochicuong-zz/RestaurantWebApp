@@ -37,7 +37,7 @@
 	<classpathentry exported="true" kind="lib" path="webapp/WEB-INF/lib/ehcache-1.2.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="webapp/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="webapp/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_111">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>

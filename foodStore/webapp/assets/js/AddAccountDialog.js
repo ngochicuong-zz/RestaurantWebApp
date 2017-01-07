@@ -1,10 +1,10 @@
 function AddAccountDialog(account, callback) {
-	
+
 	this.account = account;
 	this.callback = callback;
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
-	
+
 	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -55,7 +55,7 @@ function AddAccountDialog(account, callback) {
 					{
 						_name: "input",
 						id: "email",
-						type: "text"
+						type: "email"
 					}
 				]
 			},
@@ -102,7 +102,7 @@ function AddAccountDialog(account, callback) {
 								_text: "Cashier"
 							}
 						]
-							
+
 					}
 				]
 			},
@@ -131,10 +131,10 @@ function AddAccountDialog(account, callback) {
 		thiz.pass = thiz.container.querySelector("#pass");
 		thiz.email = thiz.container.querySelector("#email");
 		thiz.role = thiz.container.querySelector("#role");
-		
+
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
-		
+
 		if (thiz.account != null) {
 			thiz.acceptButton.innerHTML = "Save";
 			thiz.user.value = thiz.account.user;
@@ -142,7 +142,7 @@ function AddAccountDialog(account, callback) {
 			thiz.email.value = thiz.account.email;
 			thiz.role.value = thiz.account.role;
 		}
-		
+
 		thiz.acceptButton.addEventListener("click", function(event) {
 			thiz.onAccept();
 		});
@@ -150,7 +150,6 @@ function AddAccountDialog(account, callback) {
 			thiz.onCancel();
 		});
 	}, 10);
-	
 }
 
 /*
@@ -162,8 +161,8 @@ function AddAccountDialog(account, callback) {
  * Edit Task</a> </li> <li class="context-menu__item"> <a href="#"
  * class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i>
  * Delete Task</a> </li> </ul> </nav>
- * 
- * 
+ *
+ *
  */
 
 AddAccountDialog.prototype.onAccept = function() {
@@ -221,7 +220,7 @@ AddAccountDialog.prototype.show = function() {
 	window.setTimeout(function(){
 		thiz.positionContainer();
 	}, 10)
-	
+
 }
 
 AddAccountDialog.prototype.close = function() {
@@ -233,19 +232,30 @@ AddAccountDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
-	
+
 }
 
 AddAccountDialog.prototype.validate = function(){
+	var check = true;
 	if (this.user.value == "") {
 		this.user.style.background="red";
-		return false;
+		check = false;
+	} else {
+		this.user.style.background="#fff";
 	}
-	return true;
-	
+
+	if (this.pass.value == "") {
+		this.pass.style.background="red";
+		check = false;
+	}else {
+		this.pass.style.background="#fff";
+	}
+
+	if (this.email.value == "") {
+		this.email.style.background="red";
+		check = false;
+	}else {
+		this.email.style.background="#fff";
+	}
+	return check;
 }
-
-
-
-
-

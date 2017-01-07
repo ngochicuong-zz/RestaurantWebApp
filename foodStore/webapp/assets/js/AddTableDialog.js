@@ -1,10 +1,10 @@
 function AddTableDialog(seat, callback) {
-	
+
 	this.seatTable = seat;
 	this.callback = callback;
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
-	
+
 	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -115,10 +115,10 @@ function AddTableDialog(seat, callback) {
 		thiz.capacity = thiz.container.querySelector("#capacity");
 		thiz.description = thiz.container.querySelector("#description");
 		thiz.priority = thiz.container.querySelector("#priority");
-		
+
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
-		
+
 		if (thiz.seatTable != null) {
 			thiz.acceptButton.innerHTML = "Save";
 			thiz.floor.value = thiz.seatTable.floor;
@@ -127,7 +127,7 @@ function AddTableDialog(seat, callback) {
 			thiz.description.value = thiz.seatTable.description == null ? "": thiz.seatTable.description ;
 			thiz.priority.value = thiz.seatTable.priority;
 		}
-		
+
 		thiz.acceptButton.addEventListener("click", function(event) {
 			thiz.onAccept();
 		});
@@ -135,7 +135,7 @@ function AddTableDialog(seat, callback) {
 			thiz.onCancel();
 		});
 	}, 10);
-	
+
 }
 
 /*
@@ -147,12 +147,15 @@ function AddTableDialog(seat, callback) {
  * Edit Task</a> </li> <li class="context-menu__item"> <a href="#"
  * class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i>
  * Delete Task</a> </li> </ul> </nav>
- * 
- * 
+ *
+ *
  */
 
 AddTableDialog.prototype.onAccept = function() {
-	
+	if (!this.validateTable ()){
+		alert("Vui lòng điền đầy đủ thông tin");
+		return;
+	}
 	if (this.seatTable) {
 		var thiz = this;
 		var callback = function(updated){
@@ -206,7 +209,7 @@ AddTableDialog.prototype.show = function() {
 	window.setTimeout(function(){
 		thiz.positionContainer();
 	}, 10)
-	
+
 }
 
 AddTableDialog.prototype.close = function() {
@@ -218,10 +221,44 @@ AddTableDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
-	
+
 }
 
+AddTableDialog.prototype.validateTable = function(){
+	var check = true;
+	if(this.floor.value == ""){
+		this.floor.style.background = "red";
+		check = false;
+	}else {
+		this.floor.style.background = "#fff";
+	}
 
+	if(this.room.value == ""){
+		this.room.style.background = "red";
+		check = false;
+	}else {
+		this.room.style.background = "#fff";
+	}
 
+	if(this.capacity.value == ""){
+		this.capacity.style.background = "red";
+		check = false;
+	}else {
+		this.capacity.style.background = "#fff";
+	}
 
+	if(this.description.value == ""){
+		this.description.style.background = "red";
+		check = false;
+	}else {
+		this.description.style.background = "#fff";
+	}
 
+	if(this.priority.value == ""){
+		this.priority.style.background = "red";
+		check = false;
+	}else {
+		this.priority.style.background = "#fff";
+	}
+	return check;
+}

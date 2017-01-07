@@ -7,7 +7,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 
 public class StandaloneServer {
 
-	public static int PORT = 8080;
+	public static int PORT = 9999;
 
 	public static void main(String[] args) throws Exception {
 		
