@@ -104,6 +104,59 @@ OrderPage.prototype.init = function() {
 		}
 		serverReport.getJson("/createOrderDetail.do?refCode="+ thiz.order.refCode +"&quality="+ thiz.qualityIn.value +"&productId="+ e.target.data.id +"", "GET", callback);
 	});
+	
+	var renderAction = function(orderDetail) {
+		var buttons = new Array();
+		var button = Dom.newDOMElement({
+			_name : "i",
+			class : "material-icons md-dark md-18",
+			_text : "clear",
+			title : "Hủy món ăn"
+				
+		});
+		button.action = function() {
+			var callback = function(bool) {
+				if (bool) {
+					var index = thiz.orderDetails.indexOf(thiz.orderDetail);
+					thiz.orderDetails.splice(index,1);
+					thiz.detailTable.removeChild(handleItem);
+					thiz.order.total -= orderDetail.total;
+					thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
+				}
+			};
+			serverReport.getBoolean("/removeOrderDetail.do?detailId=" + orderDetail.id + "", "GET", callback);
+		}
+		buttons.push(button);
+		var button = Dom.newDOMElement({
+			_name : "i",
+			class : "material-icons md-dark md-18",
+			_text : "mode_edit",
+			title : "Cập nhật"
+		});
+		button.action = function() {
+			var callback = function(bool) {
+				if (bool) {
+					var index = thiz.orderDetails.indexOf(thiz.orderDetail);
+					var quality = thiz.editQualityIn.value;
+					thiz.order.total += ( (quality * thiz.orderDetail.price) - thiz.orderDetail.total) ;
+					
+					thiz.orderDetails[index].quality = quality;
+					thiz.orderDetails[index].total = quality * thiz.orderDetail.price;
+					thiz.detailTable.render(thiz.orderDetails);
+					
+					thiz.editProductNameIn.value = "";
+					thiz.editQualityIn.value = 0;
+					thiz.editDetailPanel.style.display="none";
+					thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
+					thiz.addDetailPanel.style.display = "inherit";
+				}
+			};
+			serverReport.getBoolean("/updateOrderDetail.do?detailId=" + thiz.orderDetail.id + "&quality="+ thiz.editQualityIn.value +"", "GET", callback);
+		}
+		buttons.push(button);
+		return buttons;
+	}
+	
 	var theader = [
 		{
 			"column" : "Món ăn",
@@ -123,7 +176,7 @@ OrderPage.prototype.init = function() {
 		}
 		]
 	this.detailTable = new Table();
-	this.detailTable.init(theader);
+	this.detailTable.init(theader, renderAction);
 	this.orderDetailTable.insertBefore(this.detailTable.getTable(), this.orderDetailTable.childNodes[0]);
 	
 	this.contextMenu = new ContextMenu();
@@ -145,7 +198,7 @@ OrderPage.prototype.init = function() {
 					serverReport.getBoolean("/removeOrderDetail.do?detailId=" + orderDetail.id + "", "GET", callback);
 				}
 			}, {
-				name : "Chỉnh sửa món ăn",
+				name : "Cập nhật",
 				handler : function(handleItem) {
 					if (handleItem == null || handleItem.data == null) return;
 					thiz.editDetailPanel.style.display="inherit";
@@ -155,7 +208,6 @@ OrderPage.prototype.init = function() {
 					thiz.editProductNameIn.value = orderDetail.productName;
 					thiz.editQualityIn.value = orderDetail.quality;
 					thiz.orderDetail = orderDetail;
-					
 				}
 			}
 			]);
@@ -200,6 +252,13 @@ OrderPage.prototype.init = function() {
 			e.dataNode = dataNode;
 			thiz.contextMenu.toggleMenuOn(e);
 		}
+	});
+	
+	this.detailTable.tableBody.addEventListener("dblclick", function(e) {
+		console.log(e.target);
+		var inputPopup = new InputPopup();
+		inputPopup.toggleMenuOn(e.target);
+		
 	});
 	
 	this.comboPopup = new ComboPopup();
