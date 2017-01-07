@@ -168,6 +168,10 @@ function AddAccountDialog(account, callback) {
 
 AddAccountDialog.prototype.onAccept = function() {
 	var thiz = this;
+	if (!this.validate()) {
+		alert("Vui lòng điền đầy đủ thông tin");
+		return;
+	};
 	if (this.account) {
 		var callback = function(updated){
 			if (updated) {
@@ -229,6 +233,15 @@ AddAccountDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
+	
+}
+
+AddAccountDialog.prototype.validate = function(){
+	if (this.user.value == "") {
+		this.user.style.background="red";
+		return false;
+	}
+	return true;
 	
 }
 

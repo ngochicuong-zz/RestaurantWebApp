@@ -14,9 +14,6 @@ pageEncoding="UTF-8"%>
 		margin-left: 1em;
 		
 	}
-	#container-panel {
-		box-shadow: -2px 10px 10px #000000;
-	}
 </style>
 <vbox flex="1"> 
 	<hbox id="search-panel"> 

@@ -20,7 +20,7 @@ function Main() {
 				return node.getAttribute("page-name") != null;
 			}
 		}); 
-		
+		if (thiz.pageManagement.activePage && pageNode.getAttribute("page-name") == thiz.pageManagement.activePage.name) return;
 		pageNode.className += " active";
 		
 		if (navActived != null) 

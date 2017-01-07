@@ -137,7 +137,7 @@ CalendarDialog.prototype.onAccept = function() {
 		      end: args.end,
 		      id: DayPilot.guid(),
 		      resource: args.resource,
-		      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
+		      text: thiz.customerName.value + "\t" + thiz.customerPhone.value + "\t" + thiz.customerCapacity.value + "\t" + thiz.customerMail.value, 
 		      cusName: thiz.customerName.value,
 		      cusPhone: thiz.customerPhone.value,
 		      cusMail: thiz.customerMail.value,

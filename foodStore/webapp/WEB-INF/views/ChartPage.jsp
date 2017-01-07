@@ -6,17 +6,18 @@ pageEncoding="UTF-8"%>
 <style>
 </style>
 <vbox flex="1">
-	<hbox id="chart-container"></hbox>
-	<hbox id="chart-controls">
-		<vbox flex="1">
-			<hbox class="InputRow">
-				<label>Năm: </label>
-				<select id="year-combo"></select>
-			</hbox>	
-			<hbox class="InputRow">
-				<label>Type: </label>
-				<select id="type-combo"></select>
-			</hbox>	
-		</vbox>
+	<hbox class="InputRow" style="justify-content: flex-end; margin-right: 1em; margin-top: 1em; padding: 1em;">
+		<label>Thống kê theo: </label>
+		<select id="type-combo">
+			<option value="profit">Lợi nhuận</option>
+			<option value="product">Thực đơn</option>
+		</select>
+	</hbox>
+	<hbox flex="1" id="chart-container"></hbox>
+	<hbox class="InputRow" style="justify-content: center; padding: 1em">
+		<label>Biều đồ thống kê năm: </label>
+		<select id="year-combo">
+			<option value="0">--From begin--</option>
+		</select>
 	</hbox>
 </vbox>

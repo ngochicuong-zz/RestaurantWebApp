@@ -35,7 +35,7 @@ AppointmentPage.prototype.init = function() {
 			      "start": moment(appointment.timeStart).format('YYYY-MM-DDTHH:mm:ss').toString(),
 			      "end": moment(appointment.timeEnd).format('YYYY-MM-DDTHH:mm:ss').toString(),
 			      "id": DayPilot.guid(),
-			      "text": appointment.customName + "<br/>" + appointment.customPhone + "<br/>" + appointment.customEmail + "<br/>" + appointment.capacity, 
+			      "text": appointment.customName + "\t" + appointment.customPhone + "\t" + appointment.customEmail + "\t" + appointment.capacity, 
 			      "cusName": appointment.customName,
 			      "cusPhone": appointment.customPhone,
 			      "cusMail": appointment.customEmail,

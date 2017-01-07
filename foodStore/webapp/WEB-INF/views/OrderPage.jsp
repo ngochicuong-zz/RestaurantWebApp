@@ -89,7 +89,7 @@ pageEncoding="UTF-8"%>
 				<input style="width:5em;" type="number" min=0.1 step="0.01" id="quality"/>
 			</hbox>
 			<hbox>
-				<button style="width:5em;" id="addOrderDetail">Thêm</button>
+				<button style="width:5em;" id="addOrderDetail"><i class="material-icons md-dark md-32" >add</i></button>
 			</hbox>
 		</hbox>
 		<hbox class="InputRow" id="edit-detail-panel" style="margin-bottom: 0.5em; align-items: flex-start;" >

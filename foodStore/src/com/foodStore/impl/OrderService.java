@@ -103,7 +103,13 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		System.out.println(sqlCommand);
 		return this.repository.runSqlQuery(sqlCommand);
 	}
-
+	
+	@Override
+	public List<? extends Object> getAllYear() {
+		String sqlCommand = "select extract(year from dateinsert) as year from order_bill group by year order by year desc";
+		return this.repository.runSqlQuery(sqlCommand);
+	}
+	
 	@Override
 	public List<? extends Object> sumOrderByFoodOnMonth(String year) {
 		String sqlCommand = "select c.productname, sum(b.total) as total, extract(month from a.dateinsert) as month from order_bill as a, orderdetail as b, product as c "

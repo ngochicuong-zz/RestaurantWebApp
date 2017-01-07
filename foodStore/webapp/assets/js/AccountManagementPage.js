@@ -280,3 +280,4 @@ AccountManagementPage.prototype.getPageContainer = function() {
 	});
 	return this.pageContainer;
 }
+

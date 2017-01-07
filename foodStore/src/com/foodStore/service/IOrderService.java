@@ -15,4 +15,5 @@ public interface IOrderService{
 	
 	List<? extends Object> sumOrderByFoodOnYear();
 	List<? extends Object> sumOrderByFoodOnMonth(String year);
+	List<? extends Object> getAllYear();
 }

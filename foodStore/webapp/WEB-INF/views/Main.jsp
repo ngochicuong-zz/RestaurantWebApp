@@ -45,10 +45,18 @@ pageEncoding="UTF-8"%>
 <title>Quê Ta restaurant</title>
 <style>
 	#navbar {
-		background-color: #555;
-		color: #fff;
-		max-height: 3em;
-		line-height: 3em;
+		height: 37px;
+	    line-height: 37px;
+	    color: #ddd;
+	    text-shadow: 0 -1px black;
+	    background: #243942;
+	    border-bottom: 1px solid #191919;
+	    background-image: -webkit-linear-gradient(top, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
+	    background-image: -moz-linear-gradient(top, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
+	    background-image: -o-linear-gradient(top, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
+	    background-image: linear-gradient(to bottom, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
+	    -webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.1), 0 0 3px rgba(0, 0, 0, 0.8);
+	    box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.1), 0 0 3px rgba(0, 0, 0, 0.8);
 	}
 	
 	#navbar .navbar-items {
@@ -63,8 +71,11 @@ pageEncoding="UTF-8"%>
 	}
 	
 	#navbar .navbar-items .active {
-		padding-right: 0.2em;
-		color: #E76F00;
+		padding-right: 16px;
+	    background-color: #1b2b32;
+	    border-right: 0;
+	    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
+	    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
 	}
 	
 	#navbar .navbar-items:hover {
