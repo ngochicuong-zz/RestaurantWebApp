@@ -16,6 +16,12 @@ function ProductManagementPage() {
 ProductManagementPage.prototype.requestItems = function() {
 	var thiz = this;
 	var callback = function(products) {
+		if (products.length == 0) return;
+		if (products.length > 1) {
+			products.sort(function(a, b){
+				return a.id - b.id;
+			});
+		}
 		thiz.products = products;
 		thiz.table.render(thiz.products);
 	}

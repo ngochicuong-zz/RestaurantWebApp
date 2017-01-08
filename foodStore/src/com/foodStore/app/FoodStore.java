@@ -9,10 +9,7 @@ public class FoodStore {
 	private Account user;
 	
 	public Account test () {
-		Account acc = new Account();
-		acc.setUser("anhjiro");
-		acc.setPass("123");
-		return ServiceManagement.get(IAccountService.class).login(acc);
+		return ServiceManagement.get(IAccountService.class).login("anhjiro", "123456");
 	}
 		
 	public Account getUser() {

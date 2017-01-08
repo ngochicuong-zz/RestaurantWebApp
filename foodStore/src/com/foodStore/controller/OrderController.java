@@ -54,13 +54,11 @@ public class OrderController {
 	@ResponseBody
 	public String createOrder(
 			@RequestParam("seatId") int seatId,
-			@RequestParam("note") String note, 
-			@RequestParam("customerId") int customerId, 
 			ModelMap model) {
 		System.out.println("orderController run");
 		Account account = ServiceManagement.get(FoodStore.class).test();
 		if (account == null) return null;
-		Order order = ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId(), note, customerId);
+		Order order = ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId());
 		System.out.println(order);
 		if (order == null) return "[]";
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(order);

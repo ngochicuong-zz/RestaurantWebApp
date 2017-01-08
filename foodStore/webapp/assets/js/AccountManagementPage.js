@@ -121,6 +121,10 @@ AccountManagementPage.prototype.init = function(){
 		{
 			"column" : "Tình trạng",
 			"label" : "online"
+		},
+		{
+			"column" : "Quyền",
+			"label" : "role"
 		}];
 	this.table = new Table();
 	this.table.init(theader, renderAction);

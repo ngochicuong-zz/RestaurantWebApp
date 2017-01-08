@@ -9,7 +9,7 @@
                 <param name="sequence">TABLE_ID</param>
             </generator>
         </id>
-        <property name="room" column="ROOM" type="int" unique="true"/>
+        <property name="room" column="ROOM"/>
         <property name="floor" column="FLOOR" type="int"/>
         <property name="capacity" column="CAPACITY" type="int"/>
         <property name="description" column="DESCRIPTION"/>

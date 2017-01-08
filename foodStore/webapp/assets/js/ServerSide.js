@@ -1,7 +1,7 @@
 function serverReport() {};
 
-serverReport.getHTML = function(patent, method, callback) {
-	serverReport.sendRequest(patent, method, callback);
+serverReport.getHTML = function(patent, method, callback, params) {
+	serverReport.sendRequest(patent, method, callback, params);
 }
 
 serverReport.getBoolean = function(patent, method, callback, params) {

@@ -1,5 +1,9 @@
 function Main() {
-	this.navbar = document.getElementById("navbar");
+	this.navbar = document.querySelector("#navbar");
+	this.logoutButton = document.querySelector("#logout");
+	this.logoutButton.addEventListener("click", function() {
+		window.location.href="/index.do";
+	}, false);
 	this.pageManagement = new PageManagement();
 	this.pageManagement.registerPage(new TablePage());
 	this.pageManagement.registerPage(new OrderPage());

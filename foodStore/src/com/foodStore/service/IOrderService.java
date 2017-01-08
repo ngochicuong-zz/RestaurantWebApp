@@ -6,7 +6,7 @@ import com.foodStore.model.Order;
 
 public interface IOrderService{
 	boolean setOnPay(Order order, boolean onPay);
-	Order createOrder(int seatId, int accountId, String note, int customerId);
+	Order createOrder(int seatId, int accountId);
 	boolean updateOrderTotal(int orderId);
 	Order getOrderWithSeat(int seatId);
 	

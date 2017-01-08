@@ -41,7 +41,7 @@ public class TableController {
 	@ResponseBody
 	public String searchSeatTable(
 			@RequestParam("floor") int floor,
-			@RequestParam("room") int room,
+			@RequestParam("room") String room,
 			@RequestParam("capacity") int capacity,
 			@RequestParam("onDesk") Boolean onDesk,
 			ModelMap model) {
@@ -53,7 +53,7 @@ public class TableController {
 	@ResponseBody
 	public String createSeatTable(
 			@RequestParam("floor") int floor,
-			@RequestParam("room") int room,
+			@RequestParam("room") String room,
 			@RequestParam("capacity") int capacity,
 			@RequestParam("priority") int priority,
 			@RequestParam("description") String description,
@@ -76,7 +76,7 @@ public class TableController {
 	public String updateTable(
 			@RequestParam("floor") int seatId,
 			@RequestParam("floor") int floor,
-			@RequestParam("room") int room,
+			@RequestParam("room") String room,
 			@RequestParam("capacity") int capacity,
 			@RequestParam("priority") int priority,
 			@RequestParam("description") String description,

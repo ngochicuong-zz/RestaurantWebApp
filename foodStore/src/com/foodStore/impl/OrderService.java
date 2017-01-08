@@ -39,7 +39,7 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 	}
 
 	@Override
-	public Order createOrder(int seatId, int accountId, String note, int customerId) {
+	public Order createOrder(int seatId, int accountId) {
 		SeatTable seat = this.repository.getItemById(SeatTable.class, seatId);
 		if (seat == null || seat.getOnDesk() == 't') return null;
 		Account account = this.repository.getItemById(Account.class, accountId);
@@ -52,8 +52,6 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		order.setRefCode(UUID.randomUUID().toString());
 		order.setOnPay('f');
 		order.setDateInsert(new Date());
-		order.setNote(note);
-		order.setCustomerId(customerId);
 		seatTableRepository.setOnDesk(seatId, true);
 		return save(order);
 	}

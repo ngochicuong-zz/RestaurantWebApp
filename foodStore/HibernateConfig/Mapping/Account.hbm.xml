@@ -12,6 +12,7 @@
         <property name="user" column="USERID" unique="true"/>
         <property name="pass" column="PASSWORD"/>
         <property name="email" column="EMAIL"/>
+       
         <property name="lastSignInAt" column="LASTSIGNINAT" type="timestamp"/>
         <property name="online" type="char" length="1" not-null="true"> 
         	<column name="ONLINE" default="'f'"/>
@@ -20,6 +21,7 @@
         <property name="actived" type="char" length="1" not-null="true">
         	<column name="ACTIVED" default="'f'"/>
         </property>
+        <property name="loginCode" column="LOGINCODE"/>
         <set name="employee" table="EMPLOYEE"
 				inverse="true" lazy="true" fetch="select">
             <key>

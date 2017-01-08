@@ -47,7 +47,14 @@ ChartPage.prototype.initYearCombo = function() {
 ChartPage.prototype.drawChart = function(type, year) {
 	var thiz = this;
 	var callback = function(data) {
-		if (data == null) return;
+		if (data.length == 0) {
+			thiz.chartContainer.appendChild(Dom.newDOMElement({
+				_name : "h4",
+				_text: "Không tìm thấy thông tin",
+				style: "width: 100%; text-align: center",
+			}));
+			return;
+		}
 		thiz.chartContainer.innerHTML = "";
 		thiz.drawChartIplm(data, year, type == "profit" ? false : true);
 	}

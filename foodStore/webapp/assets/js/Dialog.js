@@ -13,13 +13,14 @@ function Dialog() {
 				_name : "hbox",
 				_children : [
 					{
-						_name: "h5",
+						_name: "h4",
 						id: "title"
 					}
 				]
 			},
 			{
 				_name : "hbox",
+				style: "padding-left: 1em",
 				_children : [
 					{
 						_name: "p",

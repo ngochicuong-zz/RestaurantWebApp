@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Account extends BaseModelObject {
-	private String 	user, pass, email;
+	private String 	user, pass, email, loginCode;
 	private int role;
 	private Date lastSignInAt;
 	private char actived, online;
@@ -64,5 +64,11 @@ public class Account extends BaseModelObject {
 	}
 	public void setRole(int role) {
 		this.role = role;
+	}
+	public String getLoginCode() {
+		return loginCode;
+	}
+	public void setLoginCode(String loginCode) {
+		this.loginCode = loginCode;
 	}
 }

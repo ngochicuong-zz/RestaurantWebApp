@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,14 +52,14 @@ public class SeatTableService extends ServiceBase<SeatTable> implements ISeatTab
 	}
 	
 	@Override
-	public List<SeatTable> searchTable(int floor, int room, int capacity, Boolean onDesk){
+	public List<SeatTable> searchTable(int floor, String room, int capacity, Boolean onDesk){
 		return this.repository.customQuery(SeatTable.class, new ICriteriaBuilder(){
 			@Override
 			public Criteria build(Session session) {
 				Criteria criteria = session.createCriteria(SeatTable.class);
 				Conjunction and = Restrictions.conjunction();
 				if (floor != -1)  and.add(Restrictions.eq("floor", floor));
-				if (room != -1)  and.add(Restrictions.eq("room", room));
+				if (room == null)  and.add(Restrictions.ilike("room", room, MatchMode.ANYWHERE));
 				if (capacity != -1 ) and.add(Restrictions.eq("capacity", capacity));
 				if (onDesk != null ) and.add(Restrictions.like("onDesk", onDesk == true ? 't' : 'f'));
 				return criteria.add(and);
@@ -82,11 +83,10 @@ public class SeatTableService extends ServiceBase<SeatTable> implements ISeatTab
 	}
 
 	@Override
-	public SeatTable createSeatTable(int floor, int room, int capacity, int priority, String description) {
+	public SeatTable createSeatTable(int floor, String room, int capacity, int priority, String description) {
 		SeatTable seat = new SeatTable();
 		seat.setId(0);
 		seat.setFloor(floor);
-		seat.setRoom(room);
 		seat.setRoom(room);
 		seat.setCapacity(capacity);
 		seat.setPriority(priority);
@@ -97,7 +97,7 @@ public class SeatTableService extends ServiceBase<SeatTable> implements ISeatTab
 	}
 
 	@Override
-	public boolean updateSeatTable(int seatId, int floor, int room, int capacity, int priority, String description) {
+	public boolean updateSeatTable(int seatId, int floor, String room, int capacity, int priority, String description) {
 		SeatTable seat = this.repository.getItemById(SeatTable.class, seatId);
 		if (seat == null) return false;
 		seat.setFloor(floor);

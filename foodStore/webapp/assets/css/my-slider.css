@@ -361,21 +361,21 @@ p.ism-badge a.ism-link:hover {
 }
 
 #my-slider .ism-radios li.ism-radio-0 label {
-    background-image: url(/home/linh/Desktop/assets/img/backgrounds/flower-729514_1280.jpg);
+    background-image: url(../img/backgrounds/flower-729514_1280.jpg);
 }
 
 #my-slider .ism-radios li.ism-radio-1 label {
-    background-image: url(/home/linh/Desktop/assets/img/backgrounds/beautiful-701678_1280.jpg);
+    background-image: url(../img/backgrounds/beautiful-701678_1280.jpg);
 }
 
 #my-slider .ism-radios li.ism-radio-2 label {
-    background-image: url(/home/linh/Desktop/assets/img/backgrounds/architecture-22039_1280.jpg);
+    background-image: url(../img/backgrounds/architecture-22039_1280.jpg);
 }
 #my-slider .ism-radios li.ism-radio-3 label {
-    background-image: url(/home/linh/Desktop/assets/img/backgrounds/architecture-22039_1280.jpg);
+    background-image: url(../img/backgrounds/architecture-22039_1280.jpg);
 }
 #my-slider .ism-radios li.ism-radio-4 label {
-    background-image: url(/home/linh/Desktop/assets/img/backgrounds/architecture-22039_1280.jpg);
+    background-image: url(../img/backgrounds/architecture-22039_1280.jpg);
 }
 #my-slider .ism-radios li.active label {
     background-color: rgba(0, 0, 0, 1.0);
@@ -626,8 +626,6 @@ h1 {
 /* Here comes to good stuff : content styling */
  #content {
     position:relative;
-    width:400px;
-    height: 600px;
     z-index:100;
     padding:30px;
     border:1px solid #383838;

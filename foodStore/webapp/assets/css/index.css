@@ -16,17 +16,12 @@ background-size:300%;
     -webkit-animation:light 1s;
   
 }
-html{
-    min-width: 1150px;
-    min-height: 100%;
-}
 body { 
     overflow-y:auto;	
+   	font-family: liberties;
 }
 .container { 
     min-width: 100%;
-    min-height: 630px;
-    margin: auto; 
 
 }
 .container .ism-slider { 
@@ -38,7 +33,6 @@ body {
     transition: 0.3s;
     text-align: center;
     line-height: 0.1;
-    width: 300px;
     height: 200px;
 }
 .sidebar img:hover{
@@ -55,16 +49,11 @@ p{
     font-size: 20px;
 }
 #menu{
-    min-width:100%;
-    min-height:1250px;
-    margin: 0 auto;
     padding-top: 20px;
     background-color: #323232;
     color: #AE9A64;
 }
 .menubar{
-    width: 800px;
-    margin:0 auto;
     border-top: 2px solid;
     border-color: #ADADAD;
     padding-bottom: 30px;
@@ -84,15 +73,47 @@ p{
     font-weight: 800;
     color:#ADADAD;
 }
+
+#footer {
+	padding: 1em;
+}
+
+#footer span {
+	color: #ffc726;
+	padding-top: 0.2em;
+}
+
 #footer .footer-ft{
-    padding-top: 15px; 
-    padding-bottom: 15px;
+   padding-top: 15px;
+	padding-bottom: 1em;
+	font-size: 0.7em;
 }
 #footer .footer-b{
     color: white;
 }
 #footer .footer-img{
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     margin: 0 auto;
+}
+
+#navContainer vbox {
+	padding: 1em;
+}
+#menu {
+	overflow: auto
+}
+
+#content hbox {
+	justify-content: center;
+}
+
+#container-render {
+	padding: 1em;
+	border-left: solid 5px #98989899;
+	border-right: solid 5px #98989899;
+	background-color: #4b4b4b;
+	color: #fff;
+	box-shadow: inset 1px 1px 10px;
+	
 }

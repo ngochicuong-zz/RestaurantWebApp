@@ -1,6 +1,5 @@
 package com.foodStore.impl;
 
-import java.awt.TrayIcon.MessageType;
 import java.util.Date;
 import java.util.List;
 
@@ -30,14 +29,14 @@ public class AccountService extends ServiceBase<Account> implements IAccountServ
 	}
 	
 	@Override
-	public Account login(Account account) {
+	public Account login(String account, String pass) {
 		List<Account> results = this.repository.customQuery(Account.class, new ICriteriaBuilder() {
 			@Override
 			public Criteria build(Session session) {
 				Criteria criteria = session.createCriteria(Account.class, "a");
 				Conjunction and = Restrictions.conjunction();
-				and.add(Restrictions.ilike("a.user", account.getUser()));
-				and.add(Restrictions.ilike("a.pass", account.getPass()));
+				and.add(Restrictions.ilike("a.user", account));
+				and.add(Restrictions.ilike("a.pass", pass));
 				criteria.add(and);
 				return criteria;
 			}
@@ -71,9 +70,22 @@ public class AccountService extends ServiceBase<Account> implements IAccountServ
 	}
 
 	@Override
-	public void logout(Account account) {
-		account.setOnline('t');
-		this.repository.updateItem(account);
+	public void logout(String account) {
+		List<Account> results = this.repository.customQuery(Account.class, new ICriteriaBuilder() {
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(Account.class, "a");
+				Conjunction and = Restrictions.conjunction();
+				and.add(Restrictions.ilike("a.user", account));
+				criteria.add(and);
+				return criteria;
+			}
+		});
+		if (results.size() > 0) {
+			Account item = results.get(0);
+			item.setOnline('f');
+			this.repository.updateItem(item);
+		}
 	}
 	
 	@Override
@@ -117,7 +129,29 @@ public class AccountService extends ServiceBase<Account> implements IAccountServ
 		account.setRole(role);
 		return update(account);
 	}
-	
-	
+
+	@Override
+	public boolean updateAccountLoginCode(Account account) {
+		return this.repository.updateItem(account);
+	}
+
+	@Override
+	public Account searchAccountByLoginCode(String loginCode) {
+		List<Account> results = this.repository.customQuery(Account.class, new ICriteriaBuilder() {
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(Account.class, "a");
+				Conjunction and = Restrictions.conjunction();
+				and.add(Restrictions.ilike("a.loginCode", loginCode, MatchMode.ANYWHERE));
+				criteria.add(and);
+				return criteria;
+			}
+		});
+		if (results.size() > 0) {
+			Account item = results.get(0);
+			return item;
+		}
+		return null;
+	}
 	
 }

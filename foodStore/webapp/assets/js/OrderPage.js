@@ -35,14 +35,7 @@ OrderPage.prototype.init = function() {
 	this.qualityIn = this.pageContainer.querySelector("#quality");
 	this.addOrderDetailBtn = this.pageContainer.querySelector("#addOrderDetail");
 	
-	this.editProductNameIn = this.pageContainer.querySelector("#edit-product-text");
-	this.editQualityIn = this.pageContainer.querySelector("#edit-quality");
-	this.editDetailButton = this.pageContainer.querySelector("#edit-detail-button");
-	this.editDetailCancel = this.pageContainer.querySelector("#edit-detail-button-cancel");
-	
-	
 	this.addDetailPanel = this.pageContainer.querySelector("#add-detail-panel");
-	this.editDetailPanel = this.pageContainer.querySelector("#edit-detail-panel");
 	
 	this.orderContainer =  this.pageContainer.querySelector("#container-panel");
 	this.paymentContainer = this.pageContainer.querySelector("#payment-container");
@@ -61,7 +54,6 @@ OrderPage.prototype.init = function() {
 	this.paymentCancelBtn = this.pageContainer.querySelector("#cancel-button");
 	
 	this.paymentContainer.style.display = "none";
-	this.editDetailPanel.style.display = "none";
 	
 	var thiz = this;
 	
@@ -69,12 +61,17 @@ OrderPage.prototype.init = function() {
 		Main.pageManagement.active("table-page");
 	});
 	this.addOrderDetailBtn.addEventListener("click", function(e){
-		if (thiz.productNameIn.value == "" || thiz.qualityIn.value == "") return;
+		if (thiz.productNameIn.value == "") {
+			Dialog.alert("Lỗi! ","Vui lòng nhập tên món ăn"
+					, "Close", null, null , null, null, null
+			);
+			return;
+		};
 		var productName = e.target.data.productName;
 		var callback = function(orderDetail) {
 			if (orderDetail.length == 0) return;
 			thiz.productNameIn.value = "";
-			thiz.qualityIn.value = "";
+			thiz.qualityIn.value = 0;
 			thiz.orderDetails.push(orderDetail);
 			thiz.detailTable.render(thiz.orderDetails);
 			thiz.order.total += orderDetail.total;
@@ -93,9 +90,8 @@ OrderPage.prototype.init = function() {
 					thiz.orderDetails[index].total = quality * orderDetail.price;
 					thiz.detailTable.render(thiz.orderDetails);
 					thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
-					
 					thiz.productNameIn.value = "";
-					thiz.qualityIn.value = "";
+					thiz.qualityIn.value = 0;
 					e.target.data = null;
 				}
 				break;
@@ -117,9 +113,9 @@ OrderPage.prototype.init = function() {
 		button.action = function() {
 			var callback = function(bool) {
 				if (bool) {
-					var index = thiz.orderDetails.indexOf(thiz.orderDetail);
+					var index = thiz.orderDetails.indexOf(orderDetail);
 					thiz.orderDetails.splice(index,1);
-					thiz.detailTable.removeChild(handleItem);
+					thiz.detailTable.removeChild(thiz.detailTable.tableBody.childNodes[index]);
 					thiz.order.total -= orderDetail.total;
 					thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
 				}
@@ -127,36 +123,8 @@ OrderPage.prototype.init = function() {
 			serverReport.getBoolean("/removeOrderDetail.do?detailId=" + orderDetail.id + "", "GET", callback);
 		}
 		buttons.push(button);
-		var button = Dom.newDOMElement({
-			_name : "i",
-			class : "material-icons md-dark md-18",
-			_text : "mode_edit",
-			title : "Cập nhật"
-		});
-		button.action = function() {
-			var callback = function(bool) {
-				if (bool) {
-					var index = thiz.orderDetails.indexOf(thiz.orderDetail);
-					var quality = thiz.editQualityIn.value;
-					thiz.order.total += ( (quality * thiz.orderDetail.price) - thiz.orderDetail.total) ;
-					
-					thiz.orderDetails[index].quality = quality;
-					thiz.orderDetails[index].total = quality * thiz.orderDetail.price;
-					thiz.detailTable.render(thiz.orderDetails);
-					
-					thiz.editProductNameIn.value = "";
-					thiz.editQualityIn.value = 0;
-					thiz.editDetailPanel.style.display="none";
-					thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
-					thiz.addDetailPanel.style.display = "inherit";
-				}
-			};
-			serverReport.getBoolean("/updateOrderDetail.do?detailId=" + thiz.orderDetail.id + "&quality="+ thiz.editQualityIn.value +"", "GET", callback);
-		}
-		buttons.push(button);
 		return buttons;
 	}
-	
 	var theader = [
 		{
 			"column" : "Món ăn",
@@ -177,6 +145,9 @@ OrderPage.prototype.init = function() {
 		]
 	this.detailTable = new Table();
 	this.detailTable.init(theader, renderAction);
+	this.detailTable.renderBackground = function(item) {
+		return item.quality == 0;
+	}
 	this.orderDetailTable.insertBefore(this.detailTable.getTable(), this.orderDetailTable.childNodes[0]);
 	
 	this.contextMenu = new ContextMenu();
@@ -197,50 +168,8 @@ OrderPage.prototype.init = function() {
 					};
 					serverReport.getBoolean("/removeOrderDetail.do?detailId=" + orderDetail.id + "", "GET", callback);
 				}
-			}, {
-				name : "Cập nhật",
-				handler : function(handleItem) {
-					if (handleItem == null || handleItem.data == null) return;
-					thiz.editDetailPanel.style.display="inherit";
-					thiz.addDetailPanel.style.display = "none";
-					
-					var orderDetail = handleItem.data;
-					thiz.editProductNameIn.value = orderDetail.productName;
-					thiz.editQualityIn.value = orderDetail.quality;
-					thiz.orderDetail = orderDetail;
-				}
 			}
 			]);
-	
-	this.editDetailButton.addEventListener("click", function(){
-		if (!thiz.orderDetail) return;
-		var callback = function(bool) {
-			if (bool) {
-				var index = thiz.orderDetails.indexOf(thiz.orderDetail);
-				var quality = thiz.editQualityIn.value;
-				thiz.order.total += ( (quality * thiz.orderDetail.price) - thiz.orderDetail.total) ;
-				
-				thiz.orderDetails[index].quality = quality;
-				thiz.orderDetails[index].total = quality * thiz.orderDetail.price;
-				thiz.detailTable.render(thiz.orderDetails);
-				
-				thiz.editProductNameIn.value = "";
-				thiz.editQualityIn.value = 0;
-				thiz.editDetailPanel.style.display="none";
-				thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
-				thiz.addDetailPanel.style.display = "inherit";
-			}
-		};
-		serverReport.getBoolean("/updateOrderDetail.do?detailId=" + thiz.orderDetail.id + "&quality="+ thiz.editQualityIn.value +"", "GET", callback);
-	});
-	
-	this.editDetailCancel.addEventListener("click", function(){
-		thiz.editDetailPanel.style.display="none";
-		thiz.addDetailPanel.style.display = "inherit";
-		thiz.editProductNameIn.value = "";
-		thiz.editQualityIn.value = 0;
-		thiz.orderDetail = null;
-	});
 	this.detailTable.tableBody.addEventListener("contextmenu", function(e) {
 		var target = e.target;
 		var dataNode = Dom.findUpward(target, {
@@ -255,10 +184,29 @@ OrderPage.prototype.init = function() {
 	});
 	
 	this.detailTable.tableBody.addEventListener("dblclick", function(e) {
-		console.log(e.target);
-		var inputPopup = new InputPopup();
-		inputPopup.toggleMenuOn(e.target);
-		
+		var target = e.target;
+		var trNode = Dom.findUpward(target, {
+			eval : function(n) {
+				return n.data;
+			}
+		});
+		if (trNode == null || !target.quality) return;
+		var inputPopup = new InputPopup(target, trNode.data["quality"]);
+		var orderDetail = trNode.data;
+		inputPopup.onAccept = function(quality) {
+			var callback = function(bool) {
+				if (bool) {
+					var index = thiz.orderDetails.indexOf(orderDetail);
+					thiz.order.total += ( (quality * orderDetail.price) - orderDetail.total) ;
+					thiz.orderDetails[index].quality = quality;
+					thiz.orderDetails[index].total = quality * orderDetail.price;
+					thiz.detailTable.render(thiz.orderDetails);
+					thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
+				}
+			};
+			serverReport.getBoolean("/updateOrderDetail.do?detailId=" + orderDetail.id + "&quality="+ quality +"", "GET", callback);
+		}
+		inputPopup.toggleMenuOn();
 	});
 	
 	this.comboPopup = new ComboPopup();
@@ -303,23 +251,23 @@ OrderPage.prototype.init = function() {
 		console.log(item.data);
 	}
 	
-	this.productNameIn.addEventListener("change", function(e) {
-		var value = thiz.productNameIn.value;
-		var callback = function(products) {
-			if (products == null) return;
-			console.log(products);
-			thiz.comboPopup.renderItems(products);
-			thiz.comboPopup.toggleMenuOn(e.target);
+	this.productNameIn.addEventListener("keypress", function(e) {
+		if (e.keyCode == 13) {
+			var value = thiz.productNameIn.value;
+			var callback = function(products) {
+				if (products == null) return;
+				console.log(products);
+				thiz.comboPopup.renderItems(products);
+				thiz.comboPopup.toggleMenuOn(e.target);
+			}
+			serverReport.getJson("/searchProduct.do", "GET",
+					callback, {
+						"name" : value,
+						"price" : -1,
+						"categories" : -1
+			});
 		}
-		serverReport.getJson("/searchProduct.do", "GET",
-				callback, {
-					"name" : value,
-					"price" : -1,
-					"categories" : -1
-		});
 	})
-	
-	// payment handle
 	
 	this.checkoutButton.addEventListener("click", function() {
 		thiz.paymentContainer.style.display = "inherit";

@@ -5,7 +5,6 @@ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 	#search-panel{
-		height: 100vh;
 		min-width: 10em;
 		background-color: #313236;
 		color: #ffffff;
@@ -26,9 +25,7 @@ pageEncoding="UTF-8"%>
 		</vbox>
 		<vbox>
 			<label>Phòng hoặc mã bàn: </label>
-			<select  id="room">
-			  <option value= -1>--không chọn--</option>
-			</select>
+			<input style="width: 10em;" type="text" id="room">
 		</vbox>
 		<vbox>
 			<label>Số chỗ ngồi: </label>
@@ -44,40 +41,10 @@ pageEncoding="UTF-8"%>
 			  <option value="false">Bàn trống</option>
 			</select>
 		</vbox>
-		<hbox style="justify-content: flex-end; color: #000000">
-			<button id="search-button">Tìm kiếm</button>
+		<hbox  style="justify-content: flex-end; color: #000000">
+			<button class="InputRow" id="search-button"><i>search</i><span>Tìm kiếm</span> </button>
 		</hbox>
 	</vbox> 
-	<vbox id="container-panel" flex="1" style="overflow: auto;">
-	<!-- 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Room</th>
-					<th>Floor</th>
-					<th>Capacity</th>
-					<th>Description</th>
-					<th>Priority</th>
-					<th>OnDesk</th>
-				</tr>
-			</thead>
-			<tbody class="tBodyNode">
-			
-				<c:forEach var="i" items="${tables}">
-					<tr class="tableItem" tableId="${i.id }">
-						<td >${ i.id }</td>
-						<td >${ i.room }</td>
-						<td >${ i.floor }</td>
-						<td >${ i.capacity }</td>
-						<td >${ i.priority }</td>
-						<td >${ i.description }</td>
-						<td >${ i.onDesk }</td>
-					</tr>
-				</c:forEach>
-			
-			</tbody>
-		</table>
-		-->
+	<vbox id="container-panel" flex="1" style="overflow: auto">
 	</vbox> 
 </hbox>

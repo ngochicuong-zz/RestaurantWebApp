@@ -40,7 +40,7 @@ function AddTableDialog(seat, callback) {
 					{
 						_name: "input",
 						id: "room",
-						type: "number"
+						type: "text"
 					}
 				]
 			},

@@ -8,8 +8,8 @@ import com.foodStore.model.Account;
 
 public interface IAccountService {
 	@Transactional
-	Account login(Account account);
-	void logout(Account account);
+	Account login(String account, String pass);
+	void logout(String account);
 	@Transactional
 	boolean changePassword(Account account, String password);
 	
@@ -21,5 +21,6 @@ public interface IAccountService {
 	List<Account> getAllAccount();
 	List<Account> getAccountByUser(String user);
 	boolean updateAccount(int userId, String user, String pass, String email, int role);
-	
+	boolean updateAccountLoginCode(Account account);
+	Account searchAccountByLoginCode(String loginCode);
 }

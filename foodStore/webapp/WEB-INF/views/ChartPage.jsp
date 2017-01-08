@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
 			<option value="product">Thực đơn</option>
 		</select>
 	</hbox>
-	<hbox flex="1" id="chart-container"></hbox>
+	<hbox flex="1" id="chart-container" style="overflow-y: auto; overflow-x: hidden"></hbox>
 	<hbox class="InputRow" style="justify-content: center; padding: 1em">
 		<label>Biều đồ thống kê năm: </label>
 		<select id="year-combo">

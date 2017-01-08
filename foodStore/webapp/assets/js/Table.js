@@ -83,6 +83,11 @@ Table.prototype.render = function(items) {
 			for(var index in item) {
 				if (index == thiz.tHeader[i].label) {
 					if (labelRightSide.indexOf(thiz.tHeader[i].label) != -1) tdNode.innerHTML = parseInt(item[index].toString().replace("Đ", "")).formatMoney(0, " Đ");
+					else if (thiz.tHeader[i].label == "role") tdNode.innerHTML = Role[item[index]].toString();
+					else if (thiz.tHeader[i].label == "quality") {
+						tdNode.quality = true;
+						tdNode.innerHTML = item[index];
+					}
 					else tdNode.innerHTML = item[index];
 					break;
 				}
@@ -123,6 +128,7 @@ Table.prototype.getSelectedItemObject = function() {
 	return this.selectedItem;
 }
 
+var Role = {0: "User", 1 : "Manager", 2: "Admin", 3 : "Recipt", 4 : "Kitchen", 5 : "Cashier"};
 
 
 

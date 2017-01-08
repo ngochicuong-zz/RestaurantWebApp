@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -52,14 +53,12 @@ pageEncoding="UTF-8"%>
 	    text-shadow: 0 -1px black;
 	    background: #243942;
 	    border-bottom: 1px solid #191919;
-	    background-image: -webkit-linear-gradient(top, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
-	    background-image: -moz-linear-gradient(top, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
-	    background-image: -o-linear-gradient(top, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
-	    background-image: linear-gradient(to bottom, #243942, #22373f 50%, #1d2e35 50%, #1b2b32);
-	    -webkit-box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.1), 0 0 3px rgba(0, 0, 0, 0.8);
+	   	background-image: -webkit-linear-gradient(top, #696464, #272727 50%, #1C1C20 50%, #000);
+		background-image: -moz-linear-gradient(top, #696464, #272727 50%, #1C1C20 50%, #000);
+		background-image: -o-linear-gradient(top, #696464, #272727 50%, #1C1C20 50%, #000);
+		background-image:  linear-gradient(to bottom, #696464, #272727 50%, #1C1C20 50%, #000);
 	    box-shadow: inset 0 0 1px rgba(255, 255, 255, 0.1), 0 0 3px rgba(0, 0, 0, 0.8);
 	}
-	
 	#navbar .navbar-items {
 		max-height: 3em;
 		padding-right: 1em;
@@ -71,21 +70,31 @@ pageEncoding="UTF-8"%>
 		vertical-align: middle;
 	}
 	
-	#navbar .navbar-items .active {
-		padding-right: 16px;
-	    background-color: #1b2b32;
-	    border-right: 0;
-	    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
-	    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
+	#navbar .active {
+		  padding-right: 16px;
+		  background-color: #4e4e4e;
+		  border-right: 0;
+		  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
+		  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
+	}
+	
+	#navbar .navbar-items {
+		margin: 0;
+	    padding: 0;
+	    border: 0;
+	    font-size: 100%;
+	    font: inherit;
+	    vertical-align: baseline;
+	    border-left: 1px solid #191919;
+    	border-right: 1px solid rgba(255, 255, 255, 0.05);
+    	min-width: 5em;
+    	padding: 0em 1em 0em 1em;
+    	cursor: pointer;
 	}
 	
 	#navbar .navbar-items:hover {
-		border-bottom: solid 0.3em #F90;
-	}
-	
-	#navbar .active {
-		background: rgba(105, 105, 105, 0.93);
-    	box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.59);
+		  background: #2f4b56;
+  		  background: rgba(255, 255, 255, 0.1);
 	}
 	
 	table tr td{
@@ -120,26 +129,34 @@ pageEncoding="UTF-8"%>
 				<i class="material-icons orange600 md-16" >airline_seat_recline_normal</i>
 				<span>Quản lý bàn</span>
 			</hbox>
-			<hbox class="navbar-items InputRow" page-name="appointment-page">
-				<i class="material-icons orange600 md-16" >event</i>
-				<span >Quản lý đặt bàn</span>
-			</hbox>
-			<hbox class="navbar-items InputRow" page-name="chart-page">
-				<i class="material-icons orange600 md-16" >pie_chart</i>
-				<span>Thống kê</span>
-			</hbox>
-			<hbox class="navbar-items InputRow" page-name="admin-page">
-				<i class="material-icons orange600 md-16" >settings</i>
-				<span>Quản lý hệ thống</span>
-			</hbox>
+			<c:if test="${role == 3 || role == 2}">
+				<hbox class="navbar-items InputRow" page-name="appointment-page">
+					<i class="material-icons orange600 md-16" >event</i>
+					<span >Quản lý đặt bàn</span>
+				</hbox>
+			</c:if>
+			
+			<c:if test="${role == 1 || role == 2}">
+				<hbox class="navbar-items InputRow" page-name="chart-page">
+					<i class="material-icons orange600 md-16" >pie_chart</i>
+					<span>Thống kê</span>
+				</hbox>
+			</c:if>
+			<c:if test="${role == 2}">
+				<hbox class="navbar-items InputRow" page-name="admin-page">
+					<i class="material-icons orange600 md-16" >settings</i>
+					<span>Quản lý hệ thống</span>
+				</hbox>
+			</c:if>
 			<hbox flex="1">
 				<hbox flex="1"></hbox>
-				<hbox  class="navbar-items InputRow" style="justify-content: flex-end">
+				<hbox id="logout" class="navbar-items InputRow" style="justify-content: center">
 					<i class="material-icons orange600 md-16" >account_circle</i>
+					<span>Đăng xuất</span>
 				</hbox>
 			</hbox>
 		</hbox>
-		<hbox id="main-container" flex="1">
+		<hbox id="main-container" flex="1" style="overflow: auto">
 		
 		</hbox>
 	</vbox>

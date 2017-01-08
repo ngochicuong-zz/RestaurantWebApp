@@ -28,7 +28,6 @@ pageEncoding="UTF-8"%>
 </style>
 <hbox flex="1" id="admin-page">
 	<vbox style="justify-content: flex-start;
-			height: 100vh;
 			background-color: #3b3b3b;
 			color: #fff">	
 		<vbox page-name="account-manager-page" class="admin-item" style="text-align: center;">

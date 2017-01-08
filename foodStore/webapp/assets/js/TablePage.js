@@ -27,7 +27,7 @@ TablePage.prototype.requestItems = function(requestCallBack) {
 	serverReport.getJson("/searchTable.do", "GET",
 			callback, {
 				"floor" : -1,
-				"room" : -1,
+				"room" : "",
 				"capacity" : -1,
 				"onDesk" : ""
 	});
@@ -54,8 +54,9 @@ TablePage.prototype.init = function(){
 					newItem.onDesk = 't';
 					thiz.onUpdate(seat, newItem);
 				};
-				serverReport.getJson("/createOrder.do?seatId=" + seat.id
-						+ "&note='dklfj'&customerId=123", "GET", callback);
+				serverReport.getJson("/createOrder.do?", "GET", callback, {
+					"seatId" : seat.id
+				});
 			}
 		} else {
 			button = Dom.newDOMElement({
@@ -180,17 +181,17 @@ TablePage.prototype.onSearch = function() {
 	var o = this.pageContainer.querySelector("#onDesk");
 	
 	var floor = f.options[f.selectedIndex].value;
-	var room = r.options[r.selectedIndex].value;
+	var room = r.value;
 	var capacity = c.options[c.selectedIndex].value;
 	var onDesk = o.options[o.selectedIndex].value == "undefined" ? "" : o.options[o.selectedIndex].value;
 	
-	if (floor == -1 && room == -1 && capacity == -1 && onDesk == "") return this.seatTables;
+	if (floor == -1 && room == "" && capacity == -1 && onDesk == "") return this.seatTables;
 	
 	var result = new Array();
 	var thiz = this;
 	this.seatTables.forEach(function(seat){
 		if ((floor == -1 || seat.floor == floor)
-			&& (room == -1 || seat.room == room )
+			&& (room == "" || room == "" || seat.room.toUpperCase().indexOf(room.toUpperCase()) > -1 )
 			&& (capacity == -1 || seat.capacity <= capacity )
 			&& (onDesk == "" || seat.onDesk == (onDesk == "true" ? 't' : 'f') ))
 				result.push(seat);
@@ -200,22 +201,18 @@ TablePage.prototype.onSearch = function() {
 
 TablePage.prototype.initItemForSelect = function() {
 	var f = this.pageContainer.querySelector("#floor");
-	var r = this.pageContainer.querySelector("#room");
 	var c = this.pageContainer.querySelector("#capacity");
 	
 	var floorCount = new Array();
-	var roomCount = new Array();
 	var capacityCount = new Array();
 	for (var i = 0; i < this.seatTables.length; i++) {
 		var seat = this.seatTables[i];
 		if (floorCount.indexOf(seat.floor) < 0) floorCount.push(seat.floor);
-		if (roomCount.indexOf(seat.room) < 0) roomCount.push(seat.room);
 		if (capacityCount.indexOf(seat.capacity) < 0) capacityCount.push(seat.capacity);
 	}
 	floorCount.sort();
-	roomCount.sort();
 	capacityCount.sort(function(a, b){return a-b});
-	for (var i = 0; i < Math.max(floorCount.length, roomCount.length, capacityCount.length); i++) {
+	for (var i = 0; i < Math.max(floorCount.length, capacityCount.length); i++) {
 		var index = i;
 		if (i < floorCount.length) {
 			var option = Dom.newDOMElement({
@@ -224,14 +221,6 @@ TablePage.prototype.initItemForSelect = function() {
 				_text : floorCount[index]
 			});
 			f.appendChild(option);
-		}
-		if (i < roomCount.length) {
-			var option = Dom.newDOMElement({
-				_name : "option",
-				value : roomCount[index],
-				_text : roomCount[index]
-			});
-			r.appendChild(option);
 		}
 		if (i < capacityCount.length) {
 			var option = Dom.newDOMElement({
@@ -260,6 +249,8 @@ TablePage.prototype.getPageContainer = function() {
 	this.requestItems(function() {
 		var result = thiz.onSearch();
 		thiz.table.render(result);
+		console.log(thiz.containerPanel);
+		console.log(thiz.containerPanel.offsetHeight);
 	});
 	return this.pageContainer;
 }

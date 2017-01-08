@@ -4,19 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
  
 public class SeatTable extends BaseModelObject {
-	private int room, floor, capacity;
-	private String description;
+	private int floor, capacity;
+	private String description, room;
 	private int priority;
 	private char onDesk;
 	private Set<Order> orders = new HashSet<Order>();
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 	
-	public int getRoom() {
-		return room;
-	}
-	public void setRoom(int room) {
-		this.room = room;
-	}
 	public int getFloor() {
 		return floor;
 	}
@@ -58,6 +52,12 @@ public class SeatTable extends BaseModelObject {
 	}
 	public void setAppointments(Set<Appointment> appointments) {
 		this.appointments = appointments;
+	}
+	public String getRoom() {
+		return room;
+	}
+	public void setRoom(String room) {
+		this.room = room;
 	}
 	
 }

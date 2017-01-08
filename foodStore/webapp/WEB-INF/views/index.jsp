@@ -6,193 +6,218 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
     <link href="webapp/assets/css/Main.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="webapp/assets/css/my-slider.css" rel="stylesheet" type="text/css" />
     <link href="webapp/assets/css/index.css" rel="stylesheet" type="text/css" />
     <script src="webapp/assets/js/ism-2.2.min.js" type="text/javascript"></script>
-</head>
-<body>
-	<vbox flex="1">
-		<vbox class="container" style="min-height: 100vh">
-	        <vbox class="ism-slider" data-radio_type="thumbnail" id="my-slider" style="height:100vh">
-	          <ol>
-	            <li>
-	              <img src="webapp/assets/img/backgrounds/flower-729514_1280.jpg">
-	              <div class="ism-caption ism-caption-0">QUE TA RESTAURANT</div>
-	            </li>
-	            <li>
-	              <img src="webapp/assets/img/backgrounds/beautiful-701678_1280.jpg">
-	              <div class="ism-caption ism-caption-0">WELCOME TO AHIHI !!</div>
-	            </li>
-	            <li>
-	              <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
-	              <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
-	            </li>
-	            <li>
-	              <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
-	              <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
-	            </li>
-	            <li>
-	              <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
-	              <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
-	            </li>
-	          </ol>
-	        </vbox>
-	    </vbox>
-	    
-	     <vbox style="height:100vh ;margin: 0 auto;padding-top: 100px;">
-	        <hbox style="min-height: 130px;margin:0 auto;">
-	            <vbox style=" height:100%;text-align: center;margin: 0 auto;">
-	                <h3>QUE TA RESTAURANT</h3>
-	                <p style="white-space: normal;width: 400px;">Welcome to Que Ta !! Cung thuong thuc nhung mon an ngon va canh quang mang hoi am cua gia dinh</p>
-	            </vbox>
-	        </hbox>
-	        <hbox flex="1" id="navContainer">
-	            <vbox class="sidebar menu" navName="menu">
-	                <img src="webapp/assets/img/backgrounds/menu.png" >
-	                <h3>Menu</h3>
-	                <p>Click vao hinh di nao</p>
-	            </vbox>
-	            <vbox class="sidebar contact" navName="contact">
-	                <img src="webapp/assets/img/backgrounds/blog.png" style=";margin-left: 1em;margin-right: 1em;">
-	                <h3>Blog</h3>
-	                <p>Click vao hinh di nao</p>
-	            </vbox>
-	            <vbox class="sidebar blog" navName="blog">
-	                <img src="webapp/assets/img/backgrounds/contact.png" >
-	                <h3>Contact</h3>
-	                <p>Click vao hinh di nao</p>
-	            </vbox>
-	        </hbox>
-	    </vbox>
-	    
-	    <vbox id="menu" style="height:100vh">
-    	 	<vbox class="menubar" style="border:none;padding-bottom: 40px">
-                    <h1 style="color:#AE9A64; ">DINNER MENU</h1>
-                    <i style="text-align: center;">Get people excited about your menu and your food. Give your menu a brief description</i>
-            </vbox>
-            <vbox class="menubar" >
-                    <vbox>
-                        <h3>CHICKEN</h3>
-                        </vbox>
-                    <vbox>
-                        <i class="menufont">This is a secion of your menu. Give you section a brief description</i>
-                        <p>Center-Cut Filet Mignon</p>
-                        <span class="menuspan">This is an item on your menu. Give your item a brief description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    $9</span>
-                        <p>Center-Cut Filet Mignon</p>
-                        <span class="menuspan">This is an item on your menu. Give your item a brief description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    $9</span>
-                    </vbox>
-            </vbox>
-            <vbox class="menubar" >
-                    <vbox>
-                        <h3>PIG</h3>
-                    </vbox>
-                    <vbox>
-                        <i class="menufont">This is a secion of your menu. Give you section a brief description</i>
-                        <p>Center-Cut Filet Mignon</p>
-                        <span class="menuspan">This is an item on your menu. Give your item a brief description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    $9</span>
-                        <p>Center-Cut Filet Mignon</p>
-                        <span class="menuspan">This is an item on your menu. Give your item a brief description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    $9</span>
-                    </vbox>
-            </vbox>
-             <vbox class="menubar" >
-                    <vbox>
-                        <h3>RICE</h3>
-                    </vbox>
-                    <vbox>
-                        <i class="menufont">This is a secion of your menu. Give you section a brief description</i>
-                        <p>Center-Cut Filet Mignon</p>
-                        <span class="menuspan">This is an item on your menu. Give your item a brief description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    $9</span>
-                        <p>Center-Cut Filet Mignon</p>
-                        <span class="menuspan">This is an item on your menu. Give your item a brief description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    $9</span>
-                    </vbox>
-            </vbox>
-        </vbox>
-        
-	     <vbox id="blog" style="height: 100vh;">
-	            
-	     </vbox>
-    	 <hbox id="contact" style="height: 100vh;background-color:#282C35;justify-content: center;padding-top: 50px;">
-	        <vbox >
-	        <hbox>
-	            <vbox>
-	                <img style="width: 300px;height: 330px;" src="webapp/assets/img/backgrounds/img2.jpg"  >
-	                <img style="width: 300px;height: 330px;" src="webapp/assets/img/backgrounds/img3.jpg"  >
-	            </vbox>
-	            <vbox >
-	                <img style="width: 300px;height: 330px;" src="webapp/assets/img/backgrounds/img4.jpg"  >
-	                <img style="width: 300px;height:330px;" src="webapp/assets/img/backgrounds/img1.jpg"  >
-	            </vbox>
-	            </hbox>
-	        </vbox> 
-		            <vbox id="content" >
-		                 <h1>Contact</h1>
-		            <form action=" " method="post" autocomplete="on">
-		                    <p>
-		                        <label for="username" class="icon-user"> Name
-		                            <span class="required">*</span>
-		                        </label>
-		                        <input type="text" name="username" id="username" required="required" placeholder="Your Name" />
-		                    </p>
-		
-		                    <p>
-		                        <label for="usermail" class="icon-envelope"> E-mail address
-		                            <span class="required">*</span>
-		                        </label>
-		                        <input type="email" name="usermail" id="usermail" placeholder="I promise I hate spam too!" required="required" />
-		                    </p>
-		
-		                    <p>
-		                        <label for="usersite" class="icon-link"> Website</label>
-		                        <input type="url" name="usersite" id="usersite" placeholder="eg: http://www.example.com" />
-		                    </p>
-		
-		                    <p>
-		                        <label for="subject" class="icon-bullhorn"> Subject</label>
-		                        <input type="text" name="subject" id="subject" placeholder="What would you like to talk about?" />
-		                    </p>
-		
-		                    <p>
-		                        <label for="message" class="icon-comment"> Message
-		                            <span class="required">*</span>
-		                        </label>
-		                        <textarea placeholder="Your message here and I'll answer as soon as possible " required="required"></textarea>
-		                    </p>
-		                    <p class="indication">Fields with
-		                        <span class="required"> * </span>are required</p>
-		
-		                    <input type="submit" value=" Send this mail ! " />
-		
-		                </form>
-		            </vbox>
-	    	</hbox>
+    <script src="webapp/assets/js/common-dom.js"></script>
+    <script src="webapp/assets/js/ServerSide.js"></script>
+    <script src="webapp/assets/js/index/Index.js"></script>
     
-    	 <hbox id="footer" style="height: 100vh;text-align: center; background-color: black;">
-	        <vbox flex="1" class="footer-ft">
-	            <span class="footer-sp">GET THE LASTED</span>
-	            <b class="footer-b">Follow us on Twitter</b>
-	            <img class="footer-img" src="webapp/assets/img/backgrounds/witter.png">
-	        </vbox>
-	        <vbox flex="1" class="footer-ft">
-	            <span class="footer-sp">LIKE IT</span>
-	            <b class="footer-b">We're on Facebook</b>
-	            <img class="footer-img" src="webapp/assets/img/backgrounds/facebook.png">
-	        </vbox>
-	        <vbox flex="1" class="footer-ft">
-	            <span class="footer-sp">SEND MAIL</span>
-	            <b class="footer-b">Say hello here</b>
-	            <img class="footer-img" src="webapp/assets/img/backgrounds/mail.png">
-	        </vbox>
-	        <vbox flex="1" class="footer-ft">
-	            <span class="footer-sp">CALL ABOUT US</span>
-	            <b class="footer-b">0909911665</b>
-	            <img class="footer-img" src="webapp/assets/img/backgrounds/phone1.png">
-	        </vbox>
-	    </hbox>
-	</vbox>
-    <script language="javascript" type="text/javascript">
-        this.img = document.querySelector('#image');
-        this.img.addEventListener('click',function(){
-        })
-    </script>
+    <style>
+        section {
+            flex-direction: column;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+        #navbar {
+			height: 37px;
+		    line-height: 37px;
+		    color: #fa5d00;
+		    text-shadow: 0 -1px black;
+		    background: #243942;
+		    border-bottom: 1px solid #191919;
+		    background-image: -webkit-linear-gradient(top, #696464, #272727 50%, #1C1C20 50%, #000);
+		    background-image: -moz-linear-gradient(top, #696464, #272727 50%, #1C1C20 50%, #000);
+		    background-image: -o-linear-gradient(top, #696464, #272727 50%, #1C1C20 50%, #000);
+		    background-image:  linear-gradient(to bottom, #696464, #272727 50%, #1C1C20 50%, #000);
+		}
+		
+		
+		#navbar .navbar-items {
+			max-height: 3em;
+			padding-right: 1em;
+		}
+		
+		#navbar .navbar-items span{
+			font-weight: bold;
+			display: table-cell;
+			vertical-align: middle;
+		}
+		#navbar .navbar-items label{
+			font-weight: bold;
+			display: table-cell;
+			vertical-align: middle;
+		}
+		
+		#navbar .active {
+			  padding-right: 16px;
+			  background-color: #4e4e4e;
+			  border-right: 0;
+			  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
+			  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.7);
+		}
+		
+		#navbar .navbar-items {
+			margin: 0;
+		    padding: 0;
+		    border: 0;
+		    font-size: 100%;
+		    font: inherit;
+		    vertical-align: baseline;
+		    border-left: 1px solid #191919;
+	    	border-right: 1px solid rgba(255, 255, 255, 0.05);
+			min-width: 5em;
+			padding: 0em 1em 0em 1em;
+			cursor: pointer;
+		}
+							
+		#navbar .navbar-items:hover {
+			color: #ffcf00;
+			background: #2f4b56;
+		 	background: rgba(255, 255, 255, 0.1);
+		}			
+		.intro-button {
+			width: 15em;
+			height: 10em;
+							background: #fa5d00;
+							border: none;
+							border-radius: 0.5ex;
+		}	  
+		.intro-button i {
+		font-size: 6em;
+							color: #fff;
+							opacity: 1;
+							text-shadow: 2px 2px 1px #000;
+		} 
+		#navSection span{
+			color:#666;
+		}
+		span {
+			width: 100%;
+		}
+    </style>
+</head>
+<body style="background-color: #4B4B4B">
+    <vbox style="width: 900px; margin: auto; margin-top: 1em; box-shadow: 1px 1px 10px #000;">
+    	<section>
+    		<hbox id="navbar">
+    			<hbox flex="1" class="navbar-items">
+    				<span style="font-size: 1.5em;
+					font-style: italic;
+					color: #ffc726;"> Nhà Hàng Quê Ta</span>
+    			</hbox>
+				<hbox class="navbar-items InputRow" page-name="admin-page" id="login-button">
+					<i class="material-icons orange600 md-16" >account_circle</i>
+					<span>Đăng nhập</span>
+				</hbox>
+			</hbox>
+    	</section>
+        <section>
+            <vbox class="ism-slider" data-radio_type="thumbnail" id="my-slider" style="height:400px;">
+                <ol>
+                    <li>
+                        <img src="webapp/assets/img/backgrounds/flower-729514_1280.jpg">
+                        <div class="ism-caption ism-caption-0">QUE TA RESTAURANT</div>
+                    </li>
+                    <li>
+                        <img src="webapp/assets/img/backgrounds/beautiful-701678_1280.jpg">
+                        <div class="ism-caption ism-caption-0">WELCOME TO AHIHI !!</div>
+                    </li>
+                    <li>
+                        <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
+                        <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
+                    </li>
+                    <li>
+                        <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
+                        <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
+                    </li>
+                    <li>
+                        <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
+                        <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
+                    </li>
+                </ol>
+            </vbox>
+        </section>
+        
+        <section id="navSection" style="background-color: #fff;">
+            <vbox style="text-align: center;">
+                <h3>Nhà hàng Quê ta <br>
+                	<span style="font-style: italic ;font-size: 16px; font-weight: 400;">
+						Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên
+					</span>
+				</h3>
+            </vbox>
+            <hbox id="nav-container" class="InputRow" style="justify-content: center; padding: 1em;">
+            	<hbox flex="1"  style="justify-content: center">
+            		<vbox navName="menu" flex="1" >
+            			<hbox style="justify-content: center">
+            				<button class="intro-button"> 
+		                		<i>restaurant_menu</i>
+		                	</button>
+            			</hbox>
+	                    <hbox style="justify-content: center; max-height: 3em;">
+	                    	<h3>THỰC ĐƠN </h3>
+	                    </hbox>
+	                    <hbox>
+	                    	<span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
+	                    </hbox>
+	                </vbox>
+            	</hbox>
+            	<hbox flex="1"  style="justify-content: center">
+            		<vbox navName="aboutus" flex="1">
+            			<hbox style="justify-content: center">
+            				<button class="intro-button"> 
+		                		<i>info_outline</i>
+		                	</button>
+            			</hbox>
+	                    <hbox style="justify-content: center; max-height: 3em;">
+	                    	<h3>VỀ CHÚNG TÔI </h3>
+	                    </hbox>
+	                    <hbox>
+	                    	<span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
+	                    </hbox>
+	                </vbox>
+            	</hbox>
+            	<hbox flex="1"  style="justify-content: center">
+            		<vbox navName="contact" flex="1">
+            			<hbox style="justify-content: center">
+            				<button class="intro-button"> 
+		                		<i>phone</i>
+		                	</button>
+            			</hbox>
+	                    <hbox style="justify-content: center; max-height: 3em;">
+	                    	<h3>LIÊN HỆ - ĐẶT BÀN </h3>
+	                    </hbox>
+	                    <hbox>
+	                    	<span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
+	                    </hbox>
+	                </vbox>
+            	</hbox>
+            </hbox>
+        </section>
+        <section id="container-render">
+        	<hbox style="text-align: center;">
+        		<span>NHẤP VÀO CÁC NÚT TRÊN ĐỂ XEM</span>
+        	</hbox>
+        	
+        </section>
+        <section>
+        	 <hbox id="footer" style="text-align: center; background-color: #414141;">
+	            <vbox flex="1">
+	                <span>Thông tin liên hệ</span>
+	                <span>Địa chỉ: 31 Cao Thắng - Phường 2 - Quận 3 - TPHCM</span> 
+			        <span>Điện thoại:08.38.390.704</span>
+			        <span>Hotline:0903 618 795 (Mr Nhã)</span>
+					<span>Email: info@tieccuoifestival.com - yen_festival@yahoo.com</span>
+	                <span style="">© Copyright 2012 - nhà hàng Festival . All Rights Reserved</span>
+	            </vbox>
+	        </hbox>
+        </section>
+    </vbox>
 </body>
+
 </html>

@@ -4,21 +4,18 @@ pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bootstrap Login &amp; Register Templates</title>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="webapp/assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="webapp/assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="webapp/assets/css/form-elements.css">
         <link rel="stylesheet" href="webapp/assets/css/style.css">
-
+		<script src="webapp/assets/js/ServerSide.js"></script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -32,146 +29,141 @@ pageEncoding="UTF-8"%>
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="webapp/assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="webapp/assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="webapp/assets/ico/apple-touch-icon-57-precomposed.png">
-
+		<style>
+			.login-page {
+			  width: 360px;
+			  padding: 8% 0 0;
+			  margin: auto;
+			}
+			.form {
+			  position: absolute;
+			  z-index: 1;
+			  background: #f5f5f5;
+			  max-width: 360px;
+			  margin: 0 auto 100px;
+			  padding: 45px;
+			  text-align: center;
+			  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+			}
+			.form input {
+			  font-family: liberties;
+			  outline: 0;
+			  background-color: #f2f2f2;
+			  width: 100%;
+			  border: solid 1px #fff;
+			  margin: 0 0 15px;
+			  padding: 15px;
+			  box-sizing: border-box;
+			  font-size: 14px;
+			}
+			.form button {
+			  font-family: liberties;
+			  text-transform: uppercase;
+			  font-weight: 700;
+			  outline: 0;
+			  background: #ff7500;
+			  width: 100%;
+			  border: 0;
+			  padding: 15px;
+			  color: #FFFFFF;
+			  font-size: 14px;
+			  -webkit-transition: all 0.3 ease;
+			  transition: all 0.3 ease;
+			  cursor: pointer;
+			}
+			.form button:hover,.form button:active,.form button:focus {
+			  background: #faaa1a;
+			}
+			.form .message {
+			  margin: 15px 0 0;
+			  color: #b3b3b3;
+			  font-size: 12px;
+			}
+			.form .message a {
+			  color: #4CAF50;
+			  text-decoration: none;
+			}
+			.form .register-form {
+			  display: none;
+			}
+			.container {
+			  position: relative;
+			  z-index: 1;
+			  max-width: 300px;
+			  margin: 0 auto;
+			}
+			.container:before, .container:after {
+			  content: "";
+			  display: block;
+			  clear: both;
+			}
+			.container .info {
+			  margin: 50px auto;
+			  text-align: center;
+			}
+			.container .info h1 {
+			  margin: 0 0 15px;
+			  padding: 0;
+			  font-size: 36px;
+			  font-weight: 300;
+			  color: #1a1a1a;
+			}
+			.container .info span {
+			  color: #4d4d4d;
+			  font-size: 12px;
+			}
+			.container .info span a {
+			  color: #000000;
+			  text-decoration: none;
+			}
+			.container .info span .fa {
+			  color: #EF3B3A;
+			}
+			body {
+			  background-color: #4B4B4B;
+			  font-family: liberties;
+			  -webkit-font-smoothing: antialiased;
+			  -moz-osx-font-smoothing: grayscale;      
+			}
+		</style>
     </head>
-
     <body>
-
-        <!-- Top content -->
-        <div class="top-content">
-        	
-            <div class="inner-bg">
-                <div class="container">
-                	
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1><strong>Bootstrap</strong> Login &amp; Register Forms</h1>
-                            <div class="description">
-                            	<p>
-	                            	This is a free responsive <strong>"login and register forms"</strong> template made with Bootstrap. 
-	                            	Download it on <a href="http://azmind.com" target="_blank"><strong>AZMIND</strong></a>, 
-	                            	customize and use it as you like!
-                            	</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-sm-5">
-                        	<form:form action="login.do" modelAttribute="account" method="Post" class="form-box">
-	                        	<div class="form-top">
-	                        		<div class="form-top-left">
-	                        			<h3>Login to our site</h3>
-	                            		<p>Enter username and password to log on:</p>
-	                        		</div>
-	                        		<div class="form-top-right">
-	                        			<i class="fa fa-lock"></i>
-	                        		</div>
-	                            </div>
-	                            <div class="form-bottom">
-				                    <form role="form" action="" method="post" class="login-form">
-				                    	<div class="form-group">
-				                    		<label class="sr-only" for="form-username">Username</label>
-				                        	<form:input type="text" path="user" placeholder="Username..." class="form-username form-control" id="form-username" />
-				                        </div>
-				                        <div class="form-group">
-				                        	<label class="sr-only" for="form-password">Password</label>
-				                        	<form:input type="password" path="pass" name="pass" placeholder="Password..."  class="form-password form-control" id="form-password" />
-				                        </div>
-				                        <button type="submit" class="btn">Sign in!</button>
-				                    </form>
-			                    </div>
-		                    </form:form>
-		                	
-		                	<div class="social-login">
-	                        	<h3>...or login with:</h3>
-	                        	<div class="social-login-buttons">
-		                        	<a class="btn btn-link-2" href="#">
-		                        		<i class="fa fa-facebook"></i> Facebook
-		                        	</a>
-		                        	<a class="btn btn-link-2" href="#">
-		                        		<i class="fa fa-twitter"></i> Twitter
-		                        	</a>
-		                        	<a class="btn btn-link-2" href="#">
-		                        		<i class="fa fa-google-plus"></i> Google Plus
-		                        	</a>
-	                        	</div>
-	                        </div>
-	                        
-                        </div>
-                        
-                        <div class="col-sm-1 middle-border"></div>
-                        <div class="col-sm-1"></div>
-                        	
-                        <div class="col-sm-5">
-                        	
-                        	<div class="form-box">
-                        		<div class="form-top">
-	                        		<div class="form-top-left">
-	                        			<h3>Sign up now</h3>
-	                            		<p>Fill in the form below to get instant access:</p>
-	                        		</div>
-	                        		<div class="form-top-right">
-	                        			<i class="fa fa-pencil"></i>
-	                        		</div>
-	                            </div>
-	                            <div class="form-bottom">
-				                    <form role="form" action="" method="post" class="registration-form">
-				                    	<div class="form-group">
-				                    		<label class="sr-only" for="form-first-name">First name</label>
-				                        	<input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
-				                        </div>
-				                        <div class="form-group">
-				                        	<label class="sr-only" for="form-last-name">Last name</label>
-				                        	<input type="text" name="form-last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
-				                        </div>
-				                        <div class="form-group">
-				                        	<label class="sr-only" for="form-email">Email</label>
-				                        	<input type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
-				                        </div>
-				                        <div class="form-group">
-				                        	<label class="sr-only" for="form-about-yourself">About yourself</label>
-				                        	<textarea name="form-about-yourself" placeholder="About yourself..." 
-				                        				class="form-about-yourself form-control" id="form-about-yourself"></textarea>
-				                        </div>
-				                        <button type="submit" class="btn">Sign me up!</button>
-				                    </form>
-			                    </div>
-                        	</div>
-                        	
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
-
-        <!-- Footer -->
-        <footer>
-        	<div class="container">
-        		<div class="row">
-        			
-        			<div class="col-sm-8 col-sm-offset-2">
-        				<div class="footer-border"></div>
-        				<p>Made by Anli Zaimi at <a href="http://azmind.com" target="_blank"><strong>AZMIND</strong></a> 
-        					having a lot of fun. <i class="fa fa-smile-o"></i></p>
-        			</div>
-        			
-        		</div>
-        	</div>
-        </footer>
-
-        <!-- Javascript -->
-        <script src="webapp/assets/js/jquery-1.11.1.min.js"></script>
-        <script src="webapp/assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="webapp/assets/js/jquery.backstretch.min.js"></script>
-        <script src="webapp/assets/js/scripts.js"></script>
-        
-        <!--[if lt IE 10]>
-            <script src="webapp/assets/js/placeholder.js"></script>
-        <![endif]-->
-
+    	<div class="login-page">
+		  <div class="form">
+		    <form class="login-form">
+		      <input id="user" type="text" placeholder="username"/>
+		      <input id="pwd" type="password" placeholder="password"/>
+		      <button id="login-button">Đăng nhập</button>
+		      <span id="message" style="color: red; font-size: 0.8em"></span>
+		    </form>
+		  </div>
+		</div>
+		<script>
+			function sendLogin() {
+				var loginButton = document.querySelector("#login-button");
+				loginButton.addEventListener("click", function(e) {
+					e.preventDefault();
+					var user = document.querySelector("#user").value;
+					var pass = document.querySelector("#pwd").value;
+					var messageBox = document.querySelector("#message");
+					var callback = function(string) {
+						console.log(string);
+						if (string != "") {
+							window.location.href = "/main.do?user="+string+"";
+						} else {
+							messageBox.innerHTML = "Tài khoản hoặc mật khẩu không đúng!";
+						}
+					}
+					serverReport.getHTML("/signIn.do", "POST",
+							callback, {
+								"user" : user,
+								"pass" : pass 
+					});
+				});
+			}
+			sendLogin();
+			
+		</script>
     </body>
 
 </html>
