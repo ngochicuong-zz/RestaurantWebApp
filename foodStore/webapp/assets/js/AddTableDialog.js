@@ -152,7 +152,7 @@ function AddTableDialog(seat, callback) {
  */
 
 AddTableDialog.prototype.onAccept = function() {
-	if (!this.validateTable ()){
+	if (!this.validateAddTable ()){
 		alert("Vui lòng điền đầy đủ thông tin");
 		return;
 	}
@@ -224,38 +224,38 @@ AddTableDialog.prototype.positionContainer = function(){
 
 }
 
-AddTableDialog.prototype.validateTable = function(){
+AddTableDialog.prototype.validateAddTable = function(){
 	var check = true;
 	if(this.floor.value == ""){
-		this.floor.style.background = "red";
+		this.floor.style.background = "#bb0009";
 		check = false;
 	}else {
 		this.floor.style.background = "#fff";
 	}
 
 	if(this.room.value == ""){
-		this.room.style.background = "red";
+		this.room.style.background = "#bb0009";
 		check = false;
 	}else {
 		this.room.style.background = "#fff";
 	}
 
 	if(this.capacity.value == ""){
-		this.capacity.style.background = "red";
+		this.capacity.style.background = "#bb0009";
 		check = false;
 	}else {
 		this.capacity.style.background = "#fff";
 	}
 
 	if(this.description.value == ""){
-		this.description.style.background = "red";
+		this.description.style.background = "#bb0009";
 		check = false;
 	}else {
 		this.description.style.background = "#fff";
 	}
 
 	if(this.priority.value == ""){
-		this.priority.style.background = "red";
+		this.priority.style.background = "#bb0009";
 		check = false;
 	}else {
 		this.priority.style.background = "#fff";

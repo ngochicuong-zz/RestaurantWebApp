@@ -1,10 +1,10 @@
 function AddPromotionDialog(promotion, callback) {
-	
+
 	this.promotion = promotion;
 	this.callback = callback;
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
-	
+
 	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -21,7 +21,7 @@ function AddPromotionDialog(promotion, callback) {
 					{
 						_name: "label",
 						_text: "Tên chương trình:",
-						
+
 					},
 					{
 						_name: "input",
@@ -116,21 +116,21 @@ function AddPromotionDialog(promotion, callback) {
 		thiz.fromDate = thiz.container.querySelector("#from-date");
 		thiz.toDate = thiz.container.querySelector("#to-date");
 		thiz.description = thiz.container.querySelector("#description");
-		
+
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
-		
+
 		if (thiz.promotion != null) {
 			thiz.acceptButton.innerHTML = "Save";
 			thiz.payCondition.value = thiz.promotion.payCondition;
 			thiz.discount.value = thiz.promotion.discount;
-			
+
 			thiz.fromDate.value = moment(thiz.promotion.fromDate).format('YYYY-MM-DD').toString();
 			thiz.toDate.value = moment(thiz.promotion.toDate).format('YYYY-MM-DD').toString();
-			
+
 			thiz.description.value = thiz.promotion.description;
 		}
-		
+
 		thiz.acceptButton.addEventListener("click", function(event) {
 			thiz.onAccept();
 		});
@@ -138,7 +138,7 @@ function AddPromotionDialog(promotion, callback) {
 			thiz.onCancel();
 		});
 	}, 10);
-	
+
 }
 
 /*
@@ -150,12 +150,16 @@ function AddPromotionDialog(promotion, callback) {
  * Edit Task</a> </li> <li class="context-menu__item"> <a href="#"
  * class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i>
  * Delete Task</a> </li> </ul> </nav>
- * 
- * 
+ *
+ *
  */
 
 AddPromotionDialog.prototype.onAccept = function() {
 	var thiz = this;
+	if (!this.validateAddPromotion()) {
+		alert("Vui lòng điền đầy đủ thông tin");
+		return;
+	};
 	if (this.promotion) {
 		var callback = function(updated){
 			if (updated) {
@@ -189,7 +193,7 @@ AddPromotionDialog.prototype.onAccept = function() {
 					"description" : thiz.description.value,
 				});
 	}
-	
+
 	this.close();
 }
 
@@ -208,7 +212,7 @@ AddPromotionDialog.prototype.show = function() {
 	window.setTimeout(function(){
 		thiz.positionContainer();
 	}, 10)
-	
+
 }
 
 AddPromotionDialog.prototype.close = function() {
@@ -220,10 +224,43 @@ AddPromotionDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
-	
+
 }
 
+AddPromotionDialog.prototype.validateAddPromotion = function(){
+	var check = true;
+	if(this.paycondition.value == ""){
+		this.paycondition.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.paycondition.style.background = "#fff";
+	}
 
+	if(this.discount.value == ""){
+		this.discount.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.discount.style.background = "#fff";
+	}
 
+	if(this.fromDate.value == ""){
+		this.fromDate.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.fromDate.style.background = "#fff";
+	}
 
+	if(this.toDate.value == ""){
+		this.toDate.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.toDate.style.background = "#fff";
+	}
 
+	if(this.description.value == ""){
+		this.description.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.description.style.background = "#fff";
+	}
+	return check;

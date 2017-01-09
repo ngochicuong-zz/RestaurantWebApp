@@ -167,7 +167,7 @@ function AddAccountDialog(account, callback) {
 
 AddAccountDialog.prototype.onAccept = function() {
 	var thiz = this;
-	if (!this.validate()) {
+	if (!this.validateAddAccount()) {
 		alert("Vui lòng điền đầy đủ thông tin");
 		return;
 	};
@@ -235,24 +235,24 @@ AddAccountDialog.prototype.positionContainer = function(){
 
 }
 
-AddAccountDialog.prototype.validate = function(){
+AddAccountDialog.prototype.validateAddAccount = function(){
 	var check = true;
 	if (this.user.value == "") {
-		this.user.style.background="red";
+		this.user.style.background="#bb0009";
 		check = false;
 	} else {
 		this.user.style.background="#fff";
 	}
 
 	if (this.pass.value == "") {
-		this.pass.style.background="red";
+		this.pass.style.background="#bb0009";
 		check = false;
 	}else {
 		this.pass.style.background="#fff";
 	}
 
 	if (this.email.value == "") {
-		this.email.style.background="red";
+		this.email.style.background="#bb0009";
 		check = false;
 	}else {
 		this.email.style.background="#fff";

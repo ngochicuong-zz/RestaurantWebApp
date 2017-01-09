@@ -1,10 +1,10 @@
 function AddProductDialog(product, callback) {
-	
+
 	this.product = product;
 	this.callback = callback;
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
-	
+
 	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -81,7 +81,7 @@ function AddProductDialog(product, callback) {
 					{
 						_name: "label",
 						_text: "Phân loại:",
-						
+
 					},
 					{
 						_name: "select",
@@ -98,7 +98,7 @@ function AddProductDialog(product, callback) {
 								_text: "Water"
 							}
 						]
-							
+
 					}
 				]
 			},
@@ -128,11 +128,11 @@ function AddProductDialog(product, callback) {
 		thiz.quantityPerUnit = thiz.container.querySelector("#quantity-per-unit");
 		thiz.price = thiz.container.querySelector("#price");
 		thiz.categories = thiz.container.querySelector("#categories");
-		
-		
+
+
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
-		
+
 		if (thiz.product != null) {
 			thiz.acceptButton.innerHTML = "Save";
 			thiz.foodName.value = thiz.product.productName;
@@ -141,7 +141,7 @@ function AddProductDialog(product, callback) {
 			thiz.price.value = thiz.product.price;
 			thiz.categories.selectedIndex = thiz.product.categoryType;
 		}
-		
+
 		thiz.acceptButton.addEventListener("click", function(event) {
 			thiz.onAccept();
 		});
@@ -149,7 +149,7 @@ function AddProductDialog(product, callback) {
 			thiz.onCancel();
 		});
 	}, 10);
-	
+
 }
 
 /*
@@ -161,12 +161,16 @@ function AddProductDialog(product, callback) {
  * Edit Task</a> </li> <li class="context-menu__item"> <a href="#"
  * class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i>
  * Delete Task</a> </li> </ul> </nav>
- * 
- * 
+ *
+ *
  */
 
 AddProductDialog.prototype.onAccept = function() {
 	var thiz = this;
+	if (!this.validateAddProduct()) {
+		alert("Vui lòng điền đầy đủ thông tin");
+		return;
+	};
 	if (this.product) {
 		var callback = function(updated){
 			if (updated) {
@@ -201,7 +205,7 @@ AddProductDialog.prototype.onAccept = function() {
 					"categories" : thiz.categories.options[thiz.categories.selectedIndex].value,
 				});
 	}
-	
+
 //	var args = this.calendarItem;
 //	args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
 //	args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
@@ -210,14 +214,14 @@ AddProductDialog.prototype.onAccept = function() {
 //	      end: args.end,
 //	      id: DayPilot.guid(),
 //	      resource: args.resource,
-//	      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
+//	      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value,
 //	      cusName: thiz.customerName.value,
 //	      cusPhone: thiz.customerPhone.value,
 //	      cusMail: thiz.customerMail.value,
 //	      cusCapacity: thiz.customerCapacity.value
 //	  });
-//	
-//	
+//
+//
 
 	this.close();
 }
@@ -237,7 +241,7 @@ AddProductDialog.prototype.show = function() {
 	window.setTimeout(function(){
 		thiz.positionContainer();
 	}, 10)
-	
+
 }
 
 AddProductDialog.prototype.close = function() {
@@ -249,10 +253,43 @@ AddProductDialog.prototype.positionContainer = function(){
 	var container = this.container;
 	container.style.left = (window.innerWidth - container.offsetWidth) / 2 + "px";
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
-	
+
 }
 
+AddProductDialog.prototype.validateAddProduct = function(){
+	var check = true;
+	if(this.productName.value == ""){
+		this.productName.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.productName.style.background = "#fff";
+	}
 
+	if(this.unit.value == ""){
+		this.unit.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.unit.style.background = "#fff";
+	}
 
+	if(this.quantity.value == ""){
+		this.quantity.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.quantity.style.background = "#fff";
+	}
 
+	if(this.price.value == ""){
+		this.price.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.price.style.background = "#fff";
+	}
 
+	if(this.categories.value == ""){
+		this.categories.style.background = "#bb0009";
+		check = false;
+	}else {
+		this.categories.style.background = "#fff";
+	}
+	return check;
