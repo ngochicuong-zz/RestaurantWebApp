@@ -37,6 +37,7 @@ public class AccountService extends ServiceBase<Account> implements IAccountServ
 				Conjunction and = Restrictions.conjunction();
 				and.add(Restrictions.ilike("a.user", account));
 				and.add(Restrictions.ilike("a.pass", pass));
+				and.add(Restrictions.eq("a.actived", 't'));
 				criteria.add(and);
 				return criteria;
 			}
