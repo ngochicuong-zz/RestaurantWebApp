@@ -104,7 +104,7 @@ Table.prototype.render = function(items) {
 			if (thiz.renderBackground(item)) {
 				trNode.style.background = "rgb(255, 248, 185)";
 			} else {
-				trNode.style.background = "rgb(193, 247, 203)";
+				trNode.style.background = "#fff";
 			}
 		} else {
 			trNode.style.background = "#fff";
