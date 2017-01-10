@@ -32,9 +32,8 @@ function Main() {
 		navActived = pageNode;
 		thiz.pageManagement.active(pageNode.getAttribute("page-name"));
 	}, false);
-	
+	this.pageManagement.active("table-page");
 	Main.pageManagement = this.pageManagement;
-	Main.productManagement = new ProductManagement();
 	
 }
 window.addEventListener("load", function(){

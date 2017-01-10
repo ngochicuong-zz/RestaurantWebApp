@@ -85,7 +85,12 @@ function InputPopup(targetNode, quality) {
 	var thiz = this;
 	
 	this.renderHandler;
-	
+	document.addEventListener("click", function(e) {
+		if (e.target != thiz.quality) {
+			thiz.toggleMenuOff();
+		}
+		
+	}, true);
 	this.menu.addEventListener("click", function(e){
 		if (thiz.action == null) return;
 		var item = Dom.findUpward(e.target, {
@@ -94,9 +99,10 @@ function InputPopup(targetNode, quality) {
 			}
 		})
 		thiz.action(item);
-		
-		
 	})
+	window.setTimeout(function() {
+		thiz.quality.focus();
+	}, 10);
 }
 
 InputPopup.prototype.getMenu = function() {

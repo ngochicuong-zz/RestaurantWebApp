@@ -24,6 +24,11 @@ AppointmentPage.prototype.init = function() {
 		console.log(appointments);
 		if (appointments.length == 0) {
 			thiz.dayPilot.init();
+			window.setTimeout(function() {
+				var pilotContain = thiz.pageContainer.querySelector("#day-pilot");
+				var style = pilotContain.childNodes[1].getAttribute("style");
+				pilotContain.childNodes[1].setAttribute("style", style + "flex: 1 1 1em");
+			}, 10);
 			return;
 			
 		}
@@ -49,8 +54,10 @@ AppointmentPage.prototype.init = function() {
 			thiz.dayPilot.events.list.push(e);
 		}
 		thiz.dayPilot.init();
-		window.setTimeout(function(e){
-			this.
+		window.setTimeout(function() {
+			var pilotContain = thiz.pageContainer.querySelector("#day-pilot");
+			var style = pilotContain.childNodes[1].getAttribute("style");
+			pilotContain.childNodes[1].setAttribute("style", style + "flex: 1 1 1em");
 		}, 10);
 	}
 	serverReport.getJson("/getEventByWeek.do?week=-1", "GET", callback, null);
@@ -178,5 +185,6 @@ AppointmentPage.prototype.remove = function(e) {
 }
 
 AppointmentPage.prototype.getPageContainer = function() {
+	var thiz = this;
 	return this.pageContainer;
 }

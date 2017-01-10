@@ -146,7 +146,7 @@ OrderPage.prototype.init = function() {
 		}
 		for(var i = 0; i < thiz.orderDetails.length; i++) {
 			var detail = thiz.orderDetails[i];
-			if (detail.productName == productName) {
+			if (detail.id == dataNode.data.id) {
 				var index = i;
 				callback = function(orderDetail) {
 					orderDetail = thiz.orderDetails[index];

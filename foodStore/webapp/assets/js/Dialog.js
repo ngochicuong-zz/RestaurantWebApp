@@ -115,7 +115,7 @@ Dialog.prototype.show = function(title, info, acceptBtnName,onAccept, cancelBtnN
 	this.info = thiz.container.querySelector("#info");
 	this.title.innerHTML = title;
 	this.info.innerHTML = info;
-	this.acceptBtnName.innerHTML = acceptBtnName;
+	this.acceptButton.innerHTML = acceptBtnName;
 	this.onAccept = onAccept;
 	if (extraButnName != null || onExtra != null) {
 		this.extraButton.style.display= "inherit";

@@ -159,24 +159,6 @@ CalendarDialog.prototype.onAccept = function() {
 				"timeStart": moment(args.start.value).format('YYYY-MM-DD HH:mm:ss').toString(),
 				"timeEnd": moment(args.end.value).format('YYYY-MM-DD HH:mm:ss').toString()
 			});
-	
-	
-//	var args = this.calendarItem;
-//	args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-//	args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
-//	var e = new DayPilot.Event({
-//	      start: args.start,
-//	      end: args.end,
-//	      id: DayPilot.guid(),
-//	      resource: args.resource,
-//	      text: thiz.customerName.value + "<br/>" + thiz.customerPhone.value + "<br/>" + thiz.customerCapacity.value + "<br/>" + thiz.customerMail.value, 
-//	      cusName: thiz.customerName.value,
-//	      cusPhone: thiz.customerPhone.value,
-//	      cusMail: thiz.customerMail.value,
-//	      cusCapacity: thiz.customerCapacity.value
-//	  });
-//	
-//	
 
 	this.close();
 }

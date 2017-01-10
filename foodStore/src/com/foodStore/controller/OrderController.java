@@ -65,7 +65,6 @@ public class OrderController {
 		if (account == null) return null;
 		Order order = ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId());
 		System.out.println(order);
-		if (order == null) return "[]";
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(order);
 	}
 	

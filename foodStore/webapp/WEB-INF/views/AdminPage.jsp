@@ -46,10 +46,6 @@ pageEncoding="UTF-8"%>
 			<i class="material-icons orange600 md-32">credit_card</i>
 			<label>Quản lý Sự kiện</label>
 		</vbox>
-		<vbox class="admin-item" style="text-align: center;">
-			<i class="material-icons orange600 md-32">settings</i>
-			<label> Cài đặt</label>
-		</vbox>
 	</vbox>
 	<vbox flex= "1" id="container">
 	
