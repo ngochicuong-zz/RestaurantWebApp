@@ -3,7 +3,7 @@ pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<section id="contact" style="background-color:#282C35;">
+<section id="contact">
             <vbox id="content">
                 <h1>Contact</h1>
                 <form action=" " method="post" autocomplete="on">

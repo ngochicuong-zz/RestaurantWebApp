@@ -11,16 +11,15 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="webapp/assets/css/Main.css">
 <link rel="stylesheet" href="webapp/assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="webapp/assets/css/material_icon.css">
-
+<link rel="stylesheet" href="webapp/assets/css/print.css">
 
 <script src="webapp/assets/js/jquery-1.11.1.min.js"></script>
 <script src="webapp/assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="webapp/assets/js/ServerSide.js"></script>
 <script src="webapp/assets/js/common-dom.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="webapp/assets/js/InputPopup.js"></script>
+<script src="webapp/assets/js/Print.js"></script>
 <script src="webapp/assets/js/ChartPage.js"></script>
 <script src="webapp/assets/js/AddPromotionDialog.js"></script>
 <script src="webapp/assets/js/PromoManagementPage.js"></script>
@@ -44,6 +43,8 @@ pageEncoding="UTF-8"%>
 <script src="webapp/assets/js/OrderPage.js"></script>
 <script src="webapp/assets/js/ProductManagementPage.js"></script>
 <script src="webapp/assets/js/AccountManagementPage.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <title>Quê Ta restaurant</title>
 <style>
 	#navbar {
@@ -123,42 +124,42 @@ pageEncoding="UTF-8"%>
 </style>
 </head>
 <body>
-	<vbox flex="1">
+	<vbox flex="1" id="main-interface">
 		<hbox id="navbar">
 			<hbox class="navbar-items InputRow" page-name="table-page">
 				<i class="material-icons orange600 md-16" >airline_seat_recline_normal</i>
-				<span>Quản lý bàn</span>
+				<span>BÀN - CHỖ NGỒI</span>
 			</hbox>
 			<c:if test="${role == 3 || role == 2}">
 				<hbox class="navbar-items InputRow" page-name="appointment-page">
 					<i class="material-icons orange600 md-16" >event</i>
-					<span >Quản lý đặt bàn</span>
+					<span >ĐẶT BÀN</span>
 				</hbox>
 			</c:if>
 			
 			<c:if test="${role == 1 || role == 2}">
 				<hbox class="navbar-items InputRow" page-name="chart-page">
 					<i class="material-icons orange600 md-16" >pie_chart</i>
-					<span>Thống kê</span>
+					<span>THỐNG KÊ</span>
 				</hbox>
 			</c:if>
 			<c:if test="${role == 2}">
 				<hbox class="navbar-items InputRow" page-name="admin-page">
 					<i class="material-icons orange600 md-16" >settings</i>
-					<span>Quản lý hệ thống</span>
+					<span>QUẢN LÝ HỆ THỐNG</span>
 				</hbox>
 			</c:if>
 			<hbox flex="1">
 				<hbox flex="1"></hbox>
 				<hbox id="logout" class="navbar-items InputRow" style="justify-content: center">
 					<i class="material-icons orange600 md-16" >account_circle</i>
-					<span>Đăng xuất</span>
+					<span>ĐĂNG XUẤT</span>
 				</hbox>
 			</hbox>
 		</hbox>
 		<hbox id="main-container" flex="1" style="overflow: auto">
-		
 		</hbox>
 	</vbox>
+	<hbox id="print-space"></hbox>
 </body>
 </html>

@@ -90,12 +90,12 @@ function AddProductDialog(product, callback) {
 							{
 								_name: "option",
 								value: 0,
-								_text: "Food"
+								_text: "Món ăn"
 							},
 							{
 								_name: "option",
 								value: 1,
-								_text: "Water"
+								_text: "Nước giải khát"
 							}
 						]
 							

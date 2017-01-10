@@ -45,7 +45,9 @@ pageEncoding="UTF-8"%>
 </style>
 <vbox flex="1"> 
 	<hbox id="seat-info"> 
-		<vbox flex="1" style="color: #fff;">
+		<hbox class="InputRow" style=" padding-left: 1em; justify-content: flex-start;" flex="1">
+		</hbox>	
+		<vbox flex="2" style="color: #fff;">
 			<hbox class="InputRow" style="display:none;">
 				<label>Seat id:</label>
 				<label id="seatIdText"></label>
@@ -57,33 +59,35 @@ pageEncoding="UTF-8"%>
 			<hbox style="justify-content: center;">
 				<hbox class="InputRow" style="padding-right:0.5em;">
 					<label>Lầu: </label>
-					<label id="floorText"></label>
+					<label id="floorText" style="padding-left:0.2em"></label>
 				</hbox>
 				<hbox class="InputRow"  style="padding-right:0.5em;">
 					<label>Phòng:</label>
-					<label id="roomText"></label>
+					<label id="roomText" style="padding-left:0.2em"></label>
 				</hbox>
 				<hbox class="InputRow"  style="padding-right:0.5em;">
 					<label>Chỗ ngồi:</label>
-					<label id="seatCapacity"></label>
+					<label id="seatCapacity" style="padding-left:0.2em"></label>
 				</hbox>
 			</hbox>
-			<hbox class="InputRow" style="justify-content: center">
+			<hbox class="InputRow" style="justify-content: center" >
 				<label>Ngày: </label>
 				<label id="orderDate"></label>
 			</hbox>
 		</vbox>
-		<hbox class="InputRow" style="justify-content: flex-end;">
+		<hbox class="InputRow" style="padding-right: 1em; justify-content: flex-end;" flex="1">
 			<button id="checkout-button" title="Thanh toán"><i>payment</i></button>
 			<button id="back-button" title="Quay lại"><i>replay</i></button>
+			<button id="print-button" title="In hóa đơn"><i>print</i></button>
 		</hbox>	
 	</hbox> 
 	<vbox id="container-panel" flex="1">
 		<vbox id="orderDetailPanel" flex="1">
-			<hbox class="InputRow" id="add-detail-panel" style="margin-bottom: 0.5em;" >
-				<hbox flex="1" >
+			<vbox id="orderDetailTable" style="overflow-y:auto;" flex="1">
+				<hbox class="InputRow" id="add-detail-panel" style="margin-bottom: 0.5em;" >
+				<hbox flex="1">
 					<label>Món ăn: </label>
-					<input flex="1" style="margin-left: 0.5em" type="text" id="productText"/>
+					<input flex="1" style="margin-left: 0.5em;" type="text" id="productText"/>
 				</hbox>
 				<hbox >
 					<label>Số lượng: </label>
@@ -92,13 +96,12 @@ pageEncoding="UTF-8"%>
 				<hbox>
 					<button style="font-size: 0.8em;" id="addOrderDetail"><i>add</i><span>Thêm món ăn</span></button>
 				</hbox>
+				<hbox style="justify-content: flex-end; color: red;" flex="1">
+						<h4>Tổng cộng: </h4>
+						<h4 style="padding-left: 0.2em" id="order-total"></h4>
+				</hbox>
 			</hbox>
-			<vbox id="orderDetailTable" style="overflow-y:auto; margin-bottom: 1em; " flex="1">
 			</vbox>
-			<hbox style="justify-content: center; color: red;">
-					<h4>Tổng cộng: </h4>
-					<h4 style="padding-left: 0.2em" id="order-total"></h4>
-			</hbox>
 		</vbox>
 	</vbox> 
 	<hbox flex="1" id="payment-container" style="margin-top: 1em; justify-content: center" > 

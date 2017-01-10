@@ -42,6 +42,7 @@ OrderPage.prototype.init = function() {
 	
 	this.checkoutButton = this.pageContainer.querySelector("#checkout-button");
 	this.backButton = this.pageContainer.querySelector("#back-button");
+	this.printButton = this.pageContainer.querySelector("#print-button");
 	
 	this.promoInfo = this.pageContainer.querySelector("#promo-info");
 	this.totalOnOrder = this.pageContainer.querySelector("#total-on-order");
@@ -57,6 +58,63 @@ OrderPage.prototype.init = function() {
 	
 	var thiz = this;
 	
+	this.printButton.addEventListener("click", function() {
+		var callback = function(htmlText) {
+			var container = Dom.newDOMElement({
+				_name : "hbox",
+				id : "pageContainer",
+				style: "justify-content: center; width: 559.68px; border: inset 0.3em;"
+			});
+			container.innerHTML = htmlText;
+			var theader = [
+				{
+					"column" : "Món ăn",
+					"label" : "productName"
+				},
+				{
+					"column" : "Số lượng",
+					"label" : "quality"
+				},
+				{
+					"column" : "Giá tiền",
+					"label" : "price"
+				},
+				{
+					"column" : "Thành tiền",
+					"label" : "total"
+				}
+				]
+			var table = new Table();
+			table.init(theader);
+			table.render(thiz.orderDetails);
+			var billContainer = container.querySelector("#bill-container");
+			var billTotal = container.querySelector("#bill-total");
+			var discountPanel = container.querySelector("#discount-panel");
+			var floorText = container.querySelector("#floorText");
+			var roomText = container.querySelector("#roomText");
+			var dateText = container.querySelector("#orderDate");
+			
+			floorText.innerHTML = thiz.seat.floor;
+			roomText.innerHTML = thiz.seat.room;
+			dateText.innerHTML = moment(thiz.order.dataInsert).format("DD-MM-YYYY h:mm a");
+			billContainer.appendChild(table.getTable());
+			billTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
+			
+			if (thiz.discount.value == "") {
+				discountPanel.style.display="none";
+			} else {
+				discountPanel.style.display="inherit";
+				var billDiscount = container.querySelector("#bill-discount");
+				var billTotalAfter = container.querySelector("#bill-total-after");
+				billDiscount.innerHTML = parseInt(thiz.discount.value).formatMoney(0, " Đ");
+				billTotalAfter.innerHTML = parseInt(thiz.totalPay.value).formatMoney(0, " Đ");
+			}
+			
+			PrintHandle.Print(container);
+		}
+		serverReport.getHTML("/getBillTemplate.do", "GET", callback);
+	})
+	
 	this.backButton.addEventListener("click", function(ev){
 		Main.pageManagement.active("table-page");
 	});
@@ -67,7 +125,15 @@ OrderPage.prototype.init = function() {
 			);
 			return;
 		};
-		var productName = e.target.data.productName;
+		var dataNode = Dom.findUpward(e.target, {
+			eval: function(node) { 
+				return node.data;
+			}
+		});
+		if (dataNode == null) return;
+		
+		var productName = dataNode.data.productName;
+		
 		var callback = function(orderDetail) {
 			if (orderDetail.length == 0) return;
 			thiz.productNameIn.value = "";
@@ -96,9 +162,9 @@ OrderPage.prototype.init = function() {
 				}
 				break;
 			}
-			
 		}
-		serverReport.getJson("/createOrderDetail.do?refCode="+ thiz.order.refCode +"&quality="+ thiz.qualityIn.value +"&productId="+ e.target.data.id +"", "GET", callback);
+		thiz.orderDetailTable.scrollTop = thiz.orderDetailTable.scrollHeight;
+		serverReport.getJson("/createOrderDetail.do?refCode="+ thiz.order.refCode +"&quality="+ thiz.qualityIn.value +"&productId="+ dataNode.data.id +"", "GET", callback);
 	});
 	
 	var renderAction = function(orderDetail) {
@@ -247,8 +313,6 @@ OrderPage.prototype.init = function() {
 		if (item.data == null) return;
 		thiz.productNameIn.value = item.data.productName;
 		thiz.addOrderDetailBtn.data = item.data;
-		
-		console.log(item.data);
 	}
 	
 	this.productNameIn.addEventListener("keypress", function(e) {
@@ -272,6 +336,9 @@ OrderPage.prototype.init = function() {
 	this.checkoutButton.addEventListener("click", function() {
 		thiz.paymentContainer.style.display = "inherit";
 		thiz.orderContainer.style.display = "none";
+		thiz.checkoutButton.style.display = "none";
+		thiz.backButton.style.display="none";
+		thiz.printButton.style.display="inherit";
 		thiz.paymentInit();
 	});
 	
@@ -296,6 +363,9 @@ OrderPage.prototype.init = function() {
 		thiz.totalPay.value = "";
 		thiz.realPay.value = "";
 		thiz.paymentType.value = 1;
+		thiz.printButton.style.display="none";
+		thiz.backButton.style.display="inherit";
+		thiz.checkoutButton.style.display="inherit";
 	},false);
 	
 	this.promoCodeCombo.addEventListener("change", function(e){
@@ -368,6 +438,9 @@ OrderPage.prototype.renewPage = function() {
 	this.orderCode.innerHTML = "";
 	this.orderDate.innerHTML = "";
 	
+	this.printButton.style.display="none";
+	this.backButton.style.display="inherit";
+	this.checkoutButton.style.display="inherit";
 }
 
 OrderPage.prototype.open = function(seat) {
@@ -406,11 +479,16 @@ OrderPage.prototype.requestOrderDetail = function(order) {
 		thiz.detailTable.render(orderDetails);
 		console.log(thiz.orderDetails);
 		thiz.orderDetails = orderDetails;
+		window.setTimeout(function() {
+			thiz.orderDetailTable.scrollTop = thiz.orderDetailTable.scrollHeight;
+		},10);
 	}
 	serverReport.getJson("/getOrderDetailByRefCode.do?refCode="+ order.refCode +"", "GET", callback);
 }
 
 OrderPage.prototype.getPageContainer = function() {
 	this.renewPage();
+	this.orderDetailTable.scrollTop = 100;
+	this.printButton.style.display="none";
 	return this.pageContainer;
 }

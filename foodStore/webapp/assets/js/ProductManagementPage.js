@@ -25,12 +25,7 @@ ProductManagementPage.prototype.requestItems = function() {
 		thiz.products = products;
 		thiz.table.render(thiz.products);
 	}
-	serverReport.getJson("/searchProduct.do", "GET",
-			callback, {
-				"name" : "" ,
-				"price" : -1 ,
-				"categories" : "-1"
-	});
+	serverReport.getJson("/getAllProducts.do", "GET", callback);
 }
 
 ProductManagementPage.prototype.init = function(){
@@ -150,7 +145,7 @@ ProductManagementPage.prototype.init = function(){
 	var thiz = this;
 	this.contextMenu.init([
 			{
-				name : "Add",
+				name : "Thêm mới",
 				handler : function(handleItem) {
 					var callback = function(newItem) {
 						if (newItem) {
@@ -162,7 +157,7 @@ ProductManagementPage.prototype.init = function(){
 				}
 			},
 			{
-				name : "Edit",
+				name : "Cập nhật",
 				handler : function(handleItem) {
 					var callback = function(newItem) {
 						var oldItem = handleItem.data;

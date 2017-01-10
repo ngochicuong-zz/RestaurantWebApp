@@ -76,15 +76,7 @@ public class ProductService extends ServiceBase<Product> implements IProductServ
 
 	@Override
 	public List<Product> getAllProduct() {
-		List<Product> products = this.repository.customQuery(Product.class, new ICriteriaBuilder() {
-			@Override
-			public Criteria build(Session session) {
-				Criteria criteria = session.createCriteria(Product.class, "a");
-				criteria.add(Restrictions.like("a.discontinued", 'f'));
-				return criteria;
-			}
-		});
-		System.out.println(products);
+		List<Product> products = this.repository.getAll(Product.class);
 		return products;
 	}
 
@@ -95,6 +87,7 @@ public class ProductService extends ServiceBase<Product> implements IProductServ
 			public Criteria build(Session session) {
 				Criteria criteria = session.createCriteria(Product.class, "p");
 				Conjunction and = Restrictions.conjunction();
+				and.add(Restrictions.eq("p.discontinued", 'f'));
 				if (productName != null)
 					and.add(Restrictions.ilike("p.productName", productName, MatchMode.ANYWHERE));
 				if (price != -1)

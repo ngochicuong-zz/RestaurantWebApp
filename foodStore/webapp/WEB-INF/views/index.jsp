@@ -99,10 +99,20 @@ pageEncoding="UTF-8"%>
 		span {
 			width: 100%;
 		}
+		h1:after {
+			font-size: 25px;
+		    color: #ff6300;
+		    content: '&';
+		    text-align: center;
+		    display: block;
+		    width: 100%;
+		    font-family: liberties;
+		    text-shadow: 1px 1px 1px rgb(63, 63, 63);
+		}
     </style>
 </head>
 <body style="background-color: #4B4B4B">
-    <vbox style="width: 900px; margin: auto; margin-top: 1em; box-shadow: 1px 1px 10px #000;">
+    <div style="width: 900px; margin: auto; margin-top: 1em; box-shadow: 1px 1px 10px #000;">
     	<section>
     		<hbox id="navbar">
     			<hbox flex="1" class="navbar-items">
@@ -217,7 +227,7 @@ pageEncoding="UTF-8"%>
 	            </vbox>
 	        </hbox>
         </section>
-    </vbox>
+    </div>
 </body>
 
 </html>

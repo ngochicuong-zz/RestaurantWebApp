@@ -21,13 +21,15 @@ Table.prototype.init = function(tHeader, action) {
 		var h = tHeader[i];
 		var tdNode = Dom.newDOMElement({
 			_name : "td",
-			_text : h.column,
+			_text : h.column.toUpperCase(),
 		});
+		tdNode.style.border = "none";
 		trNode.appendChild(tdNode);
 	}
 	var theaderNode = Dom.newDOMElement({
 		_name : "thead"
 	});
+	trNode.style.background = "#f7ae02";
 	theaderNode.appendChild(trNode);
 	this.table.appendChild(theaderNode);
 	this.tableBody = Dom.newDOMElement({
@@ -87,8 +89,10 @@ Table.prototype.render = function(items) {
 					else if (thiz.tHeader[i].label == "quality") {
 						tdNode.quality = true;
 						tdNode.innerHTML = item[index];
-					}
-					else tdNode.innerHTML = item[index];
+					} else if (thiz.tHeader[i].label == "categoryType") {
+						tdNode.quality = true;
+						tdNode.innerHTML = CategoryType[item[index]];
+					} else tdNode.innerHTML = item[index];
 					break;
 				}
 			}
@@ -98,9 +102,9 @@ Table.prototype.render = function(items) {
 		}
 		if (thiz.renderBackground) {
 			if (thiz.renderBackground(item)) {
-				trNode.style.background = "#f3f3f3";
+				trNode.style.background = "rgb(255, 248, 185)";
 			} else {
-				trNode.style.background = "#fff";
+				trNode.style.background = "rgb(193, 247, 203)";
 			}
 		} else {
 			trNode.style.background = "#fff";
@@ -129,6 +133,7 @@ Table.prototype.getSelectedItemObject = function() {
 }
 
 var Role = {0: "User", 1 : "Manager", 2: "Admin", 3 : "Recipt", 4 : "Kitchen", 5 : "Cashier"};
+var CategoryType = {0: "Món ăn", 1: "Nước giải khát"};
 
 
 

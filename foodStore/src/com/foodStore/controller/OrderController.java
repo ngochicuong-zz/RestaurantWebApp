@@ -40,6 +40,11 @@ public class OrderController {
 		return "ChartPage";
 	}
 	
+	@RequestMapping(value = "/getBillTemplate.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	public String getBillTemplate(ModelMap model) {
+		return "BillTemplate_A5";
+	}
+		
 	@RequestMapping(value = "/getOrderWithSeat.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String getOrder(

@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 	}
 </style>
 <hbox>
-	<span style="color: #fff">
+	<span>
 	Kính chào Quý khách!<br/>
 		<tab>Lời đầu tiên chúng tôi xin gửi tới Quý khách lời chào trân trọng và lời chúc sức khoẻ.Nhà hàng tiệc cưới Festival, trực thuộc Công ty  Du lịch Festival- chuyên phục Lễ cưới - Liên Hoan – Sinh Nhật – Hội Nghị chuyên nghiệp với phương châm: Festival hơn cả sự chờ mong.Với không gian xuyên suốt được thiết kế mở và trang trí hài hòa, trang trọng, không ồn ào và ấm cúng. Nhà hàng phục vụ Lễ cưới, kết hợp hài hòa truyền thống dân tộc cùng nét hiện đại.
 	Đến vời Nhà hàng tiệc cưới Festival không đơn thuần tham gia lễ cưới của chủ nhân. Mà  còn được thả hồn mình, cảm nhận sự yêu thương từ cách bố trí cảnh vật, trình bày, thiết kế đều mang giá trị văn hóa rất Việt Nam.

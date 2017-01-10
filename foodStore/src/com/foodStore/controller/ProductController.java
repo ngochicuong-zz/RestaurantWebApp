@@ -23,14 +23,6 @@ public class ProductController {
 		return "ProductManagementPage";
 	}
 	
-	@RequestMapping(value = "/getProducts.do",produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
-	@ResponseBody
-	public String getProducts(ModelMap model) {
-		List<Product> products = ServiceManagement.get(IProductService.class).getAllProduct();
-		if (products == null) return "{}";
-		return JsonUtil.build(Product.class, new ProductAdapter()).toJson(products);
-	}
-	
 	@RequestMapping(value = "/searchProduct.do",produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public String searchProduct(
@@ -77,6 +69,13 @@ public class ProductController {
 			ModelMap model) {
 		boolean updated = ServiceManagement.get(IProductService.class).setDiscontinued(productId, discontinued);
 		return String.valueOf(updated);
+	}
+	
+	@RequestMapping(value = "/getAllProducts.do",produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@ResponseBody
+	public String getProducts(ModelMap model) {
+		List<Product> products = ServiceManagement.get(IProductService.class).getAllProduct();
+		return JsonUtil.build(Product.class, new ProductAdapter()).toJson(products);
 	}
 	
 }
