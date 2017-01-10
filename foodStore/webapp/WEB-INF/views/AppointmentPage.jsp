@@ -5,6 +5,6 @@ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 </style>
-<vbox>
-	<vbox id="day-pilot"></vbox>	
+<vbox flex="1">
+	<vbox id="day-pilot" flex="1"></vbox>	
 </vbox>

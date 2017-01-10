@@ -71,6 +71,7 @@ function Dialog() {
 	this.closeButton = this.container.querySelector("#close");
 	this.extraButton = this.container.querySelector("#extra");
 	this.extraButton.style.display= "none";
+	this.closeButton.style.display= "none";
 	this.acceptButton.addEventListener("click", function(event) {
 		if(thiz.onAccept != null) thiz.onAccept();
 		thiz.close();
@@ -114,16 +115,20 @@ Dialog.prototype.show = function(title, info, acceptBtnName,onAccept, cancelBtnN
 	this.info = thiz.container.querySelector("#info");
 	this.title.innerHTML = title;
 	this.info.innerHTML = info;
-	this.acceptButton.innerHTML = acceptBtnName;
-	this.closeButton.innerHTML = cancelBtnName;
+	this.acceptBtnName.innerHTML = acceptBtnName;
+	this.onAccept = onAccept;
 	if (extraButnName != null || onExtra != null) {
 		this.extraButton.style.display= "inherit";
 		extraButnName != null ? this.extraButton.innerHTML = extraButnName : "";
 		onExtra != null ? this.onExtra = onExtra : "";
 		
+	} 
+	if (cancelBtnName != null || onCancel != null) {
+		this.closeButton.style.display= "inherit";
+		this.closeButton.innerHTML = cancelBtnName;
+		this.onCancel = onCancel;
 	}
-	this.onAccept = onAccept;
-	this.onCancel = onCancel;
+	
 	document.body.appendChild(this.container);
 	document.body.appendChild(this.busyBackground);
 	window.setTimeout(function(){

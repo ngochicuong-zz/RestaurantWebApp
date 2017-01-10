@@ -49,6 +49,9 @@ AppointmentPage.prototype.init = function() {
 			thiz.dayPilot.events.list.push(e);
 		}
 		thiz.dayPilot.init();
+		window.setTimeout(function(e){
+			this.
+		}, 10);
 	}
 	serverReport.getJson("/getEventByWeek.do?week=-1", "GET", callback, null);
 }
