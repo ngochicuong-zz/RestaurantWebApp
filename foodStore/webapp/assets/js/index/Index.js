@@ -34,6 +34,8 @@ IndexMain.prototype.renderContainer = function(navName){
 				IndexMain.renderMenu();
 			}, 100);
 		}
+		if (navigator.userAgent.toUpperCase().indexOf("CHROME") > -1) document.body.scrollTop = renderPage.offsetTop;
+		else document.documentElement.scrollTop = renderPage.offsetTop;
 	}
 	serverReport.getHTML(patent, "GET", callback);
 	
@@ -52,7 +54,8 @@ IndexMain.renderMenu = function() {
 				_children: [
 					{
 						_name: "hbox",
-						_text: product.productName.toUpperCase()
+						_text: product.productName.toUpperCase(),
+						style: "padding-right: 0.2em;"
 					},
 					{
 						_name: "hbox",
@@ -61,7 +64,8 @@ IndexMain.renderMenu = function() {
 					},
 					{
 						_name: "hbox",
-						_text: product.price.formatMoney(0, " Đ")
+						_text: product.price.formatMoney(0, " Đ"),
+						style: "padding-left: 0.2em;"
 					}
 				]
 			});

@@ -85,15 +85,13 @@ pageEncoding="UTF-8"%>
 		<vbox id="orderDetailPanel" flex="1">
 			<vbox id="orderDetailTable" style="overflow-y:auto;" flex="1">
 				<hbox class="InputRow" id="add-detail-panel" style="margin-bottom: 0.5em;" >
-					<hbox flex="1">
+					<hbox flex="2">
 						<label>Món ăn: </label>
 						<input flex="1" style="margin-left: 0.5em;" type="text" id="productText"/>
 					</hbox>
-					<hbox >
+					<hbox flex="1">
 						<label>Số lượng: </label>
-						<input style="width:5em; margin-left: 0.5em;" value = 0 type="number" min=0.1 step="0.01" id="quality"/>
-					</hbox>
-					<hbox>
+						<input style="width:5em; margin-left: 0.5em; margin-right: 0.5em;" value = 0 type="number" min=0.1 step="0.01" id="quality"/>
 						<button style="font-size: 0.8em;" id="addOrderDetail"><i>add</i><span>Thêm món ăn</span></button>
 					</hbox>
 					<hbox style="justify-content: flex-end; color: red;" flex="2">

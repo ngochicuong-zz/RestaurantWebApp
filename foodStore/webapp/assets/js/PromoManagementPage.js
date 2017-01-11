@@ -40,12 +40,13 @@ PromoManagementPage.prototype.init = function(){
 	this.promoName = this.pageContainer.querySelector("#promo-name");
 	this.fromDate = this.pageContainer.querySelector("#from-date");
 	this.toDate = this.pageContainer.querySelector("#to-date");
+	
 	var thiz = this;
 	var renderAction = function(promo) {
 		var buttons = new Array();
 		var button = Dom.newDOMElement({
 			_name : "i",
-			class : "material-icons md-dark md-18",
+			class : "material-icons md-dark md-32",
 			_text : "mode_edit",
 			title : "Chỉnh sửa"
 		});
@@ -56,6 +57,17 @@ PromoManagementPage.prototype.init = function(){
 			}
 			var dialog = new AddPromotionDialog(promo, callback);
 			dialog.show();
+		}
+		buttons.push(button);
+		var button = Dom.newDOMElement({
+			_name : "i",
+			class : "material-icons md-dark md-32",
+			_text : "photo_library",
+			title : "Xem hình"
+		});
+		button.action = function() {
+			var addImageDialog = new AddImageDialog(promo);
+			addImageDialog.show();
 		}
 		buttons.push(button);
 		return buttons;

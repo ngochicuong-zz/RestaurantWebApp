@@ -16,12 +16,14 @@ import com.foodStore.app.FoodStore;
 import com.foodStore.hibernate.JsonUtil;
 import com.foodStore.model.Account;
 import com.foodStore.model.GroupYearReturn;
+import com.foodStore.model.ImageRepo;
 import com.foodStore.model.Order;
 import com.foodStore.model.OrderAdapter;
 import com.foodStore.model.Payment;
 import com.foodStore.model.PaymentAdapter;
 import com.foodStore.model.Promotion;
 import com.foodStore.model.PromotionAdapter;
+import com.foodStore.service.IImageService;
 import com.foodStore.service.IOrderService;
 import com.foodStore.service.IPaymentService;
 import com.foodStore.service.IPromotionService;
@@ -186,6 +188,27 @@ public class OrderController {
 		System.out.println(fromDate + "||" + toDate);
 		boolean updated = ServiceManagement.get(IPromotionService.class).updatePromotion(promoId, paycondition, discount, fromDate, toDate, descripstion);
 		return String.valueOf(updated);
+	}
+	
+	@RequestMapping(value = "/addPromoImage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public String addPromoImage(
+			@RequestParam("code") String code,
+			@RequestParam("image") String image,
+			ModelMap model) {
+		ImageRepo results = null;
+		results = ServiceManagement.get(IImageService.class).createImage(code.equals("") ? null : code, image.getBytes());
+		return JsonUtil.quickBuild(results);
+	}
+	
+	@RequestMapping(value = "/getImageByCode.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@ResponseBody
+	public String getImageByCode(
+			@RequestParam("code") String code,
+			ModelMap model) {
+		List<ImageRepo> results = null;
+		results = ServiceManagement.get(IImageService.class).getImageByCode(code);
+		return JsonUtil.quickBuild(results);
 	}
 	
 	@RequestMapping(value = "/timeStatistic.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)

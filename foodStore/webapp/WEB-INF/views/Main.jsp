@@ -21,6 +21,7 @@ pageEncoding="UTF-8"%>
 <script src="webapp/assets/js/InputPopup.js"></script>
 <script src="webapp/assets/js/Print.js"></script>
 <script src="webapp/assets/js/ChartPage.js"></script>
+<script src="webapp/assets/js/AddImageDialog.js"></script>
 <script src="webapp/assets/js/AddPromotionDialog.js"></script>
 <script src="webapp/assets/js/PromoManagementPage.js"></script>
 <script src="webapp/assets/js/AddProductDialog.js"></script>

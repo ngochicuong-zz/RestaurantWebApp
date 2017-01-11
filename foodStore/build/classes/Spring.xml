@@ -36,6 +36,7 @@
                 <value>Mapping/Payment.hbm.xml</value>
                 <value>Mapping/Promotion.hbm.xml</value>
                 <value>Mapping/Appointment.hbm.xml</value>
+                <value>Mapping/ImageRepo.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties" ref="hibernateProperties"/>  
@@ -98,6 +99,9 @@
     	<constructor-arg ref="repository"/>
     </bean>
     <bean id="AppointmentService" class="com.foodStore.impl.AppointmentService" >
+    	<constructor-arg ref="repository"/>
+    </bean>
+    <bean id="ImageService" class="com.foodStore.impl.ImageService" >
     	<constructor-arg ref="repository"/>
     </bean>
 </beans>

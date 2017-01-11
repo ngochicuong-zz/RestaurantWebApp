@@ -32,7 +32,10 @@ function Main() {
 		navActived = pageNode;
 		thiz.pageManagement.active(pageNode.getAttribute("page-name"));
 	}, false);
-	this.pageManagement.active("table-page");
+	window.setTimeout(function() {
+		thiz.navbar.childNodes[1].click();
+	}, 10)
+	
 	Main.pageManagement = this.pageManagement;
 	
 }

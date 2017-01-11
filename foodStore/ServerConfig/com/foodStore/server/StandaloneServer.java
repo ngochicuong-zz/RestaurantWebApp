@@ -14,6 +14,7 @@ public class StandaloneServer {
 		System.out.println("START SERVER");
 		
 		Server server = new Server(PORT);
+		server.setAttribute("org.eclipse.jetty.server.Request.maxFormContentSize", -1);
 		File dir = new File(new File(System.getProperty("user.dir")), "webapp");
         
         WebAppContext context = new WebAppContext();
