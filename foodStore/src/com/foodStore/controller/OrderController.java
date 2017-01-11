@@ -17,6 +17,7 @@ import com.foodStore.hibernate.JsonUtil;
 import com.foodStore.model.Account;
 import com.foodStore.model.GroupYearReturn;
 import com.foodStore.model.ImageRepo;
+import com.foodStore.model.ImageRepoAdapter;
 import com.foodStore.model.Order;
 import com.foodStore.model.OrderAdapter;
 import com.foodStore.model.Payment;
@@ -208,7 +209,7 @@ public class OrderController {
 			ModelMap model) {
 		List<ImageRepo> results = null;
 		results = ServiceManagement.get(IImageService.class).getImageByCode(code);
-		return JsonUtil.quickBuild(results);
+		return JsonUtil.build(ImageRepo.class, new ImageRepoAdapter()).toJson(results);
 	}
 	
 	@RequestMapping(value = "/timeStatistic.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)

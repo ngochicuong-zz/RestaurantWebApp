@@ -30,7 +30,7 @@ function AddImageDialog(imageCode, callback) {
 				_children : [
 					{
 						_name: "img",
-						style: "min-height: 20em; max-height: 50em; max-width: 50em",
+						style: "min-height: 20em; max-height: 20em; max-width: 30em",
 						id: "image"
 					}
 				]
@@ -56,6 +56,34 @@ function AddImageDialog(imageCode, callback) {
 	});
 	
 	var thiz = this;
+	this.hasMoved = false;
+	this.lastX;
+	this.lastY;
+	this.container.addEventListener("mousedown", function(e) {
+		thiz.hasMoved = true;
+		thiz.lastX = e.clientX;
+		thiz.lastY = e.clientY;
+	});
+	this.container.addEventListener("mouseup", function(e) {
+		thiz.hasMoved = false;
+	});
+	
+	document.body.addEventListener("mousemove", function(e) {
+		if (!thiz.hasMoved) return;
+		console.log(e);
+		var left = e.clientX - thiz.lastX;
+		var top = e.clientY - thiz.lastY;
+		thiz.lastX = e.clientX;
+		thiz.lastY = e.clientY;
+		var container = thiz.container;
+		console.log(container);
+		var conleft = parseInt(container.style.left.replace("px", ""));
+		var contop = parseInt(container.style.top.replace("px", ""));
+		conleft += left;
+		contop += top;
+		container.style.left = conleft + "px";
+		container.style.top = contop + "px";
+	})
 	
 	window.setTimeout(function() {
 		thiz.image = thiz.container.querySelector("#image");
@@ -65,17 +93,16 @@ function AddImageDialog(imageCode, callback) {
 		thiz.closeButton = thiz.container.querySelector("#close");
 		
 		if (thiz.imageCode != "") {
-			thiz.acceptButton.innerHTML = "Change";
+			thiz.acceptButton.innerHTML = "Thay đổi";
 			var callback = function(image) {
-				if (image[0])
-				thiz.image.src = image[0].imgeByte;
+				if (image.length == 0) return;
+				console.log(image);
+				thiz.image.src = image[0].imageByte;
 			}
 			serverReport.getJson("/getImageByCode.do", "GET",
 					callback, {
-						"code" : code
+						"code" : thiz.imageCode
 			});
-			
-			
 		}
 		
 		thiz.acceptButton.addEventListener("click", function(event) {
