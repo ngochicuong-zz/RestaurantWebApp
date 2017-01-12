@@ -197,9 +197,9 @@ public class OrderController {
 			@RequestParam("code") String code,
 			@RequestParam("image") String image,
 			ModelMap model) {
-		ImageRepo results = null;
-		results = ServiceManagement.get(IImageService.class).createImage(code.equals("") ? null : code, image.getBytes());
-		return JsonUtil.quickBuild(results);
+		if (code.equals("")) return "[]";
+		boolean results = ServiceManagement.get(IImageService.class).createImage(code, image.getBytes());
+		return String.valueOf(results);
 	}
 	
 	@RequestMapping(value = "/getImageByCode.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
@@ -220,6 +220,15 @@ public class OrderController {
 		List<Object> results = null;
 		if (!year.equals("0")) results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByMonth(year);
 		else results = (List<Object>) ServiceManagement.get(IOrderService.class).sumOrderByYear();
+		return JsonUtil.quickBuild(results);
+	}
+	
+	@RequestMapping(value = "/getPromotionWithImage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	@ResponseBody
+	public String getPromotionWithImage(
+			ModelMap model) {
+		List<Object> results = null;
+		results = (List<Object>) ServiceManagement.get(IPromotionService.class).getPromoWithImageOnDesk();
 		return JsonUtil.quickBuild(results);
 	}
 	

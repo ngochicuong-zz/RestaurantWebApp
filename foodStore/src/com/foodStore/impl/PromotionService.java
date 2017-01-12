@@ -48,7 +48,7 @@ public class PromotionService extends ServiceBase<Promotion> implements IPromoti
 				Criteria criteria = session.createCriteria(Promotion.class);
 				Conjunction and = Restrictions.conjunction();
 				and.add(Restrictions.ge("fromDate", date));
-				and.add(Restrictions.le("todate", date));
+//				and.add(Restrictions.le("todate", date));
 				return criteria.add(and);
 			}
 		});
@@ -107,6 +107,12 @@ public class PromotionService extends ServiceBase<Promotion> implements IPromoti
 		promo.setDescription(description);
 		System.out.println(promo.getDescription());
 		return this.repository.updateItem(promo);
+	}
+	
+	@Override
+	public List<? extends Object> getPromoWithImageOnDesk() {
+		String sqlCommand = " select a.description, b.imagebyte from promotion as a, imagerepo as b where a.fromdate >= '"+ String.valueOf(new Date()) +"' and b.imagecode like a.promotioncode";
+		return this.repository.runSqlQuery(sqlCommand);
 	}
 
 }

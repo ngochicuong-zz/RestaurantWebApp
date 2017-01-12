@@ -19,12 +19,18 @@ public class ImageService extends ServiceBase<ImageRepo> implements IImageServic
 	}
 
 	@Override
-	public ImageRepo createImage(String code, byte[] imageData) {
-		if (code == null) code = UUID.randomUUID().toString();
-		ImageRepo image = new ImageRepo();
-		image.setImageCode(code);
-		image.setImageByte(imageData);
-		return save(image);
+	public boolean createImage(String code, byte[] imageData) {
+		List<ImageRepo> images = getImageByCode(code);
+		ImageRepo selectedImage;
+		boolean update = false;
+		if (images.size() > 0) {
+			selectedImage = images.get(0);
+			update = true;
+		}
+		else selectedImage = new ImageRepo();
+		selectedImage.setImageCode(code);
+		selectedImage.setImageByte(imageData);
+		return update ? this.repository.updateItem(selectedImage) : save(selectedImage) == null ? false : true;
 	}
 
 	@Override

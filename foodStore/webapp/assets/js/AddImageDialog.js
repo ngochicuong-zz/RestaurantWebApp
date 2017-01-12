@@ -84,7 +84,6 @@ function AddImageDialog(imageCode, callback) {
 		container.style.left = conleft + "px";
 		container.style.top = contop + "px";
 	})
-	
 	window.setTimeout(function() {
 		thiz.image = thiz.container.querySelector("#image");
 		thiz.fileDialog = thiz.container.querySelector("#file-dialog");
@@ -93,10 +92,9 @@ function AddImageDialog(imageCode, callback) {
 		thiz.closeButton = thiz.container.querySelector("#close");
 		
 		if (thiz.imageCode != "") {
-			thiz.acceptButton.innerHTML = "Thay đổi";
 			var callback = function(image) {
 				if (image.length == 0) return;
-				console.log(image);
+				thiz.acceptButton.innerHTML = "Thay đổi";
 				thiz.image.src = image[0].imageByte;
 			}
 			serverReport.getJson("/getImageByCode.do", "GET",

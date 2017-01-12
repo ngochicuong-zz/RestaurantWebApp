@@ -15,6 +15,8 @@ function IndexMain() {
 	this.loginButton.addEventListener("click", function() {
 		window.location.href = "/loginPage.do";
 	})
+	
+	IndexMain.renderSlider();
 }
 
 IndexMain.prototype.renderContainer = function(navName){
@@ -38,6 +40,46 @@ IndexMain.prototype.renderContainer = function(navName){
 		else document.documentElement.scrollTop = renderPage.offsetTop;
 	}
 	serverReport.getHTML(patent, "GET", callback);
+}
+
+/*
+ *  <div class="slide"><img src="sample1.jpg" width="400" height="267" />Slide content 1</div>
+    <div class="slide"><img src="sample2.jpg" width="400" height="267" />Slide content 2</div>
+    <div class="slide"><img src="sample3.jpg" width="400" height="267" />Slide content 3</div>
+ * */
+IndexMain.renderSlider = function() {
+	var callback = function(promos) {
+		console.log(promos);
+		if (promos.length == 0) return;
+		var slideContainer = document.querySelector("#slides");
+		var slidesControllersCollection = document.querySelector("#slides-controls");
+		slidesControllersCollection.innerHTML = "";
+		for (var i = 0; i < promos.length; i++) {
+			var promo = promos[i];
+			var element = Dom.newDOMElement({
+				_name: "div",
+				class: "slide",
+				_text: promo.description,
+				_children: [
+					{
+						_name: "img",
+						style: "width: 100%; height: 100%;",
+						src:bin2string(promo.imagebyte),
+					}
+				]
+			});
+			slideContainer.appendChild(element);
+			var index = i;
+			var element = Dom.newDOMElement({
+				_name: "a",
+				href: "#",
+				_text: index + 1,
+			});
+			slidesControllersCollection.appendChild(element);
+		}
+		setUpSlideShow();
+	}
+	serverReport.getJson("/getPromotionWithImage.do", "GET", callback);
 	
 }
 
@@ -85,6 +127,15 @@ IndexMain.renderMenu = function() {
 				"categories" : "-1"
 	});
 }
+
+function bin2string(array){
+	var result = "";
+	for(var i = 0; i < array.length; ++i){
+		result+= (String.fromCharCode(array[i]));
+	}
+	return result;
+}
+
 Number.prototype.formatMoney = function(places, symbol, thousand, decimal) {
 	places = !isNaN(places = Math.abs(places)) ? places : 2;
 	symbol = symbol !== undefined ? symbol : "$";

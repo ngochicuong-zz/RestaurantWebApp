@@ -9,10 +9,10 @@ pageEncoding="UTF-8"%>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link href="webapp/assets/css/my-slider.css" rel="stylesheet" type="text/css"/>
             <link href="webapp/assets/css/index.css" rel="stylesheet" type="text/css"/>
-            <script src="webapp/assets/js/ism-2.2.min.js" type="text/javascript"></script>
             <script src="webapp/assets/js/common-dom.js"></script>
             <script src="webapp/assets/js/ServerSide.js"></script>
             <script src="webapp/assets/js/index/Index.js"></script>
+            <script src="webapp/assets/js/index/Slider.js"></script>
             <script src="webapp/assets/js/detect.min.js"></script>
 
             <style>
@@ -125,8 +125,8 @@ pageEncoding="UTF-8"%>
                     <hbox id="navbar">
                         <hbox flex="1" class="navbar-items">
                             <span style="font-size: 1.5em;
-                   font-style: italic;
-                   color: #ffc726;">
+				                   font-style: italic;
+				                   color: #ffc726;">
                                 Nhà Hàng Quê Ta</span>
                         </hbox>
                         <hbox class="navbar-items InputRow" page-name="admin-page" id="login-button">
@@ -135,111 +135,94 @@ pageEncoding="UTF-8"%>
                         </hbox>
                     </hbox>
                 </section>
+                
                 <section>
-                    <vbox class="ism-slider" data-radio_type="thumbnail" id="my-slider" style="height:400px;">
-                        <ol>
-                            <li>
-                                <img src="webapp/assets/img/backgrounds/flower-729514_1280.jpg">
-                                    <div class="ism-caption ism-caption-0">QUE TA RESTAURANT</div>
-                                </li>
-                                <li>
-                                    <img src="webapp/assets/img/backgrounds/beautiful-701678_1280.jpg">
-                                        <div class="ism-caption ism-caption-0">WELCOME TO AHIHI !!</div>
-                                    </li>
-                                    <li>
-                                        <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
-                                            <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
-                                        </li>
-                                        <li>
-                                            <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
-                                                <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
-                                            </li>
-                                            <li>
-                                                <img src="webapp/assets/img/backgrounds/architecture-22039_1280.jpg">
-                                                    <div class="ism-caption ism-caption-0">FOODSTORE NUMBER ONE</div>
-                                                </li>
-                                            </ol>
-                                        </vbox>
-                                    </section>
+				    <vbox id="slideshow">
+				        <vbox id="slides">
+				        </vbox>
+				        <hbox id="slides-controls"><a href="#">1</a> <a href="#">2</a> <a href="#">3</a></hbox>
+				    </vbox>
+				</section>
 
-                                    <section id="navSection" style="background-color: #fff;">
-                                        <vbox style="text-align: center;">
-                                            <h3>Nhà hàng Quê ta
-                                                <br>
-                                                    <span style="font-style: italic ;font-size: 16px; font-weight: 400;">
-                                                        Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên
-                                                    </span>
-                                                </h3>
-                                            </vbox>
-                                            <hbox id="nav-container" class="InputRow" style="justify-content: center; padding: 1em;">
-                                                <hbox flex="1" style="justify-content: center">
-                                                    <vbox navName="menu" flex="1">
-                                                        <hbox style="justify-content: center">
-                                                            <button class="intro-button">
-                                                                <i>restaurant_menu</i>
-                                                            </button>
-                                                        </hbox>
-                                                        <hbox style="justify-content: center; max-height: 3em;">
-                                                            <h3>THỰC ĐƠN
-                                                            </h3>
-                                                        </hbox>
-                                                        <hbox>
-                                                            <span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
-                                                        </hbox>
-                                                    </vbox>
-                                                </hbox>
-                                                <hbox flex="1" style="justify-content: center">
-                                                    <vbox navName="aboutus" flex="1">
-                                                        <hbox style="justify-content: center">
-                                                            <button class="intro-button">
-                                                                <i>info_outline</i>
-                                                            </button>
-                                                        </hbox>
-                                                        <hbox style="justify-content: center; max-height: 3em;">
-                                                            <h3>VỀ CHÚNG TÔI
-                                                            </h3>
-                                                        </hbox>
-                                                        <hbox>
-                                                            <span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
-                                                        </hbox>
-                                                    </vbox>
-                                                </hbox>
-                                                <hbox flex="1" style="justify-content: center">
-                                                    <vbox navName="contact" flex="1">
-                                                        <hbox style="justify-content: center">
-                                                            <button class="intro-button">
-                                                                <i>phone</i>
-                                                            </button>
-                                                        </hbox>
-                                                        <hbox style="justify-content: center; max-height: 3em;">
-                                                            <h3>LIÊN HỆ - ĐẶT BÀN
-                                                            </h3>
-                                                        </hbox>
-                                                        <hbox>
-                                                            <span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
-                                                        </hbox>
-                                                    </vbox>
-                                                </hbox>
-                                            </hbox>
-                                        </section>
-                                        <section id="container-render">
-                                            <hbox style="text-align: center;">
-                                                <span>NHẤP VÀO CÁC NÚT TRÊN ĐỂ XEM</span>
-                                            </hbox>
-
-                                        </section>
-                                        <section>
-                                            <hbox id="footer" style="text-align: center; background-color: #414141;">
-                                                <vbox flex="1">
-                                                    <span>Thông tin liên hệ</span>
-                                                    <span>Địa chỉ: 31 Cao Thắng - Phường 2 - Quận 3 - TPHCM</span>
-                                                    <span>Điện thoại:08.38.390.704</span>
-                                                    <span>Hotline:0903 618 795 (Mr Nhã)</span>
-                                                    <span>Email: info@tieccuoifestival.com - yen_festival@yahoo.com</span>
-                                                    <span style="">© Copyright 2012 - nhà hàng Festival . All Rights Reserved</span>
-                                                </vbox>
-                                            </hbox>
-                                        </section>
-                                    </div>
+				<section id="navSection" style="background-color: #fff;">
+				    <vbox style="text-align: center;">
+				        <h3>Nhà hàng Quê ta
+				                                               <br>
+				                                                   <span style="font-style: italic ;font-size: 16px; font-weight: 400;">
+				                                                       Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên
+				                                                   </span>
+				                                               </h3>
+				    </vbox>
+				    <hbox id="nav-container" class="InputRow" style="justify-content: center; padding: 1em;">
+				        <hbox flex="1" style="justify-content: center">
+				            <vbox navName="menu" flex="1">
+				                <hbox style="justify-content: center">
+				                    <button class="intro-button">
+				                        <i>restaurant_menu</i>
+				                    </button>
+				                </hbox>
+				                <hbox style="justify-content: center; max-height: 3em;">
+				                    <h3>THỰC ĐƠN
+				                                                           </h3>
+				                </hbox>
+				                <hbox>
+				                    <span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
+				                </hbox>
+				            </vbox>
+				        </hbox>
+				        <hbox flex="1" style="justify-content: center">
+				            <vbox navName="aboutus" flex="1">
+				                <hbox style="justify-content: center">
+				                    <button class="intro-button">
+				                        <i>info_outline</i>
+				                    </button>
+				                </hbox>
+				                <hbox style="justify-content: center; max-height: 3em;">
+				                    <h3>VỀ CHÚNG TÔI
+				                                                           </h3>
+				                </hbox>
+				                <hbox>
+				                    <span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
+				                </hbox>
+				            </vbox>
+				        </hbox>
+				        <hbox flex="1" style="justify-content: center">
+				            <vbox navName="contact" flex="1">
+				                <hbox style="justify-content: center">
+				                    <button class="intro-button">
+				                        <i>phone</i>
+				                    </button>
+				                </hbox>
+				                <hbox style="justify-content: center; max-height: 3em;">
+				                    <h3>LIÊN HỆ - ĐẶT BÀN
+				                                                           </h3>
+				                </hbox>
+				                <hbox>
+				                    <span style="text-align: center">Có những tình cảm ngày càng đằm thắm có những hương vị không thể nào quên</span>
+				                </hbox>
+				            </vbox>
+				        </hbox>
+				    </hbox>
+				</section>
+				
+				<section id="container-render">
+				    <hbox style="text-align: center;">
+				        <span>NHẤP VÀO CÁC NÚT TRÊN ĐỂ XEM</span>
+				    </hbox>
+				</section>
+				
+				<section>
+				    <hbox id="footer" style="text-align: center; background-color: #414141;">
+				        <vbox flex="1">
+				            <span>Thông tin liên hệ</span>
+				            <span>Địa chỉ: 31 Cao Thắng - Phường 2 - Quận 3 - TPHCM</span>
+				            <span>Điện thoại:08.38.390.704</span>
+				            <span>Hotline:0903 618 795 (Mr Nhã)</span>
+				            <span>Email: info@tieccuoifestival.com - yen_festival@yahoo.com</span>
+				            <span style="">© Copyright 2012 - nhà hàng Festival . All Rights Reserved</span>
+				        </vbox>
+				    </hbox>
+				</section>
+                 </div>
                                 </body>
-                            </html>
+                            </html>                   

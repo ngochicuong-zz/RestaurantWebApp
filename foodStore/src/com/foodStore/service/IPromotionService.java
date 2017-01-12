@@ -13,5 +13,5 @@ public interface IPromotionService {
 	
 	Promotion createPromotion(double paycondition, double discount, Date fromDate, Date toDate, String description);
 	boolean updatePromotion(int promoId ,double paycondition, double discount, Date fromDate, Date toDate, String description);
-
+	List<? extends Object> getPromoWithImageOnDesk();
 }

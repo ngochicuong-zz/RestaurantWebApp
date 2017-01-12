@@ -66,7 +66,7 @@ PromoManagementPage.prototype.init = function(){
 			title : "Xem hình"
 		});
 		button.action = function() {
-			var addImageDialog = new AddImageDialog(promo);
+			var addImageDialog = new AddImageDialog(promo.promotionCode);
 			addImageDialog.show();
 		}
 		buttons.push(button);
