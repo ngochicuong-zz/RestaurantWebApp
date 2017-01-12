@@ -24,6 +24,7 @@ import com.foodStore.model.Payment;
 import com.foodStore.model.PaymentAdapter;
 import com.foodStore.model.Promotion;
 import com.foodStore.model.PromotionAdapter;
+import com.foodStore.service.IAccountService;
 import com.foodStore.service.IImageService;
 import com.foodStore.service.IOrderService;
 import com.foodStore.service.IPaymentService;
@@ -62,12 +63,12 @@ public class OrderController {
 	@ResponseBody
 	public String createOrder(
 			@RequestParam("seatId") int seatId,
+			@RequestParam("loginCode") String loginCode,
 			ModelMap model) {
 		System.out.println("orderController run");
-		Account account = ServiceManagement.get(FoodStore.class).test();
+		Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(loginCode);
 		if (account == null) return null;
 		Order order = ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId());
-		System.out.println(order);
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(order);
 	}
 	

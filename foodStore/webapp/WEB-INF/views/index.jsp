@@ -139,8 +139,9 @@ pageEncoding="UTF-8"%>
                 <section>
 				    <vbox id="slideshow">
 				        <vbox id="slides">
+				        	<div class="slide"><img src="webapp/assets/img/backgrounds/interface.jpg" width="100%" height="100%" /></div>
 				        </vbox>
-				        <hbox id="slides-controls"><a href="#">1</a> <a href="#">2</a> <a href="#">3</a></hbox>
+				        <hbox id="slides-controls"><a href="#">1</a></hbox>
 				    </vbox>
 				</section>
 

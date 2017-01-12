@@ -35,8 +35,11 @@ function Main() {
 	window.setTimeout(function() {
 		thiz.navbar.childNodes[1].click();
 	}, 10)
-	
+	var loginItem = document.querySelector("#account-info");
 	Main.pageManagement = this.pageManagement;
+	Main.loginCode = loginItem.getAttribute("loginCode");
+	loginItem.removeAttribute("loginCode");
+	
 	
 }
 window.addEventListener("load", function(){

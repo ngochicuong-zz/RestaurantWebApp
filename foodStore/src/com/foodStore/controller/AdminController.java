@@ -30,9 +30,10 @@ public class AdminController {
 		if (userStr != null) {
 			Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(userStr);
 			if (account != null) {
-				account.setLoginCode(null);
-				ServiceManagement.get(IAccountService.class).updateAccountLoginCode(account);
+//				account.setLoginCode(null);
+//				ServiceManagement.get(IAccountService.class).updateAccountLoginCode(account);
 				model.addAttribute("role", account.getRole());
+				model.addAttribute("loginCode", account.getLoginCode());
 				return "Main";
 			}
 		}

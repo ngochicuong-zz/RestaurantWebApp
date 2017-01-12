@@ -90,7 +90,7 @@ function AddImageDialog(imageCode, callback) {
 		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
-		
+		thiz.acceptButton.disabled = true;
 		if (thiz.imageCode != "") {
 			var callback = function(image) {
 				if (image.length == 0) return;
@@ -115,6 +115,7 @@ function AddImageDialog(imageCode, callback) {
 			 var r = new FileReader();
 		      r.onload = function(e) { 
 			      thiz.image.src = e.target.result;
+			      thiz.acceptButton.disabled = false;
 		      }
 		      r.readAsDataURL(f);
 		});

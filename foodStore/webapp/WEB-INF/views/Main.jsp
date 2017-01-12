@@ -152,7 +152,7 @@ pageEncoding="UTF-8"%>
 			<hbox flex="1">
 				<hbox flex="1"></hbox>
 				<hbox id="logout" class="navbar-items InputRow" style="justify-content: center">
-					<i class="material-icons orange600 md-16" >account_circle</i>
+					<i class="material-icons orange600 md-16" loginCode="${loginCode}" id="account-info">account_circle</i>
 					<span>ĐĂNG XUẤT</span>
 				</hbox>
 			</hbox>

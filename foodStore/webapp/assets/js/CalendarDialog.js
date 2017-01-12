@@ -18,7 +18,7 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Customer Name:"
+						_text: "Họ & tên khách hàng:"
 					},
 					{
 						_name: "input",
@@ -33,7 +33,7 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Phone: "
+						_text: "Số điện thoại: "
 					},
 					{
 						_name: "input",
@@ -63,7 +63,7 @@ function CalendarDialog(dayPilot) {
 				_children : [
 					{
 						_name: "label",
-						_text: "Capacity: "
+						_text: "Số lượng người: "
 					},
 					{
 						_name: "input",
@@ -81,12 +81,12 @@ function CalendarDialog(dayPilot) {
 					{
 						_name: "button",
 						id: "accept",
-						_text: "OK "
+						_text: "Đặt bàn "
 					},
 					{
 						_name: "button",
 						id: "close",
-						_text: "Cancel"
+						_text: "Thoát"
 					}
 				]
 			}

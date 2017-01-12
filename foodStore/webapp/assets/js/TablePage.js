@@ -54,9 +54,8 @@ TablePage.prototype.init = function(){
 					newItem.onDesk = 't';
 					thiz.onUpdate(seat, newItem);
 				};
-				serverReport.getJson("/createOrder.do?", "GET", callback, {
-					"seatId" : seat.id
-				});
+				serverReport.getJson("/createOrder.do?seatId=" + seat.id
+						+ "&loginCode="+ Main.loginCode, "GET", callback);
 			}
 		} else {
 			button = Dom.newDOMElement({
@@ -132,7 +131,7 @@ TablePage.prototype.init = function(){
 						thiz.onUpdate(seat, newItem);
 					};
 					serverReport.getJson("/createOrder.do?seatId=" + seat.id
-							+ "&note='dklfj'&customerId=123", "GET", callback);
+							+ "&loginCode="+ Main.loginCode, "GET", callback);
 				},
 				express : function() {
 					if (thiz.contextMenu.handleItem == null) return false;

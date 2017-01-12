@@ -53,14 +53,12 @@ IndexMain.renderSlider = function() {
 		if (promos.length == 0) return;
 		var slideContainer = document.querySelector("#slides");
 		var slidesControllersCollection = document.querySelector("#slides-controls");
-		slidesControllersCollection.innerHTML = "";
-		for (var i = 0; i < promos.length; i++) {
-			var promo = promos[i];
+		for (var i = 1; i <= Math.min(promos.length, 4); i++) {
+			var promo = promos[i - 1];
 			var element = Dom.newDOMElement({
 				_name: "div",
 				class: "slide",
-				_text: promo.description,
-				_children: [
+				_children: [	
 					{
 						_name: "img",
 						style: "width: 100%; height: 100%;",

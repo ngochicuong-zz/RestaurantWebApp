@@ -44,7 +44,6 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		if (seat == null || seat.getOnDesk() == 't') return null;
 		Account account = this.repository.getItemById(Account.class, accountId);
 		if (account == null) return null;
-		
 		Order order = new Order();
 		order.setId(-1);
 		order.setAccount(account);
