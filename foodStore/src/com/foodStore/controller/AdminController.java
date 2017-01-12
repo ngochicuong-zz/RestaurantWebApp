@@ -45,6 +45,17 @@ public class AdminController {
 		return "AccountManagementPage";
 	}
 	
+	@RequestMapping(value = "/logout.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+	public String logout(
+			@RequestParam("loginCode") String loginCode,
+			ModelMap model
+			) {
+		Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(loginCode);
+		account.setLoginCode(null);
+		ServiceManagement.get(IAccountService.class).updateAccountLoginCode(account);
+		return "index";
+	}
+	
 	@RequestMapping(value = "/signIn.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String signIn(

@@ -153,9 +153,10 @@ AppointmentPage.prototype.bookSeat = function(extraNode, event) {
 				event.e.data.floor = seat.floor;
 			}
 		}
-		serverReport.getBoolean("/bookSeatForEvent.do", "GET", null, {
+		serverReport.getBoolean("/bookSeatForEvent.do", "GET", callback, {
 			"seatId" : seat.id,
-			"eventId" : event.e.data.eventId
+			"eventId" : event.e.data.eventId,
+			"loginCode" : Main.loginCode
 		});
 		
 	}

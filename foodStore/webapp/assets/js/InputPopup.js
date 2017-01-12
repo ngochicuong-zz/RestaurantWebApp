@@ -28,25 +28,12 @@ function InputPopup(targetNode, quality) {
 					{
 						_name : "button",
 						id: "acceptButton",
-						style: "background-color: #f5790000",
+						style: "background-color: #f5790000; margin-left: 0.2em",
 						_children: [
 							{
 								_name : "i",
 								class : "material-icons md-dark md-12",
 								_text : "check"
-							}
-						]
-					
-					},
-					{
-						_name : "button",
-						id: "cancelButton",
-						style: "background-color: #f5790000",
-						_children: [
-							{
-								_name : "i",
-								class : "material-icons md-dark md-12",
-								_text : "clear"
 							}
 						]
 					
@@ -56,13 +43,9 @@ function InputPopup(targetNode, quality) {
 		]
 	});
 	this.quality = this.menu.querySelector("#quality");
-	this.cancelButton = this.menu.querySelector("#cancelButton");
 	this.acceptButton = this.menu.querySelector("#acceptButton");
 	this.acceptButton.addEventListener("click", function() {
 		if (thiz.onAccept != null) thiz.onAccept(thiz.quality.value);
-		thiz.toggleMenuOff();
-	}, false);
-	this.cancelButton.addEventListener("click", function() {
 		thiz.toggleMenuOff();
 	}, false);
 	this.menuItems;
@@ -120,6 +103,7 @@ InputPopup.prototype.toggleMenuOn = function() {
 
 InputPopup.prototype.toggleMenuOff = function() {
 	this.targetNode.removeChild(this.menu);
+	delete this;
 }
 
 InputPopup.prototype.positionMenu = function(){

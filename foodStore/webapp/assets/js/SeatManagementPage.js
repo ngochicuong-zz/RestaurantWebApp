@@ -105,7 +105,7 @@ SeatManagementPage.prototype.init = function(){
 		},
 		{
 			"column" : "Ưu tiên",
-			"label" : "priotity"
+			"label" : "priority"
 		},
 		{
 			"column" : "Tình trạng",

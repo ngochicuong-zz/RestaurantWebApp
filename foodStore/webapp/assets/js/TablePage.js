@@ -94,7 +94,7 @@ TablePage.prototype.init = function(){
 		},
 		{
 			"column" : "Ưu tiên",
-			"label" : "priotity"
+			"label" : "priority"
 		}];
 	this.table = new Table();
 	this.table.init(theader, renderAction);

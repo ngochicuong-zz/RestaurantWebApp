@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%>
 		<vbox>
 			<hbox class="InputRow">
 				<label>Tổng tiền trên hóa đơn:</label>
-				<input type="text" id="total-on-order"/>
+				<input type="text" id="total-on-order" disabled="true" />
 			</hbox>
 			<vbox >
 				<hbox class="InputRow">
@@ -124,17 +124,17 @@ pageEncoding="UTF-8"%>
 			
 			<hbox class="InputRow">
 				<label>Tổng tiền được giảm:</label>
-				<input type="text" id="discount"/>
+				<input type="text" id="discount" disabled="true"/>
 			</hbox>
 			
 			<hbox class="InputRow">
 				<label>Tổng tiền phải trả:</label>
-				<input type="text" id="total-pay"/>
+				<input type="text" id="total-pay" disabled="true"/>
 			</hbox>
 			
 			<hbox class="InputRow">
 				<label>Thực nhận:</label>
-				<input type="text" id="realpay"/>
+				<input type="text" id="realpay" />
 			</hbox>
 			
 			<hbox class="InputRow">

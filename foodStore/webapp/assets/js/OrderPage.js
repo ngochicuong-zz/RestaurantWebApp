@@ -350,8 +350,12 @@ OrderPage.prototype.init = function() {
 			if (payment == null) return;
 			Main.pageManagement.active("table-page");
 		}
-		var promotionCode = promoData == null ? "~" : promoData.promotionCode;
-		serverReport.getJson("/createPayment.do?refCode="+ order.refCode +"&promotionCode="+ promotionCode +"&realPay="+ realPay.value +"", "GET", callback);
+		var promotionCode = promoData == null ? "" : promoData.promotionCode;
+		serverReport.getJson("/createPayment.do", "GET", callback, {
+			"refCode" : order.refCode,
+			"promotionCode" : promotionCode,
+			"realPay" : parseFloat(realPay.value.replace(" Đ", "").replace(/,/g, "")),
+		});
 	},false);
 	
 	this.paymentCancelBtn.addEventListener("click", function(){
@@ -379,12 +383,24 @@ OrderPage.prototype.init = function() {
 		}
 		thiz.promoInfo.innerHTML = "Discount: " + (promoData.discount < 1 ? promoData.discount * 100 + "%" : promoData.discount);
 		if (parseInt(promoData.discount) <= 1 ) {
-			thiz.discount.value = order.total * parseFloat(promoData.discount);
+			thiz.discount.value = (order.total * parseFloat(promoData.discount)).formatMoney(0, " Đ");
 		} else {
 			thiz.discount.value = promoData.discount;
 		}
-		thiz.totalPay.value = order.total - parseFloat(thiz.discount.value);
+		thiz.totalPay.value = (order.total - parseFloat(thiz.discount.value)).formatMoney(0, " Đ");
 	},false);
+	
+	this.realPay.addEventListener("keypress", function(e) {
+		e.preventDefault();
+		var moneyStr = thiz.realPay.value.replace(" Đ", "").replace(/,/g, "");
+		if (e.keyCode == 8) {
+			moneyStr = moneyStr.substr(0,moneyStr.length - 1);
+		} else {
+			var char = String.fromCharCode(e.charCode);
+			moneyStr += char;
+		}
+		thiz.realPay.value = parseFloat(moneyStr).formatMoney(0, " Đ");
+	})
 }
 
 OrderPage.prototype.paymentInit = function() {
@@ -395,8 +411,8 @@ OrderPage.prototype.paymentInit = function() {
 	this.totalPay.value = "";
 	this.realPay.value = "";
 	this.paymentType.value = 1;
-	this.totalOnOrder.value = order.total;
-	this.totalPay.value = order.total;
+	this.totalOnOrder.value = order.total.formatMoney(0, " Đ");
+	this.totalPay.value = order.total.formatMoney(0, " Đ");
 	var thiz = this;
 	var callback = function(promos) {
 		thiz.renderPromoCombo(promos);

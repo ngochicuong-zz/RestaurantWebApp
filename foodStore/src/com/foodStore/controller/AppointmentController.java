@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.foodStore.hibernate.JsonUtil;
+import com.foodStore.model.Account;
 import com.foodStore.model.Appointment;
 import com.foodStore.model.AppointmentAdapter;
 import com.foodStore.model.Order;
+import com.foodStore.service.IAccountService;
 import com.foodStore.service.IAppointmentService;
+import com.foodStore.service.IOrderService;
 import com.foodStore.service.ServiceManagement;
 
 @Controller
@@ -136,9 +139,13 @@ public class AppointmentController {
 	public String bookSeatForEvent(
 			@RequestParam("seatId") int seatId,
 			@RequestParam("eventId") int eventId,
+			@RequestParam("loginCode") String loginCode,
 			ModelMap model) {
 		boolean removed = ServiceManagement.get(IAppointmentService.class).bookSeatForEvent(seatId, eventId);
-		return String.valueOf(removed);
+		Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(loginCode);
+		Order order = ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId());
+		System.out.println(order + "||" +  account);
+		return String.valueOf(true);
 	}
 	
 }
