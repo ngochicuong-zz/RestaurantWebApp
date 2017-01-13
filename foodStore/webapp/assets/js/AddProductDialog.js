@@ -191,7 +191,7 @@ AddProductDialog.prototype.onAccept = function() {
 				thiz.product.productName = thiz.foodName.value;
 				thiz.product.unitType = thiz.unit.value,
 				thiz.product.quantityPerUnit = thiz.quantityPerUnit.value;
-				thiz.product.price = thiz.price.value;
+				thiz.product.price = thiz.price.value.replace(" Đ", "").replace(/,/g, "");
 				thiz.product.categoryType = thiz.categories.options[thiz.categories.selectedIndex].value;
 				if (thiz.callback) thiz.callback(thiz.product);
 			}
@@ -215,7 +215,7 @@ AddProductDialog.prototype.onAccept = function() {
 					"productName" : thiz.foodName.value,
 					"unit" : thiz.unit.value,
 					"quantity": thiz.quantityPerUnit.value,
-					"price" : thiz.price.value,
+					"price" : thiz.price.value.replace(" Đ", "").replace(/,/g, ""),
 					"categories" : thiz.categories.options[thiz.categories.selectedIndex].value,
 				});
 	}
