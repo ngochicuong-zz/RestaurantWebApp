@@ -127,6 +127,12 @@ function CalendarDialog(dayPilot) {
 
 CalendarDialog.prototype.onAccept = function() {
 	var thiz = this;
+	if (!this.validate()) {
+		Dialog.alert("Lỗi! ","Vui lòng điền đầy đủ thông tin"
+				, "Close", null, null , null, null, null
+		);
+		return;
+	};
 	var args = this.calendarItem;
 	var callback = function(appointment){
 		
@@ -194,6 +200,39 @@ CalendarDialog.prototype.positionContainer = function(){
 	
 }
 
+CalendarDialog.prototype.validate = function(){
+	var check = true;
+	if (this.customerName.value == "") {
+		this.customerName.style.background="#fff8b9";
+		check = false;
+	}else {
+		this.customerName.style.background = "#fff";
+	}
+	
+	if(this.customerPhone.value == "" && this.customerMail.value == ""){
+		this.customerPhone.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.customerPhone.style.background = "#fff";
+	}
+	
+	if(this.customerMail.value == "" && this.customerPhone.value == ""){
+		this.customerMail.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.customerMail.style.background = "#fff";
+	}
+	
+	if(this.customerCapacity.value == ""){
+		this.customerCapacity.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.customerCapacity.style.background = "#fff";
+	}
+	
+	
+	return check;
+}
 
 
 

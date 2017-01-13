@@ -192,6 +192,12 @@ function AddPromotionDialog(promotion, callback) {
 
 AddPromotionDialog.prototype.onAccept = function() {
 	var thiz = this;
+	if (!this.validate()) {
+		Dialog.alert("Lỗi! ","Vui lòng điền đầy đủ thông tin"
+				, "Close", null, null , null, null, null
+		);
+		return;
+	};
 	if (this.promotion) {
 		var callback = function(updated){
 			if (updated) {
@@ -258,7 +264,32 @@ AddPromotionDialog.prototype.positionContainer = function(){
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
 	
 }
-
+AddPromotionDialog.prototype.validate = function(){
+	var check = true;
+	if (this.payCondition.value == "") {
+		this.payCondition.style.background="#fff8b9";
+		check = false;
+	}else {
+		this.payCondition.style.background = "#fff";
+	}
+	if(this.discount.value == ""){
+		this.discount.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.discount.style.background = "#fff";
+	}
+	if(this.description.value == ""){
+		this.description.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.description.style.background = "#fff";
+	}
+	if(!this.fromDate || !this.toDate){
+		check = false;
+	}
+	
+	return check;
+}
 
 
 

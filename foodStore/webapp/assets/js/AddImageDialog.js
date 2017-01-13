@@ -96,11 +96,13 @@ function AddImageDialog(imageCode, callback) {
 				if (image.length == 0) return;
 				thiz.acceptButton.innerHTML = "Thay đổi";
 				thiz.image.src = image[0].imageByte;
+				Main.busyHandler.unWait();
 			}
 			serverReport.getJson("/getImageByCode.do", "GET",
 					callback, {
 						"code" : thiz.imageCode
 			});
+			Main.busyHandler.waitting();
 		}
 		
 		thiz.acceptButton.addEventListener("click", function(event) {

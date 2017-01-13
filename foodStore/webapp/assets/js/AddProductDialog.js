@@ -179,6 +179,12 @@ function AddProductDialog(product, callback) {
 
 AddProductDialog.prototype.onAccept = function() {
 	var thiz = this;
+	if (!this.validate()) {
+		Dialog.alert("Lỗi! ","Vui lòng điền đầy đủ thông tin"
+				, "Close", null, null , null, null, null
+		);
+		return;
+	};
 	if (this.product) {
 		var callback = function(updated){
 			if (updated) {
@@ -263,7 +269,40 @@ AddProductDialog.prototype.positionContainer = function(){
 	container.style.top = (window.innerHeight - container.offsetHeight) / 2 + "px";
 	
 }
-
+AddProductDialog.prototype.validate = function(){
+	var check = true;
+	if (this.foodName.value == "") {
+		this.foodName.style.background="#fff8b9";
+		check = false;
+	}else {
+		this.foodName.style.background = "#fff";
+	}
+	if(this.unit.value == ""){
+		this.unit.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.unit.style.background = "#fff";
+	}
+	if(this.quantityPerUnit.value == ""){
+		this.quantityPerUnit.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.quantityPerUnit.style.background = "#fff";
+	}
+	if(this.price.value == ""){
+		this.price.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.price.style.background = "#fff";
+	}
+	if(this.categories.value == ""){
+		this.categories.style.background = "#fff8b9";
+		check = false;
+	}else {
+		this.categories.style.background = "#fff";
+	}
+	return check;
+}
 
 
 

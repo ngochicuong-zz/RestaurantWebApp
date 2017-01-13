@@ -62,6 +62,7 @@ ChartPage.prototype.drawChart = function(type, year) {
 	serverReport.getJson(patent, "GET", callback, {
 		"year" : year
 	});
+	Main.busyHandler.waitting();
 }
 ChartPage.prototype.drawChartIplm = function(chartData, year, productChart) {
 	var thiz = this;
@@ -127,6 +128,7 @@ ChartPage.prototype.drawChartIplm = function(chartData, year, productChart) {
 		var data = google.visualization.arrayToDataTable(productChart ? genFoodType() : genProfitType());
 		var chart = new google.visualization.BarChart(thiz.chartContainer);
 		chart.draw(data, options);
+		Main.busyHandler.unWait();
 	}
 	google.charts.load('current', {packages: ['corechart']});
 	google.charts.setOnLoadCallback(beginDraw);
