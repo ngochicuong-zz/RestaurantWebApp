@@ -9,6 +9,7 @@ pageEncoding="UTF-8"%>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link href="webapp/assets/css/my-slider.css" rel="stylesheet" type="text/css"/>
             <link href="webapp/assets/css/index.css" rel="stylesheet" type="text/css"/>
+            <link href="webapp/assets/css/busy.css" rel="stylesheet" type="text/css"/>
             <script src="webapp/assets/js/common-dom.js"></script>
             <script src="webapp/assets/js/ServerSide.js"></script>
             <script src="webapp/assets/js/index/Index.js"></script>

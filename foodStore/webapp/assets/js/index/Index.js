@@ -1,6 +1,7 @@
 function IndexMain() {
 	this.navContainer = document.querySelector("#nav-container");
 	this.loginButton = document.querySelector("#login-button");
+	IndexMain.busyHandler = new BusyHandler();
 	var thiz = this;
 	this.navContainer.addEventListener("click", function(e) {
 		var navNode = Dom.findUpward(e.target, {
@@ -76,9 +77,10 @@ IndexMain.renderSlider = function() {
 			slidesControllersCollection.appendChild(element);
 		}
 		setUpSlideShow();
+		IndexMain.busyHandler.unBusy();
 	}
 	serverReport.getJson("/getPromotionWithImage.do", "GET", callback);
-	
+	IndexMain.busyHandler.busy();
 }
 
 IndexMain.renderMenu = function() {
@@ -116,7 +118,7 @@ IndexMain.renderMenu = function() {
 			}
 			
 		}
-		
+		IndexMain.busyHandler.unBusy();
 	}
 	serverReport.getJson("/searchProduct.do", "GET",
 			callback, {
@@ -124,6 +126,37 @@ IndexMain.renderMenu = function() {
 				"price" : -1 ,
 				"categories" : "-1"
 	});
+	IndexMain.busyHandler.busy();
+}
+
+function BusyHandler() {
+	this.page = Dom.newDOMElement({
+		_name: "vbox",
+		id: "loader-wrapper",
+		_children: [
+			{
+				_name: "img",
+				src: "webapp/assets/img/backgrounds/loading.jpg",
+				style: "position: absolute; width: 100%; height: 100%; -webkit-filter: blur(5px); filter: blur(5px);"
+			},
+			{
+				_name: "vbox",
+				id: "loader",
+			}
+		]
+	});
+	
+}
+
+BusyHandler.prototype.busy = function() {
+	document.body.appendChild(this.page);
+}
+
+BusyHandler.prototype.unBusy = function() {
+	var thiz = this;
+	window.setTimeout(function() {
+		document.body.removeChild(thiz.page);
+	}, 1000)
 }
 
 function bin2string(array){
@@ -145,6 +178,15 @@ Number.prototype.formatMoney = function(places, symbol, thousand, decimal) {
 	    j = (j = i.length) > 3 ? j % 3 : 0;
 	return negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "") + symbol;
 };
-window.addEventListener("load", function() {
-	var main = new IndexMain();
-})
+
+var busy = new BusyHandler();
+document.onreadystatechange = function(e)
+{
+	busy.busy();
+    if (document.readyState === 'complete')
+    {
+    	var mainWindow = new IndexMain();
+		mainWindow.busyHandler = busy;
+		busy.unBusy();
+    }
+};

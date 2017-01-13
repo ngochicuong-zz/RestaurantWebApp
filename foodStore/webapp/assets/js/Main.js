@@ -40,11 +40,51 @@ function Main() {
 	Main.loginCode = loginItem.getAttribute("loginCode");
 	loginItem.removeAttribute("loginCode");
 	
+
+}
+
+var busy = new BusyHandler();
+
+document.onreadystatechange = function(e)
+{
+	busy.busy();
+    if (document.readyState === 'complete')
+    {
+    	var mainWindow = new Main();
+    	Main.busyHandler = busy;
+		busy.unBusy();
+    }
+};
+
+function BusyHandler() {
+	this.page = Dom.newDOMElement({
+		_name: "vbox",
+		id: "loader-wrapper",
+		_children: [
+			{
+				_name: "img",
+				src: "webapp/assets/img/backgrounds/loading.jpg",
+				style: "position: absolute; width: 100%; height: 100%; -webkit-filter: blur(5px); filter: blur(5px);"
+			},
+			{
+				_name: "vbox",
+				id: "loader",
+			}
+		]
+	});
 	
 }
-window.addEventListener("load", function(){
-	 var mainWindow = new Main();
-} );
+
+BusyHandler.prototype.busy = function() {
+	document.body.appendChild(this.page);
+}
+
+BusyHandler.prototype.unBusy = function() {
+	var thiz = this;
+	window.setTimeout(function() {
+		document.body.removeChild(thiz.page);
+	}, 1000)
+}
 
 Number.prototype.formatMoney = function(places, symbol, thousand, decimal) {
 	places = !isNaN(places = Math.abs(places)) ? places : 2;
