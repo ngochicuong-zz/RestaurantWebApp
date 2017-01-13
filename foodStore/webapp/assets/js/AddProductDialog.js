@@ -150,7 +150,7 @@ function AddProductDialog(product, callback) {
 			thiz.foodName.value = thiz.product.productName;
 			thiz.unit.value = thiz.product.unitType;
 			thiz.quantityPerUnit.value = thiz.product.quantityPerUnit;
-			thiz.price.value = thiz.product.price.formatMoney(0, " Đ");
+			thiz.price.value = parseFloat(thiz.product.price).formatMoney(0, " Đ");
 			thiz.categories.selectedIndex = thiz.product.categoryType;
 		}
 		

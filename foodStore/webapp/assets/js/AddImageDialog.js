@@ -113,17 +113,19 @@ function AddImageDialog(imageCode, callback) {
 		});
 		
 		thiz.fileDialog.addEventListener("change", function(evt){
+			if (!evt.target.files) return;
 			var f = evt.target.files[0]; 
 			 var r = new FileReader();
 		      r.onload = function(e) { 
 			      thiz.image.src = e.target.result;
 			      thiz.acceptButton.disabled = false;
+			      Main.busyHandler.unWait();
 		      }
 		      r.readAsDataURL(f);
+		      Main.busyHandler.waitting();
 		});
 		
 	}, 10);
-	
 }
 
 AddImageDialog.prototype.sendRequest = function(code, image) {
