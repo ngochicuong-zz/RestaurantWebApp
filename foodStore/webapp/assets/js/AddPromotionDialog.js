@@ -113,22 +113,29 @@ function AddPromotionDialog(promotion, callback) {
 	window.setTimeout(function() {
 		thiz.payCondition = thiz.container.querySelector("#pay-condition");
 		thiz.discount = thiz.container.querySelector("#discount");
-		thiz.fromDate = thiz.container.querySelector("#from-date");
-		thiz.toDate = thiz.container.querySelector("#to-date");
 		thiz.description = thiz.container.querySelector("#description");
 		
-		var fromDateValue = new Date();
-		var toDateValue = new Date();
+		thiz.fromDate;
+		thiz.toDate;
+		
+		var fromDateBox= thiz.container.querySelector("#from-date");
+		var toDateBox = thiz.container.querySelector("#to-date");
 		
 	    var fromDatePicker = new Pikaday({
-	        field: thiz.fromDate,
+	        field: fromDateBox,
 	        format: 'DD-MM-YYYY',
+	        onSelect: function() {
+	            thiz.fromDate = this.getMoment();
+	        }
 	        
 	    });
 	    
 	    var toDatePicker = new Pikaday({
-	        field: thiz.toDate,
+	        field: toDateBox,
 	        format: 'DD-MM-YYYY',
+	        onSelect: function() {
+	            thiz.toDate = this.getMoment();
+	        }
 	    });
 		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
@@ -151,8 +158,11 @@ function AddPromotionDialog(promotion, callback) {
 			thiz.payCondition.value = parseFloat(thiz.promotion.payCondition).formatMoney(0, " Đ");
 			thiz.discount.value = thiz.promotion.discount;
 			
-			thiz.fromDate.value = moment(thiz.promotion.fromDate).format('YYYY-MM-DD').toString();
-			thiz.toDate.value = moment(thiz.promotion.toDate).format('YYYY-MM-DD').toString();
+			fromDateBox.value = moment(thiz.promotion.fromDate).format('DD-MM-YYYY').toString();
+			toDateBox.value = moment(thiz.promotion.toDate).format('DD-MM-YYYY').toString();
+			
+			thiz.fromDate = moment(thiz.promotion.fromDate);
+			thiz.toDate =  moment(thiz.promotion.toDate);
 			
 			thiz.description.value = thiz.promotion.description;
 		}
@@ -187,8 +197,8 @@ AddPromotionDialog.prototype.onAccept = function() {
 			if (updated) {
 				thiz.promotion.payCondition = thiz.payCondition.value.replace(" Đ", "").replace(/,/g, "");
 				thiz.promotion.discount = thiz.discount.value;
-				thiz.promotion.fromDate =  thiz.fromDate.value;
-				thiz.promotion.toDate = thiz.toDate.value;
+				thiz.promotion.fromDate =  thiz.fromDate;
+				thiz.promotion.toDate = thiz.toDate;
 				thiz.promotion.description = thiz.description.value;
 				if (thiz.callback) thiz.callback(thiz.promotion);
 			}
@@ -197,8 +207,8 @@ AddPromotionDialog.prototype.onAccept = function() {
 			"promoId" : thiz.promotion.id,
 			"paycondition" : parseFloat(thiz.payCondition.value.replace(" Đ", "").replace(/,/g, "")),
 			"discount" : thiz.discount.value,
-			"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
-			"toDate" : thiz.toDate.value == "" ? thiz.toDate.value : moment(thiz.toDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
+			"fromDate" : !thiz.fromDate ? "" : moment(thiz.fromDate).format('YYYY-MM-DD HH:mm:ss').toString(),
+			"toDate" : !thiz.toDate ? "" : moment(thiz.toDate).format('YYYY-MM-DD HH:mm:ss').toString(),
 			"description" : thiz.description.value,
 		});
 	} else {

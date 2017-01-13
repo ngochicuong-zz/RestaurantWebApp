@@ -38,6 +38,18 @@ ProductManagementPage.prototype.init = function(){
 	this.price = this.pageContainer.querySelector("#price");
 	this.categories = this.pageContainer.querySelector("#categories");
 	
+	this.price.addEventListener("keypress", function(e) {
+		e.preventDefault();
+		var moneyStr = thiz.price.value.replace(" Đ", "").replace(/,/g, "");
+		if (e.keyCode == 8) {
+			moneyStr = moneyStr.substr(0,moneyStr.length - 1);
+		} else {
+			var char = String.fromCharCode(e.charCode);
+			moneyStr += char;
+		}
+		thiz.price.value = parseFloat(moneyStr).formatMoney(0, " Đ");
+	})
+	
 	this.products = new Array();
 	this.requestItems();
 	
@@ -193,15 +205,15 @@ ProductManagementPage.prototype.init = function(){
 
 ProductManagementPage.prototype.onSearch = function() {
 	var foodName = this.foodName.value;
-	var price = this.price.value;
+	var price = this.price.value.replace(" Đ", "").replace(/,/g, "");
 	var categories = this.categories.options[this.categories.selectedIndex].value;
 	
-	if (foodName == "" && price == "" && categories == -1) return this.products;
+	if (foodName == "" && price == 0 && categories == -1) return this.products;
 	var result = new Array();
 	var thiz = this;
 	this.products.forEach(function(product){
 		if ((foodName == "" || product.productName.indexOf(foodName) != -1)
-			&& (price == "" || product.price <= price )
+			&& (price == 0 || product.price <= price )
 			&& ((categories == -1 || product.categoryType == categories)))
 				result.push(product);
 	});

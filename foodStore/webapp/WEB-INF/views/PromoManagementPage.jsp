@@ -25,11 +25,11 @@ pageEncoding="UTF-8"%>
 		</hbox>
 		<hbox class="InputRow">
 			<label>Từ ngày: </label>
-			<input id="from-date" type="date" />
+			<input id="from-date" type="text" />
 		</hbox>
 		<hbox class="InputRow">
 			<label>Đến ngày:  </label>
-			<input id="to-date" type="date" />
+			<input id="to-date" type="text" />
 		</hbox>
 		<hbox flex="1">
 			<hbox style="justify-content: flex-start; color: #000000">

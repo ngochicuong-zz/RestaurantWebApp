@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
 		</hbox>
 		<hbox class="InputRow">
 			<label>Giá: </label>
-			<input id="price" type="number"/>
+			<input id="price" type="text" value="0 Đ"/>
 		</hbox>
 		<hbox class="InputRow">
 			<label>Phân loại: </label>

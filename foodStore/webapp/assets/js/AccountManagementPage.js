@@ -116,7 +116,8 @@ AccountManagementPage.prototype.init = function(){
 		},
 		{
 			"column" : "Lần cuối đăng nhập",
-			"label" : "lastSignInAt"
+			"label" : "lastSignInAt",
+			"type": "date time"
 		},
 		{
 			"column" : "Tình trạng",

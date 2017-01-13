@@ -70,7 +70,8 @@ function AddProductDialog(product, callback) {
 					{
 						_name: "input",
 						id: "price",
-						type: "number"
+						_text: "0 Đ",
+						type: "text"
 					}
 				]
 			},
@@ -129,16 +130,27 @@ function AddProductDialog(product, callback) {
 		thiz.price = thiz.container.querySelector("#price");
 		thiz.categories = thiz.container.querySelector("#categories");
 		
-		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
+		
+		thiz.price.addEventListener("keypress", function(e) {
+			e.preventDefault();
+			var moneyStr = thiz.price.value.replace(" Đ", "").replace(/,/g, "");
+			if (e.keyCode == 8) {
+				moneyStr = moneyStr.substr(0,moneyStr.length - 1);
+			} else {
+				var char = String.fromCharCode(e.charCode);
+				moneyStr += char;
+			}
+			thiz.price.value = parseFloat(moneyStr).formatMoney(0, " Đ");
+		})
 		
 		if (thiz.product != null) {
 			thiz.acceptButton.innerHTML = "Save";
 			thiz.foodName.value = thiz.product.productName;
 			thiz.unit.value = thiz.product.unitType;
 			thiz.quantityPerUnit.value = thiz.product.quantityPerUnit;
-			thiz.price.value = thiz.product.price;
+			thiz.price.value = thiz.product.price.formatMoney(0, " Đ");
 			thiz.categories.selectedIndex = thiz.product.categoryType;
 		}
 		
@@ -183,7 +195,7 @@ AddProductDialog.prototype.onAccept = function() {
 			"productName" : thiz.foodName.value,
 			"unit" : thiz.unit.value,
 			"quantityPerUnit": thiz.quantityPerUnit.value,
-			"price" : thiz.price.value,
+			"price" : thiz.price.value.replace(" Đ", "").replace(/,/g, ""),
 			"categories" : thiz.categories.options[thiz.categories.selectedIndex].value,
 		});
 	} else {

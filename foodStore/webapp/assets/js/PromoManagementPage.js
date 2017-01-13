@@ -38,10 +38,44 @@ PromoManagementPage.prototype.init = function(){
 	this.containerPanel = this.pageContainer.querySelector("#container-panel");
 	
 	this.promoName = this.pageContainer.querySelector("#promo-name");
-	this.fromDate = this.pageContainer.querySelector("#from-date");
-	this.toDate = this.pageContainer.querySelector("#to-date");
+	
+	this.fromDate;
+	this.toDate;
+	
+	var fromDateBox= this.pageContainer.querySelector("#from-date");
+	var toDateBox = this.pageContainer.querySelector("#to-date");
 	
 	var thiz = this;
+	
+	fromDateBox.addEventListener("change", function(){
+		if (fromDateBox.value == "") {
+			thiz.fromDate = null;
+		}
+	})
+	
+	toDateBox.addEventListener("change", function(){
+		if (toDateBox.value == "") {
+			thiz.toDate = null;
+		}
+	})
+	
+	var fromDatePicker = new Pikaday({
+        field: fromDateBox,
+        format: 'DD-MM-YYYY',
+        onSelect: function() {
+            thiz.fromDate = this.getMoment();
+        }
+        
+    });
+    
+    var toDatePicker = new Pikaday({
+        field: toDateBox,
+        format: 'DD-MM-YYYY',
+        onSelect: function() {
+            thiz.toDate = this.getMoment();
+        }
+    });
+    
 	var renderAction = function(promo) {
 		var buttons = new Array();
 		var button = Dom.newDOMElement({
@@ -166,37 +200,20 @@ PromoManagementPage.prototype.init = function(){
 	
 }
 
-PromoManagementPage.prototype.reloadPage = function() {
-	var thiz = this;
-	console.log("Search button click.... ");
-
-	var callback = function(seats) {
-		thiz.table.render(seats);
-	}
-	serverReport.getJson("/searchPromotion.do", "GET",
-			callback, {
-				"description" : thiz.promoName.value,
-				"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
-				"toDate" : thiz.toDate.value == "" ? thiz.toDate.value : moment(thiz.toDate.value).format('YYYY-MM-DD HH:mm:ss').toString()
-					
-	});
-}
-
 
 PromoManagementPage.prototype.onSearch = function() {
-	
 	var promoName = this.promoName.value;
-	var fromDate = this.fromDate.value;
-	var toDate = this.toDate.value;
+	var fromDate = this.fromDate;
+	var toDate = this.toDate;
 	
-	if (promoName == "" && fromDate == "" && toDate == "") return this.promotions;
+	if (promoName == "" && fromDate == null && toDate == null) return this.promotions;
 	
 	var result = new Array();
 	var thiz = this;
 	this.promotions.forEach(function(promotion){
 		if ((promoName == "" || promotion.description.indexOf(promoName) != -1)
-			&& (fromDate == "" || new Date(promotion.fromDate) >= new Date(fromDate) )
-			&& (toDate == "" || new Date(promotion.toDate) <= new Date(toDate) ))
+			&& (fromDate == null || new Date(promotion.fromDate) >= fromDate )
+			&& (toDate == null || new Date(promotion.toDate) <= toDate ))
 				result.push(promotion);
 	});
 	return result;

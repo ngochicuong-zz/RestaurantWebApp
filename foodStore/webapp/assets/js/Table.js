@@ -92,7 +92,9 @@ Table.prototype.render = function(items) {
 					} else if (thiz.tHeader[i].label == "categoryType") {
 						tdNode.innerHTML = CategoryType[item[index]];
 					} else if (thiz.tHeader[i].type && thiz.tHeader[i].type == "date") {
-						tdNode.innerHTML = moment(item[index]).format('YYYY-MM-DD').toString();
+						tdNode.innerHTML = moment(item[index]).format('DD-MM-YYYY').toString();
+					}  else if (thiz.tHeader[i].type && thiz.tHeader[i].type == "date time") {
+						tdNode.innerHTML = moment(item[index]).format('DD-MM-YYYY HH:mm').toString();
 					}
 					else tdNode.innerHTML = item[index];
 					break;

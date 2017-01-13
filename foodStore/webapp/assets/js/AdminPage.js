@@ -14,6 +14,7 @@ function AdminPage() {
 	}
 	serverReport.getHTML("/getAdminPage.do", "GET", callback);
 	this.activeNav = null;
+	
 }
 
 AdminPage.prototype.init = function() {
@@ -35,7 +36,10 @@ AdminPage.prototype.init = function() {
 		if (!page) return;
 		thiz.container.innerHTML = "";
 		thiz.container.appendChild(page.getPageContainer())
-	}, false);
+	}, false);	
+	
+	var firstNav = this.pageContainer.querySelector("#default-nav");
+	firstNav.click();
 	
 }
 

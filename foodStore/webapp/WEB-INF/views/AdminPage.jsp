@@ -30,7 +30,7 @@ pageEncoding="UTF-8"%>
 	<vbox style="justify-content: flex-start;
 			background-color: #3b3b3b;
 			color: #fff">	
-		<vbox page-name="account-manager-page" class="admin-item" style="text-align: center;">
+		<vbox page-name="account-manager-page" class="admin-item" style="text-align: center;" id="default-nav">
 			<i class="material-icons orange600 md-32" >account_circle</i>
 			<label>Quản lý tài khoản</label>
 		</vbox>
