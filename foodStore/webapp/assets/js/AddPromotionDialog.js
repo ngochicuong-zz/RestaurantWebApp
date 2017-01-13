@@ -56,7 +56,7 @@ function AddPromotionDialog(promotion, callback) {
 					{
 						_name: "input",
 						id: "pay-condition",
-						type: "number"
+						type: "text"
 					}
 				]
 			},
@@ -120,9 +120,21 @@ function AddPromotionDialog(promotion, callback) {
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");
 		
+		thiz.payCondition.addEventListener("keypress", function(e) {
+			e.preventDefault();
+			var moneyStr = thiz.payCondition.value.replace(" Đ", "").replace(/,/g, "");
+			if (e.keyCode == 8) {
+				moneyStr = moneyStr.substr(0,moneyStr.length - 1);
+			} else {
+				var char = String.fromCharCode(e.charCode);
+				moneyStr += char;
+			}
+			thiz.payCondition.value = parseFloat(moneyStr).formatMoney(0, " Đ");
+		})
+		
 		if (thiz.promotion != null) {
 			thiz.acceptButton.innerHTML = "Save";
-			thiz.payCondition.value = thiz.promotion.payCondition;
+			thiz.payCondition.value = parseFloat(thiz.promotion.payCondition).formatMoney(0, " Đ");
 			thiz.discount.value = thiz.promotion.discount;
 			
 			thiz.fromDate.value = moment(thiz.promotion.fromDate).format('YYYY-MM-DD').toString();
@@ -159,7 +171,7 @@ AddPromotionDialog.prototype.onAccept = function() {
 	if (this.promotion) {
 		var callback = function(updated){
 			if (updated) {
-				thiz.promotion.payCondition = thiz.payCondition.value;
+				thiz.promotion.payCondition = thiz.payCondition.value.replace(" Đ", "").replace(/,/g, "");
 				thiz.promotion.discount = thiz.discount.value;
 				thiz.promotion.fromDate =  thiz.fromDate.value;
 				thiz.promotion.toDate = thiz.toDate.value;
@@ -169,7 +181,7 @@ AddPromotionDialog.prototype.onAccept = function() {
 		}
 		serverReport.getJson("/updatePromotion.do", "GET", callback, {
 			"promoId" : thiz.promotion.id,
-			"paycondition" : thiz.payCondition.value,
+			"paycondition" : parseFloat(thiz.payCondition.value.replace(" Đ", "").replace(/,/g, "")),
 			"discount" : thiz.discount.value,
 			"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
 			"toDate" : thiz.toDate.value == "" ? thiz.toDate.value : moment(thiz.toDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),

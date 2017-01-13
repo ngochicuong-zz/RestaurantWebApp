@@ -106,8 +106,8 @@ OrderPage.prototype.init = function() {
 				discountPanel.style.display="inherit";
 				var billDiscount = container.querySelector("#bill-discount");
 				var billTotalAfter = container.querySelector("#bill-total-after");
-				billDiscount.innerHTML = parseInt(thiz.discount.value).formatMoney(0, " Đ");
-				billTotalAfter.innerHTML = parseInt(thiz.totalPay.value).formatMoney(0, " Đ");
+				billDiscount.innerHTML = thiz.discount.value;
+				billTotalAfter.innerHTML = thiz.totalPay.value;
 			}
 			
 			PrintHandle.Print(container);
@@ -377,17 +377,17 @@ OrderPage.prototype.init = function() {
 		var order = thiz.order;
 		if (promoData == null) {
 			thiz.discount.value = "0";
-			thiz.totalPay.value = order.total;
-			thiz.promoInfo.innerHTML = "Discount: ";
+			thiz.totalPay.value = order.total.formatMoney(0, " Đ");
+			thiz.promoInfo.innerHTML = "Giảm giá: ";
 			return;
 		}
-		thiz.promoInfo.innerHTML = "Discount: " + (promoData.discount < 1 ? promoData.discount * 100 + "%" : promoData.discount);
+		thiz.promoInfo.innerHTML = "Giảm giá: " + (promoData.discount < 1 ? promoData.discount * 100 + "%" : promoData.discount);
 		if (parseInt(promoData.discount) <= 1 ) {
 			thiz.discount.value = (order.total * parseFloat(promoData.discount)).formatMoney(0, " Đ");
 		} else {
 			thiz.discount.value = promoData.discount;
 		}
-		thiz.totalPay.value = (order.total - parseFloat(thiz.discount.value)).formatMoney(0, " Đ");
+		thiz.totalPay.value = (order.total - (order.total * parseFloat(promoData.discount))).formatMoney(0, " Đ");
 	},false);
 	
 	this.realPay.addEventListener("keypress", function(e) {

@@ -87,11 +87,14 @@ PromoManagementPage.prototype.init = function(){
 		},
 		{
 			"column" : "Từ ngày",
-			"label" : "fromDate"
+			"label" : "fromDate",
+			"type" : "date"
+				
 		},
 		{
 			"column" : "Đến ngày",
-			"label" : "toDate"
+			"label" : "toDate",
+			"type" : "date"
 		}];
 	this.table = new Table();
 	this.table.init(theader, renderAction);

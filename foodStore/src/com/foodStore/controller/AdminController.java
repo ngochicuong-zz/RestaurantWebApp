@@ -30,8 +30,6 @@ public class AdminController {
 		if (userStr != null) {
 			Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(userStr);
 			if (account != null) {
-//				account.setLoginCode(null);
-//				ServiceManagement.get(IAccountService.class).updateAccountLoginCode(account);
 				model.addAttribute("role", account.getRole());
 				model.addAttribute("loginCode", account.getLoginCode());
 				return "Main";
@@ -52,8 +50,9 @@ public class AdminController {
 			) {
 		Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(loginCode);
 		account.setLoginCode(null);
+		account.setOnline('f');
 		ServiceManagement.get(IAccountService.class).updateAccountLoginCode(account);
-		return "index";
+		return "redirect:index.do";
 	}
 	
 	@RequestMapping(value = "/signIn.do", method = RequestMethod.POST)

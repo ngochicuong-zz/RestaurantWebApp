@@ -31,7 +31,6 @@ public class PromotionService extends ServiceBase<Promotion> implements IPromoti
 				Criteria criteria = session.createCriteria(Promotion.class);
 				Conjunction and = Restrictions.conjunction();
 				and.add(Restrictions.le("payCondition", pay));
-				and.add(Restrictions.le("fromDate", date));
 				and.add(Restrictions.ge("toDate", date));
 				return criteria.add(and);
 			}
@@ -111,7 +110,7 @@ public class PromotionService extends ServiceBase<Promotion> implements IPromoti
 	
 	@Override
 	public List<? extends Object> getPromoWithImageOnDesk() {
-		String sqlCommand = " select a.description, b.imagebyte from promotion as a, imagerepo as b where a.fromdate >= '"+ String.valueOf(new Date()) +"' and b.imagecode like a.promotioncode";
+		String sqlCommand = " select a.description, b.imagebyte from promotion as a, imagerepo as b where a.toDate >= '"+ String.valueOf(new Date()) +"' and b.imagecode like a.promotioncode";
 		return this.repository.runSqlQuery(sqlCommand);
 	}
 

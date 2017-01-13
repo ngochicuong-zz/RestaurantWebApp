@@ -90,9 +90,11 @@ Table.prototype.render = function(items) {
 						tdNode.quality = true;
 						tdNode.innerHTML = item[index];
 					} else if (thiz.tHeader[i].label == "categoryType") {
-						tdNode.quality = true;
 						tdNode.innerHTML = CategoryType[item[index]];
-					} else tdNode.innerHTML = item[index];
+					} else if (thiz.tHeader[i].type && thiz.tHeader[i].type == "date") {
+						tdNode.innerHTML = moment(item[index]).format('YYYY-MM-DD').toString();
+					}
+					else tdNode.innerHTML = item[index];
 					break;
 				}
 			}

@@ -77,9 +77,7 @@ public class OrderController {
 	public String getPromotionByPay(
 			@RequestParam("pay") double pay,
 			ModelMap model) {
-		System.out.println(pay);
 		List<Promotion> promotions = ServiceManagement.get(IPromotionService.class).findPromoWithPay(pay);
-		System.out.println(promotions);
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(promotions);
 	}
 	
@@ -187,7 +185,7 @@ public class OrderController {
 			}
 		} catch (ParseException e) {
 		}
-		System.out.println(fromDate + "||" + toDate);
+		System.out.println(fromDate + "||" + toDate + "||" + paycondition);
 		boolean updated = ServiceManagement.get(IPromotionService.class).updatePromotion(promoId, paycondition, discount, fromDate, toDate, descripstion);
 		return String.valueOf(updated);
 	}
