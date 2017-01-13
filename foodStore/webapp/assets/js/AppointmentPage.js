@@ -100,7 +100,10 @@ AppointmentPage.prototype.setupEvent = function() {
 	};
 	
 	this.dayPilot.onTimeRangeSelected = function(args) {
-		var calendarDgl = new CalendarDialog(thiz.dayPilot);
+		var callback = function(e) {
+			thiz.dayPilot.events.add(e);
+		}
+		var calendarDgl = new CalendarDialog(callback);
 		calendarDgl.show(args);
 	};
 	

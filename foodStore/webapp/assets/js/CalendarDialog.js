@@ -1,8 +1,8 @@
-function CalendarDialog(dayPilot) {
+function CalendarDialog(callback) {
 	this.contextMenuClassName = "Event-popup";
 	this.contextMenuItemClassName = "Event__item";
 	
-	this.dayPilot = dayPilot;
+	this.callback = callback;
 	this.calendarItem;
 	this.busyBackground = Dom.newDOMElement({
 		_name: "div",
@@ -135,9 +135,6 @@ CalendarDialog.prototype.onAccept = function() {
 	};
 	var args = this.calendarItem;
 	var callback = function(appointment){
-		
-//		args.start = new DayPilot.Date(moment(start).format('YYYY-MM-DDTHH:mm:ss').toString());
-//		args.end = new DayPilot.Date(moment(end).format('YYYY-MM-DDTHH:mm:ss').toString());
 		var e = new DayPilot.Event({
 		      start: args.start,
 		      end: args.end,
@@ -153,7 +150,7 @@ CalendarDialog.prototype.onAccept = function() {
 		      room: 0,
 		      floor: 0
 		  });
-		thiz.dayPilot.events.add(e);
+		thiz.callback(e);
 		
 	}
 	serverReport.getJson("/createEvent.do", "POST", callback, {

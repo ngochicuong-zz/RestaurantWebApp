@@ -51,30 +51,31 @@ IndexMain.prototype.renderContainer = function(navName){
 IndexMain.renderSlider = function() {
 	var callback = function(promos) {
 		console.log(promos);
-		if (promos.length == 0) return;
-		var slideContainer = document.querySelector("#slides");
-		var slidesControllersCollection = document.querySelector("#slides-controls");
-		for (var i = 1; i <= Math.min(promos.length, 4); i++) {
-			var promo = promos[i - 1];
-			var element = Dom.newDOMElement({
-				_name: "div",
-				class: "slide",
-				_children: [	
-					{
-						_name: "img",
-						style: "width: 100%; height: 100%;",
-						src:bin2string(promo.imagebyte),
-					}
-				]
-			});
-			slideContainer.appendChild(element);
-			var index = i;
-			var element = Dom.newDOMElement({
-				_name: "a",
-				href: "#",
-				_text: index + 1,
-			});
-			slidesControllersCollection.appendChild(element);
+		if (promos.length > 0) {
+			var slideContainer = document.querySelector("#slides");
+			var slidesControllersCollection = document.querySelector("#slides-controls");
+			for (var i = 1; i <= Math.min(promos.length, 4); i++) {
+				var promo = promos[i - 1];
+				var element = Dom.newDOMElement({
+					_name: "div",
+					class: "slide",
+					_children: [	
+						{
+							_name: "img",
+							style: "width: 100%; height: 100%;",
+							src:bin2string(promo.imagebyte),
+						}
+					]
+				});
+				slideContainer.appendChild(element);
+				var index = i;
+				var element = Dom.newDOMElement({
+					_name: "a",
+					href: "#",
+					_text: index + 1,
+				});
+				slidesControllersCollection.appendChild(element);
+			}
 		}
 		setUpSlideShow();
 		IndexMain.busyHandler.unBusy();

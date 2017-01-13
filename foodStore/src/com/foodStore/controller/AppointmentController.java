@@ -144,7 +144,6 @@ public class AppointmentController {
 		boolean removed = ServiceManagement.get(IAppointmentService.class).bookSeatForEvent(seatId, eventId);
 		Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(loginCode);
 		Order order = ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId());
-		System.out.println(order + "||" +  account);
 		return String.valueOf(true);
 	}
 	

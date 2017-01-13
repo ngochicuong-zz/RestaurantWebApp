@@ -304,9 +304,20 @@ border-bottom: solid 1px #E4E1E1;
 }
 
 select {
-	color: #000 !important; 
-    background-color: #fff;
-    min-height: 1.5em;
+	color: #000 !important;
+	background-color: #fff;
+	min-height: 1.5em;
+	-moz-appearance: none;
+	-webkit-user-select: none;
+	background-image: url(../ico/dropDown.png);
+	background-position: 97% center;
+	background-repeat: no-repeat;
+	border: 1px solid #AAA;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding-right:1.5em;
+	background-size: 1em;
 }
 
 .combo-popup  {

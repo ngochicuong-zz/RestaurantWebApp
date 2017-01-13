@@ -41,10 +41,6 @@ public class PaymentService extends ServiceBase<Payment> implements IPaymentServ
 		payment.setRealPay(realPay);
 		payment.setDebt(payment.getTotalToPay() - realPay);
 		
-		SeatTable seat = this.repository.getItemById(SeatTable.class, order.getSeatTable().getId());
-		seat.setOnDesk('f');
-		this.repository.updateItem(seat);
-		
 		return save(payment);
 	}
 

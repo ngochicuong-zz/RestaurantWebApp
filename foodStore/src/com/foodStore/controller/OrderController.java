@@ -24,11 +24,13 @@ import com.foodStore.model.Payment;
 import com.foodStore.model.PaymentAdapter;
 import com.foodStore.model.Promotion;
 import com.foodStore.model.PromotionAdapter;
+import com.foodStore.model.SeatTable;
 import com.foodStore.service.IAccountService;
 import com.foodStore.service.IImageService;
 import com.foodStore.service.IOrderService;
 import com.foodStore.service.IPaymentService;
 import com.foodStore.service.IPromotionService;
+import com.foodStore.service.ISeatTableService;
 import com.foodStore.service.ServiceManagement;
 
 @Controller
@@ -105,6 +107,13 @@ public class OrderController {
 			@RequestParam("realPay") double realPay,
 			ModelMap model) {
 		Payment payment = ServiceManagement.get(IPaymentService.class).createPayment(refCode, promotionCode, realPay);
+		if (payment != null) {
+			Order order = ServiceManagement.get(IOrderService.class).searchOrderByRefCode(refCode);
+			if (payment.getRealPay() >= order.getTotal()) {
+				ServiceManagement.get(IOrderService.class).setOnPay(order, true);
+				ServiceManagement.get(ISeatTableService.class).setOnDesk(order.getSeatTable().getId(), false);
+			}
+		}
 		return JsonUtil.build(Order.class, new PaymentAdapter()).toJson(payment);
 	}
 	

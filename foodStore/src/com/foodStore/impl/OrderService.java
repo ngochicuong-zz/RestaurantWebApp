@@ -56,6 +56,20 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 	}
 
 	@Override
+	public Order searchOrderByRefCode(String refCode) {
+		List<Order> orders = this.repository.customQuery(Order.class, new ICriteriaBuilder(){
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(Order.class);
+				criteria.add(Restrictions.eq("refCode", refCode));
+				return criteria;
+			}
+		});
+		if (orders.size() == 0) return null;
+		return orders.get(0);
+	}
+	
+	@Override
 	public boolean updateOrderTotal(int orderId) {
 		Order order = this.repository.getItemById(Order.class, orderId);
 		Object total = this.repository.customQuery(OrderDetail.class, new ICriteriaBuilder(){
@@ -114,4 +128,5 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		System.out.println(sqlCommand);
 		return this.repository.runSqlQuery(sqlCommand);
 	}
+
 }

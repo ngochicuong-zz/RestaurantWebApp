@@ -93,9 +93,10 @@ function AddImageDialog(imageCode, callback) {
 		thiz.acceptButton.disabled = true;
 		if (thiz.imageCode != "") {
 			var callback = function(image) {
-				if (image.length == 0) return;
-				thiz.acceptButton.innerHTML = "Thay đổi";
-				thiz.image.src = image[0].imageByte;
+				if (image.length > 0) {
+					thiz.acceptButton.innerHTML = "Thay đổi";
+					thiz.image.src = image[0].imageByte;
+				}
 				Main.busyHandler.unWait();
 			}
 			serverReport.getJson("/getImageByCode.do", "GET",

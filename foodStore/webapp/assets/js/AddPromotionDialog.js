@@ -220,14 +220,16 @@ AddPromotionDialog.prototype.onAccept = function() {
 	} else {
 		var callback = function(newPromotion){
 			if (newPromotion) {
+				newPromotion.fromDate = thiz.fromDate;
+				newPromotion.toDate = thiz.toDate;
 				if (thiz.callback) thiz.callback(newPromotion);
 			}
 		}
 		serverReport.getJson("/createPromotion.do", "GET", callback, {
-					"paycondition" : thiz.payCondition.value,
+					"paycondition" : thiz.payCondition.value.replace(" Đ", "").replace(/,/g, ""),
 					"discount" : thiz.discount.value,
-					"fromDate" : thiz.fromDate.value == "" ? thiz.fromDate.value : moment(thiz.fromDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
-					"toDate" : thiz.toDate.value == "" ? thiz.toDate.value : moment(thiz.toDate.value).format('YYYY-MM-DD HH:mm:ss').toString(),
+					"fromDate" : !thiz.fromDate ? "" : moment(thiz.fromDate).format('YYYY-MM-DD HH:mm:ss').toString(),
+					"toDate" : !thiz.toDate ? "" : moment(thiz.toDate).format('YYYY-MM-DD HH:mm:ss').toString(),
 					"description" : thiz.description.value,
 				});
 	}
