@@ -11,7 +11,8 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="webapp/assets/css/Main.css">
 <link rel="stylesheet" href="webapp/assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="webapp/assets/css/material_icon.css">
-<link rel="stylesheet" href="webapp/assets/css/print.css">
+<link rel="stylesheet" href="webapp/assets/css/pikaday.css">
+
 
 <script src="webapp/assets/js/jquery-1.11.1.min.js"></script>
 <script src="webapp/assets/bootstrap/js/bootstrap.min.js"></script>
@@ -42,6 +43,7 @@ pageEncoding="UTF-8"%>
 <script src="webapp/assets/js/TablePage.js"></script>
 <script src="webapp/assets/js/OrderPage.js"></script>
 <script src="webapp/assets/js/ProductManagementPage.js"></script>
+<script src="webapp/assets/js/pikaday.js"></script>
 <script src="webapp/assets/js/AccountManagementPage.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

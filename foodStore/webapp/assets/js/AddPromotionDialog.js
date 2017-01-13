@@ -71,7 +71,7 @@ function AddPromotionDialog(promotion, callback) {
 					{
 						_name: "input",
 						id: "from-date",
-						type: "date"
+						type: "text"
 					}
 				]
 			},
@@ -86,7 +86,7 @@ function AddPromotionDialog(promotion, callback) {
 					{
 						_name: "input",
 						id: "to-date",
-						type: "date"
+						type: "text"
 					}
 				]
 			},
@@ -116,6 +116,20 @@ function AddPromotionDialog(promotion, callback) {
 		thiz.fromDate = thiz.container.querySelector("#from-date");
 		thiz.toDate = thiz.container.querySelector("#to-date");
 		thiz.description = thiz.container.querySelector("#description");
+		
+		var fromDateValue = new Date();
+		var toDateValue = new Date();
+		
+	    var fromDatePicker = new Pikaday({
+	        field: thiz.fromDate,
+	        format: 'DD-MM-YYYY',
+	        
+	    });
+	    
+	    var toDatePicker = new Pikaday({
+	        field: thiz.toDate,
+	        format: 'DD-MM-YYYY',
+	    });
 		
 		thiz.acceptButton = thiz.container.querySelector("#accept");
 		thiz.closeButton = thiz.container.querySelector("#close");

@@ -371,6 +371,7 @@ input{
   transition: box-shadow 0.3s, border 0.3s;
   color: #000 !important;
   height: 1.7 em !important;
+  text-align: center;
 }
 input :focus,
 input .focus {
