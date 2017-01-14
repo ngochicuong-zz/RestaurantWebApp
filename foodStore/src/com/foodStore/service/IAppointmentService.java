@@ -14,4 +14,5 @@ public interface IAppointmentService {
 	List<Appointment> getEventByCapacity(int capacity);
 	
 	boolean bookSeatForEvent(int eventId, int seatId);
+	Appointment getAppointmentById(int eventId);
 }

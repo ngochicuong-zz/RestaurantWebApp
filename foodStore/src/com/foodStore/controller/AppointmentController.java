@@ -19,9 +19,11 @@ import com.foodStore.model.Account;
 import com.foodStore.model.Appointment;
 import com.foodStore.model.AppointmentAdapter;
 import com.foodStore.model.Order;
+import com.foodStore.model.SeatTable;
 import com.foodStore.service.IAccountService;
 import com.foodStore.service.IAppointmentService;
 import com.foodStore.service.IOrderService;
+import com.foodStore.service.ISeatTableService;
 import com.foodStore.service.ServiceManagement;
 
 @Controller
@@ -121,6 +123,15 @@ public class AppointmentController {
 	public String removeEvent(
 			@RequestParam("eventId") int eventId,
 			ModelMap model) {
+		Appointment event = ServiceManagement.get(IAppointmentService.class).getAppointmentById(eventId);
+		SeatTable oldSeat = event.getSeatTable();
+		if (oldSeat != null) {
+			Order order = ServiceManagement.get(IOrderService.class).getOrderWithSeat(oldSeat.getId());
+			if (order != null) {
+				ServiceManagement.get(IOrderService.class).deleteOrder(order);
+			}
+			ServiceManagement.get(ISeatTableService.class).setOnDesk(oldSeat.getId(), false);
+		}
 		boolean removed = ServiceManagement.get(IAppointmentService.class).removeEvent(eventId);
 		return String.valueOf(removed);
 	}
@@ -141,9 +152,18 @@ public class AppointmentController {
 			@RequestParam("eventId") int eventId,
 			@RequestParam("loginCode") String loginCode,
 			ModelMap model) {
-		boolean removed = ServiceManagement.get(IAppointmentService.class).bookSeatForEvent(seatId, eventId);
+		Appointment event = ServiceManagement.get(IAppointmentService.class).getAppointmentById(eventId);
+		SeatTable oldSeat = event.getSeatTable();
+		if (oldSeat != null) {
+			Order order = ServiceManagement.get(IOrderService.class).getOrderWithSeat(oldSeat.getId());
+			if (order != null) {
+				ServiceManagement.get(IOrderService.class).deleteOrder(order);
+			}
+			ServiceManagement.get(ISeatTableService.class).setOnDesk(oldSeat.getId(), false);
+		}
+		ServiceManagement.get(IAppointmentService.class).bookSeatForEvent(seatId, eventId);
 		Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(loginCode);
-		Order order = ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId());
+		ServiceManagement.get(IOrderService.class).createOrder(seatId, account.getId());
 		return String.valueOf(true);
 	}
 	

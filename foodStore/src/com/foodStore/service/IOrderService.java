@@ -17,4 +17,5 @@ public interface IOrderService{
 	List<? extends Object> sumOrderByFoodOnMonth(String year);
 	List<? extends Object> getAllYear();
 	Order searchOrderByRefCode(String refCode);
+	boolean deleteOrder(Order order);
 }

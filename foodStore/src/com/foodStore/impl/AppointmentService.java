@@ -120,4 +120,9 @@ public class AppointmentService extends ServiceBase<Appointment> implements IApp
 		appointment.setSeatTable(seat);
 		return update(appointment);
 	}
+
+	@Override
+	public Appointment getAppointmentById(int eventId) {
+		return this.repository.getItemById(Appointment.class, eventId);
+	}
 }

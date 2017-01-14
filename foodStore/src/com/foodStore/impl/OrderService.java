@@ -91,7 +91,7 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		if (seat == null) return null;
 		List<Order> orders = (List<Order>) this.repository.getItemsWithAllKey(Order.class, new CompareKey("seatTable", seat));
 		Order order = orders.size() == 0 ? null : orders.get(orders.size() - 1);
-		return order;
+		return order.getOnPay() == 'f' ? order : null;
 	}
 	
 	@Override
@@ -127,6 +127,16 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 				+ " where b.refcode like a.refcode and c.id = b.product_id and extract(year from a.dateinsert) = " + year + " group by month, c.productname order by month desc";
 		System.out.println(sqlCommand);
 		return this.repository.runSqlQuery(sqlCommand);
+	}
+
+	@Override
+	public boolean deleteOrder(Order order) {
+		try {
+			this.repository.deleteItem(order);
+		} catch (Exception ex) {
+			return false;
+		}
+		return true;
 	}
 
 }
