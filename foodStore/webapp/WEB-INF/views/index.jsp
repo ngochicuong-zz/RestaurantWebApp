@@ -24,7 +24,9 @@ pageEncoding="UTF-8"%>
                     -o-background-size: cover;
                     background-size: cover;
                 }
-                
+                body {
+                	background-image: none;
+                }
                 section {
                     flex-direction: column;
                     display: -webkit-box;

@@ -3,7 +3,7 @@ function AppointmentPage() {
 	
 	this.pageContainer = this.table = Dom.newDOMElement({
 		_name : "vbox",
-		id : "pageContainer",
+		style: "margin: 0.2em",
 		flex: "1"
 	});
 	var thiz = this;

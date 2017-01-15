@@ -143,6 +143,7 @@ OrderPage.prototype.init = function() {
 			thiz.order.total += orderDetail.total;
 			thiz.orderTotal.innerHTML = thiz.order.total.formatMoney(0, " Đ");
 			console.log(orderDetail);
+			thiz.productNameIn.focus();
 		}
 		for(var i = 0; i < thiz.orderDetails.length; i++) {
 			var detail = thiz.orderDetails[i];
@@ -159,12 +160,14 @@ OrderPage.prototype.init = function() {
 					thiz.productNameIn.value = "";
 					thiz.qualityIn.value = 0;
 					e.target.data = null;
+					thiz.productNameIn.focus();
 				}
 				break;
 			}
 		}
 		thiz.orderDetailTable.scrollTop = thiz.orderDetailTable.scrollHeight;
 		serverReport.getJson("/createOrderDetail.do?refCode="+ thiz.order.refCode +"&quality="+ thiz.qualityIn.value +"&productId="+ dataNode.data.id +"", "GET", callback);
+	
 	});
 	
 	var renderAction = function(orderDetail) {

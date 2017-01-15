@@ -82,11 +82,11 @@ ComboPopup.prototype.getMenu = function() {
 
 ComboPopup.prototype.toggleMenuOn = function(targetNode) {
 	this.positionMenu(targetNode);
+	this.parent = targetNode.offsetParent;
 	this.flag = true;
-	
 	var thiz = this;
 	window.setTimeout(function() {
-		document.body.appendChild(thiz.menu);
+		targetNode.offsetParent.appendChild(thiz.menu);
 	})
 }
 
@@ -107,7 +107,11 @@ ComboPopup.prototype.toggleMenuOnCenter = function() {
 }
 
 ComboPopup.prototype.toggleMenuOff = function() {
+	if (this.parent) {
+		this.parent.removeChild(this.menu);
+	}
 	document.body.removeChild(this.menu);
+	
 }
 
 ComboPopup.prototype.positionMenu = function(targetNode){

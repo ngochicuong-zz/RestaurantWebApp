@@ -6,9 +6,10 @@ pageEncoding="UTF-8"%>
 <style>
 	#seat-info{
 		min-width: 10em;
-	    background-color: #FBA800;
-	    box-shadow: 1px 1px 5px #000;
-	    border-top: solid 2px #000;
+		background-color: #F8694A;
+		margin: 0.2em;
+		border-radius: 0.2em;
+		margin-bottom: 0;
 	}
 		
 	}
@@ -16,17 +17,11 @@ pageEncoding="UTF-8"%>
 		
 		
 	}
-	#container-panel {
-	}
 	#container-panel > table {
 		
 	}
-	#container-panel > table > tbody > tr:hover {
-		background-color: #FA6800;
-	}
-	
-	#orderDetailPanel{
-		padding: 0.5em;
+	#container-panel > table > tbody > tr:hover , #container-panel > table > tbody > td:hover {
+		background-color: #FA6800 !important;
 	}
 	
 	#payment-container hbox, #payment-container vbox {
@@ -34,7 +29,7 @@ pageEncoding="UTF-8"%>
 	}
 	
 	#payment-container label{
-		width: 10em;
+		width: 15em;
 	}
 	
 	#payment-container button{
@@ -83,11 +78,11 @@ pageEncoding="UTF-8"%>
 	</hbox> 
 	<vbox id="container-panel" flex="1">
 		<vbox id="orderDetailPanel" flex="1">
-			<vbox id="orderDetailTable" style="overflow-y:auto;" flex="1">
+			<vbox id="orderDetailTable" style="overflow-y:auto; position: relative;" flex="1">
 				<hbox class="InputRow" id="add-detail-panel" style="margin-bottom: 0.5em;" >
 					<hbox flex="2">
 						<label>Món ăn: </label>
-						<input flex="1" style="margin-left: 0.5em;" type="text" id="productText"/>
+						<input flex="1" style="margin-left: 0.5em; max-width: 30em" type="text" id="productText"/>
 					</hbox>
 					<hbox flex="1">
 						<label>Số lượng: </label>
@@ -108,19 +103,16 @@ pageEncoding="UTF-8"%>
 				<label>Tổng tiền trên hóa đơn:</label>
 				<input type="text" id="total-on-order" disabled="true" />
 			</hbox>
-			<vbox >
-				<hbox class="InputRow">
-					<label>Khuyến mãi áp dụng:</label>
-					<select id="promo-code-combo">
-					  <option value= -1 selected>--Không chọn--</option>
-					</select>
-				</hbox>
-				<hbox class="InputRow">
-					<label></label>
-					<p flex="1" id="promo-info" style="color: red;"> Giảm giá: </p>
-				</hbox>
-				
-			</vbox>
+			<hbox class="InputRow">
+				<label>Khuyến mãi áp dụng:</label>
+				<select id="promo-code-combo">
+				  <option value= -1 selected>--Không chọn--</option>
+				</select>
+			</hbox>
+			<hbox class="InputRow">
+				<label></label>
+				<p id="promo-info" style="color: red;" > Giảm giá: </p>
+			</hbox>
 			
 			<hbox class="InputRow">
 				<label>Tổng tiền được giảm:</label>
@@ -138,7 +130,7 @@ pageEncoding="UTF-8"%>
 			</hbox>
 			
 			<hbox class="InputRow">
-				<label>Payment type:</label>
+				<label>Phương thức thanh toán:</label>
 				<select id="payment-type">
 				  <option value= 1 selected>Tiền mặt</option>
 				</select>

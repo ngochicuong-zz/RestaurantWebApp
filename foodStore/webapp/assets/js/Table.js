@@ -11,7 +11,7 @@ Table.prototype.init = function(tHeader, action) {
 	this.tHeader = tHeader;
 	this.table = Dom.newDOMElement({
 		_name : "table",
-		class : "table table-bordered"
+		class : "table"
 
 	});
 	var trNode = Dom.newDOMElement({
@@ -20,7 +20,7 @@ Table.prototype.init = function(tHeader, action) {
 	for (var i = 0; i < tHeader.length; i++) {
 		var h = tHeader[i];
 		var tdNode = Dom.newDOMElement({
-			_name : "td",
+			_name : "th",
 			_text : h.column.toUpperCase(),
 		});
 		tdNode.style.border = "none";
@@ -29,7 +29,7 @@ Table.prototype.init = function(tHeader, action) {
 	var theaderNode = Dom.newDOMElement({
 		_name : "thead"
 	});
-	trNode.style.background = "#f7ae02";
+//	trNode.style.background = "#f7ae02";
 	theaderNode.appendChild(trNode);
 	this.table.appendChild(theaderNode);
 	this.tableBody = Dom.newDOMElement({
@@ -106,12 +106,14 @@ Table.prototype.render = function(items) {
 		}
 		if (thiz.renderBackground) {
 			if (thiz.renderBackground(item)) {
-				trNode.style.background = "rgb(255, 248, 185)";
+//				trNode.style.background = "rgb(255, 248, 185)";
+				trNode.setAttribute("busy", true);
+				
 			} else {
-				trNode.style.background = "#fff";
+//				trNode.style.background = "#fff";
 			}
 		} else {
-			trNode.style.background = "#fff";
+//			trNode.style.background = "#fff";
 		}
 		if (thiz.renderAction != null) {
 			var buttons = thiz.renderAction(item);

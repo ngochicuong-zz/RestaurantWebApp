@@ -171,6 +171,9 @@ body {
   margin: 0px;
   padding: 0px;
   height: 100%;
+  background: url("../img/backgrounds/blur.jpg");
+  background-size: cover;
+  color:#000;
 }
 #appView {
   visibility: hidden;
@@ -308,7 +311,7 @@ select {
 	background-color: #fff;
 	min-height: 1.5em;
 	-moz-appearance: none;
-	-webkit-user-select: none;
+	-webkit-appearance: none;
 	background-image: url(../ico/dropDown.png);
 	background-position: 97% center;
 	background-repeat: no-repeat;
@@ -324,15 +327,17 @@ select {
 	display: block;
     position: absolute;
     z-index: 100;
-    background-color: #fff8b9;
+    background-color: #a1a1a1;
     border: solid 1px #a7a7a7;
-    box-shadow: 1px 1px 1px #272626;
-    color: #000;
+    box-shadow: 2px 2px 5px #000000;
+    color: #020202;
+    text-shadow: 0px 1px #fff;
+    font-family: liberties;
+    border-radius: 0.2em;
 }
 
 hbox.combo-popup__item:hover {
     background-color:#f7ae02;
-    color: #fff;
 }
 
 .combo-popup__item {
@@ -354,7 +359,7 @@ hbox.combo-popup__item:hover {
 	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 	-moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-	background:#eee;
+	background:#e1e1e1;;
 	min-width:20em; 
 	padding : 1em;
 }
@@ -382,7 +387,8 @@ input{
   transition: box-shadow 0.3s, border 0.3s;
   color: #000 !important;
   height: 1.7 em !important;
-  text-align: center;
+  text-align: left;
+  max-width: 10em;
 }
 input :focus,
 input .focus {
@@ -413,17 +419,17 @@ button {
 	white-space: nowrap;
 	vertical-align: middle;
 	cursor: pointer;
-	border: 1px solid #000;
+	border: solid 1px #F9CA6B;
 	border-radius: 4px;
 	box-sizing: border-box;
 	border-radius: 0.3ex;
-	background: #FFF;
+	background: F9CA6B;
 	outline: none;
-	text-shadow: 0px 1px 0px #FFF;
-	background-image: -webkit-linear-gradient(top, #FF6E03, #FF9000 50%, #FF6300 50%, #F90);
-	background-image: -moz-linear-gradient(top, #FF6E03, #FF9000 50%, #FF6300 50%, #F90);
-	background-image: -o-linear-gradient(top, #FF6E03, #FF9000 50%, #FF6300 50%, #F90);
-	background-image:  linear-gradient(to bottom, #FF6E03, #FF9000 50%, #FF6300 50%, #F90);
+	text-shadow: 0px 1px 0px #fff;
+	background-image: -webkit-linear-gradient(top, #F9CA6B, #F8C257 50%, #F5B025 50%, #FBAF17);
+	background-image: -moz-linear-gradient(top, #F9CA6B, #F8C257 50%, #F5B025 50%, #FBAF17);
+	background-image: -o-linear-gradient(top, #F9CA6B, #F8C257 50%, #F5B025 50%, #FBAF17);
+	background-image: linear-gradient(to bottom, #F9CA6B, #F8C257 50%, #F5B025 50%, #FBAF17);
 	background-repeat: repeat-x;
 	align-items: center;
 }
@@ -519,6 +525,87 @@ span {
 i {
 	cursor:pointer;
 }
+
+
 table {
 	position: relative;
+	background-color: rgba(254, 254, 254, 0.41);
+	color: #fff;
+	border-radius: 0.2em;
+}
+
+table tr td, table th{
+	white-space: nowrap;
+	word-wrap: break-word;
+	text-overflow: ellipsis;
+	max-width: 5em;
+	text-align: center;
+	overflow: hidden;
+	font-family: liberties;
+	background-color: #f5790000;
+	vertical-align: middle !important;
+	text-shadow: 0px 1px #000;
+}
+
+table > tbody > tr:first-child{
+	border:none;
+}
+
+table > tbody > tr > td > i{
+	margin-left: 0.3em;
+	text-shadow: none;
+}
+
+table > thead > tr > th{
+	text-shadow: none;
+}
+
+table > thead {
+	color:#000;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td,
+.table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+	border: none;
+}
+
+table > tbody > tr {
+	border-top: solid 1px #ddd;
+}
+
+table > tbody > tr[busy='true'], table > tbody > tr[busy='true']:hover  {
+	background-color:  #31C3D9;
+}
+
+table > tbody > tr:hover {
+	background-color: #31C3D980;
+}
+
+#container-panel {
+	padding: 0.2em;
+}
+
+#search-panel {
+	min-width: 10em;
+	padding: 0.5em;
+	background-color: rgba(0, 0, 0, 0.4);
+	color: #ffffff;
+	border-radius: 0.2em;
+	margin: 0.2em;
+	margin-bottom: 0em;	
+}
+
+#search-panel[type='vertical'] {
+	min-width: 10em;
+	background-color: rgba(0, 0, 0, 0.4);
+	color: #ffffff;
+	padding: 0.5em;
+	border-radius: 0.2em;
+	margin: 0.2em;	
+	margin-right: 0em;
+}
+
+
+#search-panel > vbox + hbox {
+	margin-top:1em;
 }

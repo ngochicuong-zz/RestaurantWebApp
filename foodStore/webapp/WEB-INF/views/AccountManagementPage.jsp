@@ -4,24 +4,13 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
-	#search-panel{
-		min-width: 10em;
-		background-color: #313236;
-		color: #ffffff;
-		padding: 0.5em;
-	}
-	#search-panel > vbox + hbox {
-		margin-top:1em;
-	}
-	
 	#search-panel label {
 		min-width: 5em;
 	}
 </style>
 <vbox flex="1"> 
-	<vbox id="search-panel"> 
-		<hbox class="InputRow" id="add-detail-panel" style=" align-items: flex-start;" >
-			<hbox flex="1" class="InputRow">
+		<hbox class="InputRow" id="search-panel" style=" align-items: flex-start;" >
+			<hbox class="InputRow">
 				<label>Tài khoản: </label>
 				<input flex="2" style="color:#000;" type="text" id="account-name"/>
 			</hbox>
@@ -32,7 +21,6 @@ pageEncoding="UTF-8"%>
 				<button style="margin-left: 0.5em" id="add-button"><i class="material-icons md-dark md-32" >add</i></button>
 			</hbox>
 		</hbox>
-	</vbox> 
 	<vbox id="container-panel" flex="1" style="overflow: auto">
 	<!-- 
 		<table class="table table-bordered">

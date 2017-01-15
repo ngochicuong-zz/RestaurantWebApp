@@ -119,7 +119,7 @@ IndexMain.renderMenu = function() {
 			}
 			
 		}
-		IndexMain.busyHandler.unBusy();
+		IndexMain.busyHandler.unWait();
 	}
 	serverReport.getJson("/searchProduct.do", "GET",
 			callback, {
@@ -127,7 +127,7 @@ IndexMain.renderMenu = function() {
 				"price" : -1 ,
 				"categories" : "-1"
 	});
-	IndexMain.busyHandler.busy();
+	IndexMain.busyHandler.waitting();
 }
 
 function BusyHandler() {
@@ -147,6 +147,19 @@ function BusyHandler() {
 		]
 	});
 	
+	this.wattingPage = Dom.newDOMElement({
+		_name: "vbox",
+		id: "loader-wrapper",
+		style: "cursor:wait;  opacity: 0;"
+	});
+	
+}
+BusyHandler.prototype.waitting = function() {
+	document.body.appendChild(this.wattingPage);
+}
+
+BusyHandler.prototype.unWait = function() {
+	document.body.removeChild(this.wattingPage);
 }
 
 BusyHandler.prototype.busy = function() {

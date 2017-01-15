@@ -131,8 +131,8 @@ pageEncoding="UTF-8"%>
     	<div class="login-page">
 		  <div class="form">
 		    <form class="login-form">
-		      <input id="user" type="text" placeholder="username"/>
-		      <input id="pwd" type="password" placeholder="password"/>
+		      <input id="user" type="text" placeholder="Tên đăng nhập"/>
+		      <input id="pwd" type="password" placeholder="Mật khẩu"/>
 		      <button id="login-button">Đăng nhập</button>
 		      <span id="message" style="color: red; font-size: 0.8em"></span>
 		    </form>

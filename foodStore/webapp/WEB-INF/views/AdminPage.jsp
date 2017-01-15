@@ -5,6 +5,15 @@ pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
 
+#admin-nav {
+	justify-content: flex-start;
+	background-color: rgba(0, 0, 0, 0.4);
+	color: #fff;
+	margin: 0.2em;
+	border-radius: 0.2em;
+	margin-right: 0;
+}
+
 .admin-item {
 	padding: 0.2em;
 }
@@ -27,9 +36,7 @@ pageEncoding="UTF-8"%>
 }
 </style>
 <hbox flex="1" id="admin-page">
-	<vbox style="justify-content: flex-start;
-			background-color: #3b3b3b;
-			color: #fff">	
+	<vbox id="admin-nav">	
 		<vbox page-name="account-manager-page" class="admin-item" style="text-align: center;" id="default-nav">
 			<i class="material-icons orange600 md-32" >account_circle</i>
 			<label>Quản lý tài khoản</label>

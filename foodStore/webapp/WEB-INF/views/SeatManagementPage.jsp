@@ -4,15 +4,8 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
-	#search-panel{
-		min-width: 10em;
-		background-color: #313236;
-		color: #ffffff;
-		padding: 0.5em;
-	}
 	#search-panel > vbox, #search-panel > hbox {
 		margin-left: 1em;
-		
 	}
 </style>
 <vbox flex="1"> 

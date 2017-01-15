@@ -54,10 +54,15 @@ AccountManagementPage.prototype.init = function(){
 						thiz.onUpdateItem(account, newItem);
 					}
 				}
-				serverReport.getJson("/setActiveAccount.do", "GET", callback, {
-					"userId" : account.id,
-					"active" : false
-				});
+				var handler = function() {
+					serverReport.getJson("/setActiveAccount.do", "GET", callback, {
+						"userId" : account.id,
+						"active" : false
+					});
+				}
+				Dialog.alert("Xác nhận!","Bạn có thật sự muốn đóng tài khoản này?"
+						, "Khóa tài khoản", handler, "Đóng" , null, null, null
+				);
 			}
 			buttons.push(button);
 		} 
