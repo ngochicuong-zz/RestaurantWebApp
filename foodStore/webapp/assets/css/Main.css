@@ -530,7 +530,7 @@ i {
 table {
 	position: relative;
 	background-color: rgba(174, 170, 159, 0.6);
-	color: #fff;
+	color: #000;
 	border-radius: 0.2em;
 	border-collapse: separate;
 	box-shadow: 1px 1px 5px #000;
@@ -550,7 +550,7 @@ table tr td, table th{
 	font-family: liberties;
 	background-color: #f5790000;
 	vertical-align: middle !important;
-	text-shadow: 0px 1px #000;
+	text-shadow: 0px 1px #fff;
 	font-size: 1.1em;
 }
 
@@ -564,7 +564,7 @@ table > tbody > tr > td > i{
 }
 
 table > thead > tr > th{
-	text-shadow: none;
+	text-shadow: 0px 1px #fff;
 }
 
 table > thead {
@@ -580,7 +580,7 @@ table > tbody > tr[busy='true'], table > tbody > tr[busy='true']:hover  {
 }
 
 table > tbody > tr:hover {
-	background-color: #31C3D980;
+	background-color: #B3B3B3;
 }
 
 #container-panel {
