@@ -12,6 +12,7 @@ public class OrderDetailAdapter extends Adapter implements JsonSerializer<OrderD
 	public JsonElement serialize(OrderDetail orderDetail, Type type, JsonSerializationContext jsc) {
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("id", orderDetail.getId());
+		jsonObject.addProperty("productId", orderDetail.getProduct().getId());
 		jsonObject.addProperty("productName", orderDetail.getProduct().getProductName());
 		jsonObject.addProperty("price", orderDetail.getPrice());
 		jsonObject.addProperty("total", orderDetail.getTotal());

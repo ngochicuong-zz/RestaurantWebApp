@@ -171,7 +171,7 @@ body {
   margin: 0px;
   padding: 0px;
   height: 100%;
-  background: url("../img/backgrounds/blur.jpg");
+  background: url("../img/backgrounds/blur-2.jpg");
   background-size: cover;
   color:#000;
 }
@@ -529,9 +529,15 @@ i {
 
 table {
 	position: relative;
-	background-color: rgba(254, 254, 254, 0.41);
+	background-color: rgba(174, 170, 159, 0.6);
 	color: #fff;
 	border-radius: 0.2em;
+	border-collapse: separate;
+	box-shadow: 1px 1px 5px #000;
+}
+
+table tbody tr td[longText='true']{
+	text-align: left;
 }
 
 table tr td, table th{
@@ -545,6 +551,7 @@ table tr td, table th{
 	background-color: #f5790000;
 	vertical-align: middle !important;
 	text-shadow: 0px 1px #000;
+	font-size: 1.1em;
 }
 
 table > tbody > tr:first-child{
@@ -562,11 +569,6 @@ table > thead > tr > th{
 
 table > thead {
 	color:#000;
-}
-
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td,
-.table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-	border: none;
 }
 
 table > tbody > tr {

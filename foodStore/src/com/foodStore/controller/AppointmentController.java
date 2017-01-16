@@ -19,9 +19,11 @@ import com.foodStore.model.Account;
 import com.foodStore.model.Appointment;
 import com.foodStore.model.AppointmentAdapter;
 import com.foodStore.model.Order;
+import com.foodStore.model.OrderDetail;
 import com.foodStore.model.SeatTable;
 import com.foodStore.service.IAccountService;
 import com.foodStore.service.IAppointmentService;
+import com.foodStore.service.IOrderDetailService;
 import com.foodStore.service.IOrderService;
 import com.foodStore.service.ISeatTableService;
 import com.foodStore.service.ServiceManagement;
@@ -104,6 +106,20 @@ public class AppointmentController {
 			@RequestParam("timeStart") String timestart ,
 			@RequestParam("timeEnd") String timeend ,
 			ModelMap model) {
+		Appointment event = ServiceManagement.get(IAppointmentService.class).getAppointmentById(eventId);
+		SeatTable oldSeat = event.getSeatTable();
+		if (oldSeat != null) {
+			Order order = ServiceManagement.get(IOrderService.class).getOrderWithSeat(oldSeat.getId());
+			if (order != null) {
+				List<OrderDetail> orderDetails = ServiceManagement.get(IOrderDetailService.class).getOrderDetailByRefCode(order.getRefCode());
+				if (orderDetails.size() > 0) {
+					return String.valueOf(false);
+				} else {
+					ServiceManagement.get(IOrderService.class).deleteOrder(order);
+				}
+			}
+			ServiceManagement.get(ISeatTableService.class).setOnDesk(oldSeat.getId(), false);
+		}
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date timeStart = new Date();
 		Date timeEnd = new Date();
@@ -128,7 +144,12 @@ public class AppointmentController {
 		if (oldSeat != null) {
 			Order order = ServiceManagement.get(IOrderService.class).getOrderWithSeat(oldSeat.getId());
 			if (order != null) {
-				ServiceManagement.get(IOrderService.class).deleteOrder(order);
+				List<OrderDetail> orderDetails = ServiceManagement.get(IOrderDetailService.class).getOrderDetailByRefCode(order.getRefCode());
+				if (orderDetails.size() > 0) {
+					return String.valueOf(false);
+				} else {
+					ServiceManagement.get(IOrderService.class).deleteOrder(order);
+				}
 			}
 			ServiceManagement.get(ISeatTableService.class).setOnDesk(oldSeat.getId(), false);
 		}

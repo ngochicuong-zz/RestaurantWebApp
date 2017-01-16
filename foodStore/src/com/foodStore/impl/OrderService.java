@@ -89,9 +89,18 @@ public class OrderService extends ServiceBase<Order> implements IOrderService{
 		SeatTable seat = this.repository.getItemById(SeatTable.class, seatId);
 		System.out.println(seat);
 		if (seat == null) return null;
-		List<Order> orders = (List<Order>) this.repository.getItemsWithAllKey(Order.class, new CompareKey("seatTable", seat));
-		Order order = orders.size() == 0 ? null : orders.get(orders.size() - 1);
-		return order.getOnPay() == 'f' ? order : null;
+		List<Order> orders = this.repository.customQuery(Order.class, new ICriteriaBuilder(){
+			@Override
+			public Criteria build(Session session) {
+				Criteria criteria = session.createCriteria(Order.class);
+				criteria.add(Restrictions.eq("seatTable.id", seatId));
+				criteria.addOrder(org.hibernate.criterion.Order.desc("dateInsert"));
+				return criteria;
+			}
+		});
+		System.out.println(orders);
+		Order order = orders.size() == 0 ? null : orders.get(0);
+		return order;
 	}
 	
 	@Override

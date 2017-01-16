@@ -57,7 +57,6 @@ public class OrderController {
 			@RequestParam("seatId") int seatId,
 			ModelMap model) {
 		Order order = ServiceManagement.get(IOrderService.class).getOrderWithSeat(seatId);
-		if (order == null) return "{}";
 		return JsonUtil.build(Order.class, new OrderAdapter()).toJson(order);
 	}
 	

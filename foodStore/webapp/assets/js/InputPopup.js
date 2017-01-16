@@ -15,7 +15,6 @@ function InputPopup(targetNode, quality) {
 				_name : "hbox",
 				flex:"1",
 				style: "padding: 0.5em; justify-content: center",
-				class: "combo-popup__item",
 				_children: [
 					{
 						_name : "input",

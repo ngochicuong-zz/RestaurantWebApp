@@ -25,10 +25,12 @@ function Main() {
 			}
 		}); 
 		if (thiz.pageManagement.activePage && pageNode.getAttribute("page-name") == thiz.pageManagement.activePage.name) return;
-		pageNode.className += " active";
-		
 		if (navActived != null) 
 			navActived.classList.remove("active");
+		
+		pageNode.className += " active";
+		
+		
 		navActived = pageNode;
 		thiz.pageManagement.active(pageNode.getAttribute("page-name"));
 	}, false);

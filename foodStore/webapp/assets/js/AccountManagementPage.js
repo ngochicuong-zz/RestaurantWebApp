@@ -109,20 +109,24 @@ AccountManagementPage.prototype.init = function(){
 	var theader = [
 		{
 			"column" : "Tài khoản",
-			"label" : "user"
+			"label" : "user",
+			"type" : "long text"
 		},
 		{
 			"column" : "Mật khẩu",
-			"label" : "pass"
+			"label" : "pass",
+			"type" : "long text"
 		},
 		{
 			"column" : "Email",
-			"label" : "email"
+			"label" : "email",
+			"type" : "long text"
 		},
 		{
 			"column" : "Lần cuối đăng nhập",
 			"label" : "lastSignInAt",
-			"type": "date time"
+			"type": "date time",
+			"type" : "long text"
 		},
 		{
 			"column" : "Tình trạng",
@@ -130,7 +134,8 @@ AccountManagementPage.prototype.init = function(){
 		},
 		{
 			"column" : "Quyền",
-			"label" : "role"
+			"label" : "role",
+			"type" : "long text"
 		}];
 	this.table = new Table();
 	this.table.init(theader, renderAction);

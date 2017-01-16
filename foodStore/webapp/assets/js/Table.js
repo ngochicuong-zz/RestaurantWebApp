@@ -95,6 +95,9 @@ Table.prototype.render = function(items) {
 						tdNode.innerHTML = moment(item[index]).format('DD-MM-YYYY').toString();
 					}  else if (thiz.tHeader[i].type && thiz.tHeader[i].type == "date time") {
 						tdNode.innerHTML = moment(item[index]).format('DD-MM-YYYY HH:mm').toString();
+					} else if (thiz.tHeader[i].type && thiz.tHeader[i].type == "long text") {
+						tdNode.setAttribute("longText", "true");
+						tdNode.innerHTML = item[index];
 					}
 					else tdNode.innerHTML = item[index];
 					break;

@@ -131,7 +131,6 @@ OrderPage.prototype.init = function() {
 			}
 		});
 		if (dataNode == null) return;
-		
 		var productName = dataNode.data.productName;
 		
 		var callback = function(orderDetail) {
@@ -147,7 +146,7 @@ OrderPage.prototype.init = function() {
 		}
 		for(var i = 0; i < thiz.orderDetails.length; i++) {
 			var detail = thiz.orderDetails[i];
-			if (detail.id == dataNode.data.id) {
+			if (detail.productId == dataNode.data.id) {
 				var index = i;
 				callback = function(orderDetail) {
 					orderDetail = thiz.orderDetails[index];
@@ -197,7 +196,8 @@ OrderPage.prototype.init = function() {
 	var theader = [
 		{
 			"column" : "Món ăn",
-			"label" : "productName"
+			"label" : "productName",
+			"type" : "long text"
 		},
 		{
 			"column" : "Số lượng",
@@ -314,6 +314,7 @@ OrderPage.prototype.init = function() {
 	};
 	this.comboPopup.action = function(item) {
 		if (item.data == null) return;
+		console.log("action" , item.data)
 		thiz.productNameIn.value = item.data.productName;
 		thiz.addOrderDetailBtn.data = item.data;
 	}

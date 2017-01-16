@@ -85,14 +85,12 @@ AppointmentPage.prototype.setupEvent = function() {
 		if (args.e.data == null) return;
 		var removeEvent = function() {
 			thiz.remove(args.e);
-			
-			
 		}
-		Dialog.alert("Event infomation!","Customer name: " + args.e.data.cusName 
-				+ "<br>Customer phone: " + args.e.data.cusPhone
-				+ "<br>Customer mail: " + args.e.data.cusMail
-				+ "<br>Capacity: " + args.e.data.cusCapacity
-				+ "<br>Seat Id: " + args.e.data.seatId + "\t Room:" + args.e.data.room + "\t Floor: " + args.e.data.floor
+		Dialog.alert("Thông tin đặt chỗ!","Tên khách hàng: " + args.e.data.cusName 
+				+ "<br>Số điện thoại: " + args.e.data.cusPhone
+				+ "<br>Email: " + args.e.data.cusMail
+				+ "<br>Số người: " + args.e.data.cusCapacity
+				+ "<br>Phòng:" + args.e.data.room + "\t Lầu: " + args.e.data.floor
 				, "Close", null, "Delete", removeEvent, "Book table...", function(extraNode, callback) { thiz.bookSeat(extraNode, args);
 				 	if (callback != null) callback();
 				}
@@ -179,6 +177,10 @@ AppointmentPage.prototype.remove = function(e) {
 	var callback = function(removed) {
 		if (removed) {
 			thiz.dayPilot.events.remove(e);
+		} else {
+			Dialog.alert("Lỗi! ","Phiếu đặt bàn đã sử dụng không được xóa"
+					, "Close", null, null , null, null, null
+			);
 		}
 	}
 	serverReport.getBoolean("/removeEvent.do", "GET", callback, {

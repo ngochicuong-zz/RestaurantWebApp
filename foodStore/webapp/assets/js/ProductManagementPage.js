@@ -122,7 +122,8 @@ ProductManagementPage.prototype.init = function(){
 	var theader = [
 		{
 			"column" : "Tên thực phẩm",
-			"label" : "productName"
+			"label" : "productName",
+			"type" : "long text"
 		},
 		{
 			"column" : "Đơn vị tính",
@@ -138,7 +139,8 @@ ProductManagementPage.prototype.init = function(){
 		},
 		{
 			"column" : "Phân loại",
-			"label" : "categoryType"
+			"label" : "categoryType",
+			"type" : "long text"
 		},
 		];
 	this.table = new Table();
