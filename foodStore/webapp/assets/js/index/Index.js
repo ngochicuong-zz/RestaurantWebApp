@@ -1,7 +1,6 @@
 function IndexMain() {
 	this.navContainer = document.querySelector("#nav-container");
 	this.loginButton = document.querySelector("#login-button");
-	IndexMain.busyHandler = new BusyHandler();
 	var thiz = this;
 	this.navContainer.addEventListener("click", function(e) {
 		var navNode = Dom.findUpward(e.target, {
@@ -40,7 +39,7 @@ IndexMain.prototype.renderContainer = function(navName){
 		if (navigator.userAgent.toUpperCase().indexOf("CHROME") > -1) document.body.scrollTop = renderPage.offsetTop;
 		else document.documentElement.scrollTop = renderPage.offsetTop;
 	}
-	serverReport.getHTML(patent, "GET", callback);
+	ServerReport.getHTML(patent, "GET", callback);
 }
 
 /*
@@ -78,10 +77,9 @@ IndexMain.renderSlider = function() {
 			}
 		}
 		setUpSlideShow();
-		IndexMain.busyHandler.unBusy();
+		BusyHandler.unBusy();
 	}
-	serverReport.getJson("/getPromotionWithImage.do", "GET", callback);
-	IndexMain.busyHandler.busy();
+	ServerReport.getJson("/getPromotionWithImage.do", "GET", callback);
 }
 
 IndexMain.renderMenu = function() {
@@ -119,58 +117,15 @@ IndexMain.renderMenu = function() {
 			}
 			
 		}
-		IndexMain.busyHandler.unWait();
+		BusyHandler.unBusy();
 	}
-	serverReport.getJson("/searchProduct.do", "GET",
+	ServerReport.getJson("/searchProduct.do", "GET",
 			callback, {
 				"name" : "" ,
 				"price" : -1 ,
 				"categories" : "-1"
 	});
-	IndexMain.busyHandler.waitting();
-}
-
-function BusyHandler() {
-	this.page = Dom.newDOMElement({
-		_name: "vbox",
-		id: "loader-wrapper",
-		_children: [
-			{
-				_name: "img",
-				src: "webapp/assets/img/backgrounds/loading.jpg",
-				style: "position: absolute; width: 100%; height: 100%; -webkit-filter: blur(5px); filter: blur(5px);"
-			},
-			{
-				_name: "vbox",
-				id: "loader",
-			}
-		]
-	});
-	
-	this.wattingPage = Dom.newDOMElement({
-		_name: "vbox",
-		id: "loader-wrapper",
-		style: "cursor:wait;  opacity: 0;"
-	});
-	
-}
-BusyHandler.prototype.waitting = function() {
-	document.body.appendChild(this.wattingPage);
-}
-
-BusyHandler.prototype.unWait = function() {
-	document.body.removeChild(this.wattingPage);
-}
-
-BusyHandler.prototype.busy = function() {
-	document.body.appendChild(this.page);
-}
-
-BusyHandler.prototype.unBusy = function() {
-	var thiz = this;
-	window.setTimeout(function() {
-		document.body.removeChild(thiz.page);
-	}, 1000)
+	BusyHandler.busy();
 }
 
 function bin2string(array){
@@ -191,16 +146,4 @@ Number.prototype.formatMoney = function(places, symbol, thousand, decimal) {
 	    i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
 	    j = (j = i.length) > 3 ? j % 3 : 0;
 	return negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "") + symbol;
-};
-
-var busy = new BusyHandler();
-document.onreadystatechange = function(e)
-{
-	busy.busy();
-    if (document.readyState === 'complete')
-    {
-    	var mainWindow = new IndexMain();
-		mainWindow.busyHandler = busy;
-		busy.unBusy();
-    }
 };

@@ -10,6 +10,11 @@ import com.foodStore.model.Roles;
 @Controller
 public class indexController {
 	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	public String getTemplatePage(ModelMap model) {
+		return "MainTemplate";
+	}
+	
+	@RequestMapping(value = "/getIndexPage.do", method = RequestMethod.GET)
 	public String startPage(ModelMap model) {
 		return "index";
 	}

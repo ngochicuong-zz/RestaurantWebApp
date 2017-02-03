@@ -45,62 +45,6 @@ function Main() {
 
 }
 
-var busy = new BusyHandler();
-
-document.onreadystatechange = function(e)
-{
-	busy.busy();
-    if (document.readyState === 'complete')
-    {
-    	var mainWindow = new Main();
-    	Main.busyHandler = busy;
-		busy.unBusy();
-    }
-};
-
-function BusyHandler() {
-	this.page = Dom.newDOMElement({
-		_name: "vbox",
-		id: "loader-wrapper",
-		_children: [
-			{
-				_name: "img",
-				src: "webapp/assets/img/backgrounds/loading.jpg",
-				style: "position: absolute; width: 100%; height: 100%; -webkit-filter: blur(5px); filter: blur(5px);"
-			},
-			{
-				_name: "vbox",
-				id: "loader",
-			}
-		]
-	});
-	
-	this.wattingPage = Dom.newDOMElement({
-		_name: "vbox",
-		id: "loader-wrapper",
-		style: "cursor:wait;  opacity: 0;"
-	});
-	
-}
-BusyHandler.prototype.waitting = function() {
-	document.body.appendChild(this.wattingPage);
-}
-
-BusyHandler.prototype.unWait = function() {
-	document.body.removeChild(this.wattingPage);
-}
-
-BusyHandler.prototype.busy = function() {
-	document.body.appendChild(this.page);
-}
-
-BusyHandler.prototype.unBusy = function() {
-	var thiz = this;
-	window.setTimeout(function() {
-		document.body.removeChild(thiz.page);
-	}, 1000)
-}
-
 Number.prototype.formatMoney = function(places, symbol, thousand, decimal) {
 	places = !isNaN(places = Math.abs(places)) ? places : 2;
 	symbol = symbol !== undefined ? symbol : "$";
