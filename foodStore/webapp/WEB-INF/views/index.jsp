@@ -123,7 +123,7 @@ h1:after {
 </style>
 
 <div
-	style="width: 900px; margin: auto; margin-top: 1em; box-shadow: 1px 1px 10px #000;">
+	style="width: 900px; margin: auto; margin-top: 1em; box-shadow: 1px 1px 10px #000;" ng-controller="index-ctrl">
 	<section>
 		<hbox id="navbar"> <hbox flex="1" class="navbar-items">
 		<span style="font-size: 1.5em; font-style: italic; color: #ffc726;">

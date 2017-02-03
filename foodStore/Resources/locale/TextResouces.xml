@@ -1,0 +1,22 @@
+<list>
+  <map>
+    <entry>
+      <string>EN</string>
+      <string>Login</string>
+    </entry>
+    <entry>
+      <string>VI</string>
+      <string>Đăng nhập</string>
+    </entry>
+  </map>
+  <map>
+    <entry>
+      <string>EN</string>
+      <string>Logout</string>
+    </entry>
+    <entry>
+      <string>VI</string>
+      <string>Đăng xuất</string>
+    </entry>
+  </map>
+</list>

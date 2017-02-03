@@ -45,6 +45,8 @@ pageEncoding="UTF-8"%>
 <script src="webapp/assets/js/AccountManagementPage.js"></script>
 <script src="webapp/assets/js/BusyHandler.js"></script>
 <script src="webapp/assets/js/App.js"></script>
+<script src="webapp/assets/js/ServerService.js"></script>
+<script src="webapp/assets/js/ServiceManager.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="webapp/assets/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -53,6 +55,6 @@ pageEncoding="UTF-8"%>
 	<hbox id = "main-container" ng-controller="main-ctrl"></hbox>
 	<script language="javascript" src="webapp/assets/js/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-	<script src="webapp/assets/js/ServerSide.js"></script>
+	
 </body>
 </html>

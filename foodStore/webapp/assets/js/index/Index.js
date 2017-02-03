@@ -1,4 +1,12 @@
 function IndexMain() {
+	var thiz = this;
+	App.module.controller("index-ctrl", function($scope, $timeout) {
+		$scope.init = thiz.init;
+		$scope.init($scope, $timeout);
+	});
+	
+}
+IndexMain.prototype.init = function($scope, $timeout) {
 	this.navContainer = document.querySelector("#nav-container");
 	this.loginButton = document.querySelector("#login-button");
 	var thiz = this;
@@ -15,10 +23,8 @@ function IndexMain() {
 	this.loginButton.addEventListener("click", function() {
 		window.location.href = "/loginPage.do";
 	})
-	
 	IndexMain.renderSlider();
 }
-
 IndexMain.prototype.renderContainer = function(navName){
 	var patent = null;
 	switch(navName) {
