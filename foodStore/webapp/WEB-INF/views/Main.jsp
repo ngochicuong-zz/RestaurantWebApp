@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
 	}
 </style>
 	<vbox flex="1" id="main-interface">
-		<hbox id="navbar">
+		<hbox id="navbar" ng-click="navBarOnClick($event)">
 			<hbox class="navbar-items InputRow" page-name="table-page">
 				<i class="material-icons md-dark md-16" >airline_seat_recline_normal</i>
 				<span>BÀN - CHỖ NGỒI</span>
@@ -88,13 +88,13 @@ pageEncoding="UTF-8"%>
 			</c:if>
 			<hbox flex="1">
 				<hbox flex="1"></hbox>
-				<hbox id="logout" class="navbar-items InputRow" style="justify-content: center">
+				<hbox id="logout" class="navbar-items InputRow" style="justify-content: center" ng-click="logout()">
 					<i class="material-icons md-dark md-16" loginCode="${loginCode}" id="account-info">account_circle</i>
 					<span>ĐĂNG XUẤT</span>
 				</hbox>
 			</hbox>
 		</hbox>
-		<hbox id="main-container" flex="1" style="overflow: auto">
+		<hbox id="main-container" flex="1" style="overflow: auto" container-render>
 		</hbox>
 	</vbox>
 	<hbox id="print-space"></hbox>

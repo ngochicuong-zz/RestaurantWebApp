@@ -1,12 +1,13 @@
-function ServiceManager() {
-	this.services = {};
-	var thiz = this;
-	App.module.service("serviceManager", function() {
+App.service("serviceManager", function($timeout, $http) {
+		this.services = {};
+		this.init = function() {
+			this.registerService(new ServerService($http));
+		}
 		this.get = function(serviceName) {
-			return thiz.services[serviceName];
+			return this.services[serviceName];
 		}
 		this.registerService = function(service) {
-			thiz.services[service.name] = service;
+			this.services[service.name] = service;
 		}
-	});
-}
+		$timeout(this.init());
+});

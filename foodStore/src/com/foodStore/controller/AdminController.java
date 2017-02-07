@@ -23,20 +23,26 @@ public class AdminController {
 		return "AdminPage";
 	}
 	
-	@RequestMapping(value = "/main.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
-	public String startMain(
-			@RequestParam("user") String userStr,
-			ModelMap model) {
-		if (userStr != null) {
-			Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(userStr);
-			if (account != null) {
-				model.addAttribute("role", account.getRole());
-				model.addAttribute("loginCode", account.getLoginCode());
-				return "Main";
-			}
-		}
-		return "login";
-	}
+//	@RequestMapping(value = "/main.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+//	public String startMain(
+//			ModelMap model) {
+//		return "MainTemplate";
+//	}
+	
+//	@RequestMapping(value = "/main.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
+//	public String startMain(
+//			@RequestParam("user") String userStr,
+//			ModelMap model) {
+//		if (userStr != null) {
+//			Account account = ServiceManagement.get(IAccountService.class).searchAccountByLoginCode(userStr);
+//			if (account != null) {
+//				model.addAttribute("role", account.getRole());
+//				model.addAttribute("loginCode", account.getLoginCode());
+//				return "Main";
+//			}
+//		}
+//		return "login";
+//	}
 	
 	@RequestMapping(value = "/getAccountManagementPage.do", produces = "text/plain;charset=UTF-8", method = RequestMethod.GET)
 	public String getAccountManagementPage(ModelMap model) {
