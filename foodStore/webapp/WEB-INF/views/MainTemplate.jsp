@@ -38,7 +38,6 @@ pageEncoding="UTF-8"%>
 <script src="webapp/assets/js/AppointmentPage.js"></script>
 <script src="webapp/assets/js/daypilot-all.min.js"></script>
 <script src="webapp/assets/js/Table.js"></script>
-<script src="webapp/assets/js/TablePage.js"></script>
 <script src="webapp/assets/js/OrderPage.js"></script>
 <script src="webapp/assets/js/ProductManagementPage.js"></script>
 <script src="webapp/assets/js/pikaday.js"></script>
@@ -49,8 +48,7 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body ng-app="app">
-	<hbox id = "main-container" ng-controller="app-ctrl" ng-view flex="1">
-	</hbox>
+	<hbox id="main-container" ng-controller="app-ctrl" ng-view flex="1"></hbox>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 	<!-- agular libs -->
@@ -58,6 +56,7 @@ pageEncoding="UTF-8"%>
 	<script src="webapp/assets/js/Main.js"></script>
 	<script src="webapp/assets/js/ServerService.js"></script>
 	<script src="webapp/assets/js/ServiceManager.js"></script>
+	<script src="webapp/assets/js/TablePage.js"></script>
 	
 </body>
 </html>

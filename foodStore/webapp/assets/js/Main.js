@@ -1,11 +1,22 @@
 App.controller('mainController', function mainController($timeout, $scope) {
 	console.log("main controller");
+	$scope.pageFlags = {
+			'tablePage' : true,
+			'appointmentPage' : true,
+			'chartPage' : true,
+			'adminPage' : true
+	}
+	$scope.activePage = function(pageFlagName) {
+		for(var index in $scope.pageFlags) {
+			$scope.pageFlags[index] = true;
+		}
+		$scope.pageFlags[pageFlagName] = false;
+	}
 	
 	$scope.logout = function() {
 		window.location.href="/logout.do?loginCode="+Main.loginCode;
 	}
-	$scope.activeNavNode = null;
-	$scope.navBarOnClick = function(event) {
+	$scope.showCheck = function(ev) {
 		var target = event.target;
 		console.log(target);
 		var pageNode = Dom.findUpward(target, {
@@ -13,15 +24,24 @@ App.controller('mainController', function mainController($timeout, $scope) {
 				return node.getAttribute("page-name") != null;
 			}
 		}); 
-		if ($scope.pageManagement.activePage && pageNode.getAttribute("page-name") == $scope.pageManagement.activePage.name) return;
-		if ($scope.activeNavNode != null) 
-			$scope.activeNavNode.classList.remove("active");
-		
-		pageNode.className += " active";
-		
-		
-		$scope.activeNavNode = pageNode;
-		$scope.pageManagement.active(pageNode.getAttribute("page-name"));
+		if (pageNode == $scope.activeNavNode) return false;
+		return true;
+	}
+	$scope.activeNavNode = null;
+	$scope.navBarOnClick = function(event) {
+//		var target = event.target;
+//		console.log(target);
+//		var pageNode = Dom.findUpward(target, {
+//			eval: function(node) {
+//				return node.getAttribute("page-name") != null;
+//			}
+//		}); 
+//		if ($scope.pageManagement.activePage && pageNode.getAttribute("page-name") == $scope.pageManagement.activePage.name) return;
+//		if ($scope.activeNavNode != null) 
+//			$scope.activeNavNode.classList.remove("active");
+//		
+//		pageNode.className += " active";
+//		$scope.activeNavNode = pageNode;
 	}
 //	this.init = function() {
 //		var navbar = document.querySelector("#navbar");
@@ -42,28 +62,11 @@ App.controller('mainController', function mainController($timeout, $scope) {
 //		loginItem.removeAttribute("loginCode");
 //	}
 	$scope.init = function() {
-		$scope.pageManagement = new PageManagement();
-//		pageManagement.registerPage(new TablePage());
-//		pageManagement.registerPage(new OrderPage());
-//		pageManagement.registerPage(new ProductManagementPage());
-//		pageManagement.registerPage(new SeatManagementPage());
-//		pageManagement.registerPage(new AppointmentPage());
-//		pageManagement.registerPage(new AccountManagementPage());
-//		pageManagement.registerPage(new PromoManagementPage());
-//		pageManagement.registerPage(new ChartPage());
-//		pageManagement.registerPage(new AdminPage());
+		
 	}
 	$timeout($scope.init());
 });
 
-App.directive("container-render", function($scope){
-	return {
-		restrict: "A",
-		link: function ($scope) {
-				console.log("fkldfj");
-		}
-	} 
-});
 //function Main() {
 //	this.navbar = document.querySelector("#navbar");
 //	this.logoutButton = document.querySelector("#logout");

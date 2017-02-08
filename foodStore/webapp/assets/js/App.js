@@ -6,15 +6,36 @@ App.config(function($routeProvider) {
     	templateUrl: "webapp/WEB-INF/views/Main.jsp"
     });
 });
+App.service("serviceManager", function($timeout, $http) {
+	this.services = {};
+	this.init = function() {
+		this.registerService(new ServerService($http));
+	}
+	this.get = function(serviceName) {
+		return this.services[serviceName];
+	}
+	this.registerService = function(service) {
+		this.services[service.name] = service;
+	}
+	$timeout(this.init());
+});
 App.controller('app-ctrl',
 	    function AppController($scope, $location) {
 		console.log("app controller");
 		$location.path('/main');
 });
+
+
+//App.directive("containerRender", function() {
+//    return {
+//    	restrict: "A",
+//        template : "<h1>Made by a directive!</h1>",
+//        link: function() {
+//        	console.log("FDSKJ");
+//        }
+//    };
+//});
 //
-//function App() {
-//	
-//}
 
 //function App() {
 //	

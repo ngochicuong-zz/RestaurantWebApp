@@ -63,29 +63,22 @@ pageEncoding="UTF-8"%>
 </style>
 	<vbox flex="1" id="main-interface">
 		<hbox id="navbar" ng-click="navBarOnClick($event)">
-			<hbox class="navbar-items InputRow" page-name="table-page">
+			<hbox class="navbar-items InputRow" page-name="table-page" ng-click="activePage('tablePage')">
 				<i class="material-icons md-dark md-16" >airline_seat_recline_normal</i>
 				<span>BÀN - CHỖ NGỒI</span>
 			</hbox>
-			<c:if test="${role == 3 || role == 2}">
-				<hbox class="navbar-items InputRow" page-name="appointment-page">
+				<hbox class="navbar-items InputRow" page-name="appointment-page" ng-click="activePage('appointmentPage')">
 					<i class="material-icons md-dark md-16" >event</i>
 					<span >ĐẶT BÀN</span>
 				</hbox>
-			</c:if>
-			
-			<c:if test="${role == 1 || role == 2}">
-				<hbox class="navbar-items InputRow" page-name="chart-page">
+				<hbox class="navbar-items InputRow" page-name="chart-page" ng-click="activePage('chartPage')">
 					<i class="material-icons md-dark md-16" >pie_chart</i>
 					<span>THỐNG KÊ</span>
 				</hbox>
-			</c:if>
-			<c:if test="${role == 2}">
-				<hbox class="navbar-items InputRow" page-name="admin-page">
+				<hbox class="navbar-items InputRow" page-name="admin-page" ng-click="activePage('adminPage')">
 					<i class="material-icons md-dark md-16" >settings</i>
 					<span>QUẢN LÝ HỆ THỐNG</span>
 				</hbox>
-			</c:if>
 			<hbox flex="1">
 				<hbox flex="1"></hbox>
 				<hbox id="logout" class="navbar-items InputRow" style="justify-content: center" ng-click="logout()">
@@ -94,7 +87,11 @@ pageEncoding="UTF-8"%>
 				</hbox>
 			</hbox>
 		</hbox>
-		<hbox id="main-container" flex="1" style="overflow: auto" container-render>
+		<hbox id="main-container" flex="1" style="overflow: auto">
+			<hbox ng-controller="tablePageCtrl" ng-hide="pageFlags['tablePage']" ng-include="'webapp/WEB-INF/views/TablePage.jsp'"></hbox>
+			<vbox ng-controller="appointmentPageCTrl" ng-hide="pageFlags['appointmentPage']" ng-include="'webapp/WEB-INF/views/AppointmentPage.jsp'"></vbox>
+			<vbox ng-controller="chartPageCtrl" ng-hide="pageFlags['chartPage']" ng-include="'webapp/WEB-INF/views/ChartPage.jsp'"></vbox>
+			<vbox ng-controller="adminPageCtrl" ng-hide="pageFlags['adminPage']" ng-include="'webapp/WEB-INF/views/AdminPage.jsp'"></vbox>
 		</hbox>
 	</vbox>
 	<hbox id="print-space"></hbox>
